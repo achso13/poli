@@ -51,6 +51,8 @@
  			<script src="<?= base_url('assets/js/jquery.sharrre.min.js') ?>"></script>
  			<script src="<?= base_url('assets/scripts/extras.1.1.0.min.js') ?>"></script>
  			<script src="<?= base_url('assets/scripts/shards-dashboards.1.1.0.min.js') ?>"></script>
+ 			<script src="<?= base_url('assets/third_party/datatables/jquery.dataTables.js') ?>"></script>
+ 			<script src="<?= base_url('assets/third_party/datatables/dataTables.bootstrap4.js') ?>"></script>
 
  			</body>
 

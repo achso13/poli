@@ -1,20 +1,20 @@
 <?php
 
 
-function listDepartement($filter = NULL)
+function listClinic($filter = NULL)
 {
-    $departementModel = new \App\Models\DepartementModel();
+    $clinicModel = new \App\Models\ClinicModel();
     if ($filter == NULL) {
-        $departement = $departementModel->findAll();
+        $clinic = $clinicModel->findAll();
     } else {
-        $departement = $departementModel->find($filter);
+        $clinic = $clinicModel->find($filter);
     }
-    return $departement;
+    return $clinic;
 }
 
 function listDoctor($filter = NULL)
 {
-    $doctorModel = new \App\Models\DokterModel();
+    $doctorModel = new \App\Models\DoctorModel;
     if ($filter == NULL) {
         $doctor = $doctorModel->findAll();
     } else {

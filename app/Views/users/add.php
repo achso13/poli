@@ -21,22 +21,22 @@
 <div class="modal-body">
     <div class="form-group">
         <label>Fullname <span class="text-danger">*</span></label>
-        <input type="text" class="form-control" name="f_fullname">
+        <input type="text" class="form-control" name="f_fullname" placeholder="Nama lengkap anda">
         <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
         <label>Username <span class="text-danger">*</span></label>
-        <input type="text" class="form-control" name="f_username">
+        <input type="text" class="form-control" name="f_username" placeholder="Username untuk login anda">
         <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
         <label>Password <span class="text-danger">*</span></label>
-        <input type="password" class="form-control" name="f_password">
+        <input type="password" class="form-control" name="f_password" placeholder="Minimal 3 karakter">
         <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
         <label>Email <span class="text-danger">*</span></label>
-        <input type="email" class="form-control" name="f_email">
+        <input type="email" class="form-control" name="f_email" placeholder="Email anda">
         <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
@@ -57,15 +57,15 @@
 
     <div class="form-group load-dep" style="display: none;">
         <label>Poliklinik <span class="text-danger">*</span></label>
-        <select name="f_id_departement" class="form-control">
+        <select name="f_id_clinic" class="form-control">
             <option value="">---Choose---</option>
             <?php
-            $dep = listDepartement();
+            $dep = listClinic();
 
             if (isset($dep)) :
                 foreach ($dep as $de) :
             ?>
-                    <option value="<?= $de['id'] ?>"><?= $de['departement_name'] ?></option>
+                    <option value="<?= $de['id'] ?>"><?= $de['clinic_name'] ?></option>
             <?php
                 endforeach;
             endif;
@@ -83,6 +83,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         const base_url = $("#base-url").html();
+
         // ajax input to server
         $('form').submit(function(e) {
             e.preventDefault();
@@ -108,8 +109,7 @@
                     if (response.error) {
                         $('input').removeClass('is-invalid');
                         $('select').removeClass('is-invalid');
-                        $('input').next().text("");
-                        $('select').next().text("");
+                        $('.invalid-feedback').text("");
 
                         $.each(response.message, function(key, value) {
                             $('input[name=f_' + key + ']').addClass('is-invalid');
@@ -117,10 +117,7 @@
                             $('[name=f_' + key + ']').next().text(value);
                         });
                     } else {
-                        $('#form-modals').modal('hide');
-                        $('#flash-alert').removeClass("d-none");
-                        $('.flash-message').text(response.message);
-                        $('.table').load(window.location + ' .table > *');
+                        location.reload();
                     }
                 }
             });

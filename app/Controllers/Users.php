@@ -9,7 +9,7 @@ class Users extends BaseController
 {
     public function __construct()
     {
-        $this->userModel = new UserModel();
+        $this->userModel = new UserModel;
     }
 
     public function index()
@@ -44,32 +44,34 @@ class Users extends BaseController
 
             $data = [
                 'id_role' => $this->request->getPost('f_id_role'),
-                'id_departement' => $this->request->getPost('f_id_departement') ? $this->request->getPost('f_id_departement') : null,
+                'id_clinic' => $this->request->getPost('f_id_clinic') ? $this->request->getPost('f_id_clinic') : null,
                 'fullname' => $this->request->getPost('f_fullname'),
                 'username' => $this->request->getPost('f_username'),
                 'email' => $this->request->getPost('f_email'),
-                'password' => password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT),
+                'password' => $this->request->getPost('f_password'),
                 'photo' => $photoName,
                 'is_active' => 1,
             ];
 
             $validation->setRules([
                 'id_role' => 'required',
-                'id_departement' => $data['id_role'] == 4 ? 'required' : 'permit_empty',
+                'id_clinic' => $data['id_role'] == 4 ? 'required' : 'permit_empty',
                 'fullname' => 'required|min_length[3]|max_length[255]',
-                'username' => 'required|min_length[3]|max_length[255]',
+                'username' => 'required|min_length[3]|max_length[255]|is_unique[tbl_users.username]',
                 'email' => 'required|valid_email|min_length[3]|max_length[255]',
-                'password' => 'required|min_length[6]',
+                'password' => 'required|min_length[3]',
                 'photo' => 'permit_empty|is_image[f_photo]|mime_in[f_photo,image/jpg,image/jpeg,image/gif,image/png]|max_size[f_photo,foto,2048]',
                 'is_active' => 'required|is_natural',
             ]);
 
             if ($validation->run($data)) {
                 if ($photo->getError() !== 4) {
-                    $photo->move(ROOTPATH . 'public/uploads/photo', $photoName);
+                    $photo->move(ROOTPATH . 'public/uploads/photo/', $photoName);
                 }
+                $data['password'] = password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT);
                 $insert = $this->userModel->save($data);
                 if ($insert) {
+                    session()->setFlashdata('message', 'Data berhasil disimpan');
                     $result['error'] = false;
                     $result['message'] = 'Data berhasil disimpan';
                 } else {
@@ -106,41 +108,45 @@ class Users extends BaseController
 
             $data = [
                 'id_role' => $this->request->getPost('f_id_role'),
-                'id_departement' => $this->request->getPost('f_id_departement') ? $this->request->getPost('f_id_departement') : null,
+                'id_clinic' => $this->request->getPost('f_id_clinic') ? $this->request->getPost('f_id_clinic') : null,
                 'fullname' => $this->request->getPost('f_fullname'),
                 'username' => $this->request->getPost('f_username'),
                 'email' => $this->request->getPost('f_email'),
-                'password' => password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT),
+                'password' => $this->request->getPost('f_password'),
                 'photo' => $photoName,
                 'is_active' => 1,
             ];
 
-            if ($this->request->getPost('f_password') == "") {
+            if ($data['password'] == "") {
                 unset($data['password']);
             }
 
-            if ($photo->getError() !== 4) {
+            if ($photo->getError() === 4) {
                 unset($data['photo']);
             }
 
             $validation->setRules([
                 'id_role' => 'required',
-                'id_departement' => $data['id_role'] == 4 ? 'required' : 'permit_empty',
+                'id_clinic' => $data['id_role'] == 4 ? 'required' : 'permit_empty',
                 'fullname' => 'required|min_length[3]|max_length[255]',
-                'username' => 'required|min_length[3]|max_length[255]',
+                'username' => 'required|min_length[3]|max_length[255]|is_unique[tbl_users.username]',
                 'email' => 'required|valid_email|min_length[3]|max_length[255]',
-                'password' => 'permit_empty|min_length[6]',
+                'password' => 'permit_empty|min_length[3]',
                 'photo' => 'permit_empty|is_image[f_photo]|mime_in[f_photo,image/jpg,image/jpeg,image/gif,image/png]|max_size[f_photo,foto,2048]',
                 'is_active' => 'required|is_natural',
             ]);
 
             if ($validation->run($data)) {
+                $data['password'] = password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT);
                 if ($photo->getError() !== 4) {
-                    $photo->move(ROOTPATH . 'public/uploads/photo', $photoName);
-                    unlink(ROOTPATH . 'public/uploads/photo' .  $oldPhoto);
+                    $photo->move(ROOTPATH . 'public/uploads/photo/', $photoName);
+                    if ($oldPhoto !== NULL) {
+                        unlink(ROOTPATH . 'public/uploads/photo/' .  $oldPhoto);
+                    }
                 }
                 $update = $this->userModel->update($this->request->getPost('f_id'), $data);
                 if ($update) {
+                    session()->setFlashdata('message', 'Data berhasil disimpan');
                     $result['error'] = false;
                     $result['message'] = 'Data berhasil disimpan';
                 } else {
@@ -162,7 +168,7 @@ class Users extends BaseController
         $delete = $this->userModel->delete($id);
         if ($delete) {
             if ($data['photo'] != "") {
-                unlink(ROOTPATH . 'public/uploads/photo' .  $data['photo']);
+                unlink(ROOTPATH . 'public/uploads/photo/' .  $data['photo']);
             }
             session()->setFlashdata('message', 'Hapus data berhasil');
             return redirect()->to(base_url('/users/role/' . $data['id_role']));

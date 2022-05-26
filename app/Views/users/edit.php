@@ -1,21 +1,3 @@
-<script type="text/javascript">
-    $(document).ready(function() {
-        const value = $('select[name=f_id_role]').val();
-        if (value == 4) {
-            $('.load-dep').css('display', 'block');
-        }
-
-        $('select[name=f_id_role]').change(function() {
-            var val = $(this).val();
-
-            if (val == 4) {
-                $('.load-dep').css('display', 'block');
-            } else {
-                $('.load-dep').css('display', 'none');
-            }
-        });
-    });
-</script>
 <?= form_open_multipart('users/update') ?>
 <?= csrf_field() ?>
 <input type="hidden" name="f_id" value="<?= $result['id'] ?>">
@@ -27,30 +9,28 @@
 <div class="modal-body">
     <div class="form-group">
         <label>Fullname<span class="text-danger">*</span></label>
-        <input type="text" class="form-control" name="f_fullname" value="<?= $result['fullname'] ?>">
+        <input type="text" class="form-control" name="f_fullname" value="<?= $result['fullname'] ?>" placeholder="Nama lengkap anda">
         <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
         <label>Username<span class="text-danger">*</span></label>
-        <input type="text" class="form-control" name="f_username" value="<?= $result['username'] ?>">
+        <input type="text" class="form-control" name="f_username" value="<?= $result['username'] ?>" placeholder="Username untuk login anda">
         <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
         <label>New Password</label>
-        <input type="password" class="form-control" name="f_password">
+        <input type="password" class="form-control" name="f_password" placeholder="Kosongkan Jika tidak akan diubah">
         <div class="invalid-feedback"></div>
-        <label class="text-danger">*Kosongkan Jika tidak akan diubah</label>
     </div>
     <div class="form-group">
         <label>Email<span class="text-danger">*</span></label>
-        <input type="email" class="form-control" name="f_email" value="<?= $result['email'] ?>">
+        <input type="email" class="form-control" name="f_email" value="<?= $result['email'] ?>" placeholder="Email anda">
         <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
         <label>Foto</label>
         <input type="file" class="form-control" name="f_photo">
         <div class="invalid-feedback"></div>
-        <label class="text-danger">*Kosongkan Jika tidak akan diubah</label>
     </div>
     <div class="form-group">
         <label>Role<span class="text-danger">*</span></label>
@@ -65,16 +45,16 @@
 
     <div class="form-group load-dep" style="display: none;">
         <label>Poliklinik<span class="text-danger">*</span></label>
-        <select name="f_id_departement" class="form-control">
+        <select name="f_id_clinic" class="form-control">
             <option value="">---Choose---</option>
             <?php
 
-            $dep = listDepartement();
+            $dep = listClinic();
 
             if (isset($dep)) :
                 foreach ($dep as $de) :
             ?>
-                    <option value="<?= $de['id'] ?>" <?= selectSet($result['id_departement'], $de['id']) ?>><?= $de['departement_name'] ?></option>
+                    <option value="<?= $de['id'] ?>" <?= selectSet($result['id_clinic'], $de['id']) ?>><?= $de['clinic_name'] ?></option>
             <?php
                 endforeach;
             endif;
@@ -92,6 +72,22 @@
 <script type="text/javascript">
     $(document).ready(function() {
         const base_url = $("#base-url").html();
+
+        const value = $('select[name=f_id_role]').val();
+        if (value == 4) {
+            $('.load-dep').css('display', 'block');
+        }
+
+        $('select[name=f_id_role]').change(function() {
+            var val = $(this).val();
+
+            if (val == 4) {
+                $('.load-dep').css('display', 'block');
+            } else {
+                $('.load-dep').css('display', 'none');
+            }
+        });
+
         // ajax input to server
         $('form').submit(function(e) {
             e.preventDefault();
@@ -117,8 +113,7 @@
                     if (response.error) {
                         $('input').removeClass('is-invalid');
                         $('select').removeClass('is-invalid');
-                        $('input').next().text("");
-                        $('select').next().text("");
+                        $('.invalid-feedback').text("");
 
                         $.each(response.message, function(key, value) {
                             $('input[name=f_' + key + ']').addClass('is-invalid');
@@ -126,10 +121,7 @@
                             $('[name=f_' + key + ']').next().text(value);
                         });
                     } else {
-                        $('#form-modals').modal('hide');
-                        $('#flash-alert').removeClass("d-none");
-                        $('.flash-message').text(response.message);
-                        $('.table').load(window.location + ' .table > *');
+                        location.reload();
                     }
                 }
             });

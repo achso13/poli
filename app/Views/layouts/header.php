@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="<?= base_url('assets/css/all.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/css/icon.css') ?>" rel="stylesheet">
+    <link rel="stylesheet" href="<?= base_url('assets/third_party/datatables/dataTables.bootstrap4.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="<?= base_url('assets/styles/shards-dashboards.1.1.0.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/styles/extras.1.1.0.min.css') ?>">
@@ -39,27 +40,25 @@
                 <div class="nav-wrapper">
                     <?php
 
-                    // switch ($this->session->userdata('log_category')) {
-                    //     case 1:
-                    //         $menu = 'menu_admin';
-                    //         break;
-                    //     case 2:
-                    //         $menu = 'menu_doctor';
-                    //         break;
-                    //     case 3:
-                    //         $menu = 'menu_pasien';
-                    //         break;
-                    //     case 4:
-                    //         $menu = 'menu_klinik';
-                    //         break;
-                    //     case 5:
-                    //         $menu = 'menu_apoteker';
-                    //         break;
-                    // }
+                    switch (session()->get('log_role')) {
+                        case 1:
+                            $menu = 'menu_admin';
+                            break;
+                        case 2:
+                            $menu = 'menu_doctor';
+                            break;
+                        case 3:
+                            $menu = 'menu_pasien';
+                            break;
+                        case 4:
+                            $menu = 'menu_klinik';
+                            break;
+                        case 5:
+                            $menu = 'menu_apoteker';
+                            break;
+                    }
                     ?>
-                    <?= view('layouts/menu_admin') ?>
-
-
+                    <?= $this->include("layouts/$menu") ?>
                 </div>
             </aside>
 
@@ -79,11 +78,14 @@
                         </form>
                         <ul class="navbar-nav border-left flex-row ">
                             <li class="nav-item dropdown">
+                                <?php getLoggedInUser(); ?>
                                 <a class="nav-link  text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-
-                                    <!-- temporary code  -->
-                                    <img src="<?= base_url('assets/images/no-user-image.png') ?>" class="img-responsive user-avatar rounded-circle mr-2">
-
+                                    <?php if (session()->get('log_photo') == NULL) : ?>
+                                        <img src="<?= base_url('assets/images/no-user-image.png') ?>" class="img-responsive user-avatar rounded-circle mr-2">
+                                    <?php else : ?>
+                                        <img src="<?= base_url('uploads/photo/' . session()->get('log_photo')) ?>" class="img-responsive user-avatar rounded-circle mr-2">
+                                    <?php endif; ?>
+                                    <span class="d-none d-md-inline-block"><?= session()->get('log_fullname') ?></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-small ">
                                     <a class="dropdown-item" href="<?= base_url('profile') ?>"><i class="material-icons">summarize</i> Profile</a>
