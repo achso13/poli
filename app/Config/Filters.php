@@ -75,6 +75,12 @@ class Filters extends BaseConfig
                 'clinic/*',
                 'medicine',
                 'medicine/*',
+                'doctor/',
+                'doctor/*',
+                'treatment',
+                'treatment/*',
+                'patient',
+                'patient/*',
             ],
         ],
     ];

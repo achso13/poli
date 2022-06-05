@@ -3,34 +3,29 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\DoctorModel;
 use App\Models\UserModel;
 
-class Users extends BaseController
+class Doctor extends BaseController
 {
     public function __construct()
     {
         $this->userModel = new UserModel;
+        $this->doctorModel = new DoctorModel;
     }
 
     public function index()
     {
-        return redirect()->to('/users/role/1');
-    }
-
-    public function role($id = 1)
-    {
         $data = [
-            'title' => 'Users',
-            'role' => $id,
-            'result' => $this->userModel->getUsers($id)
+            'title' => 'Doctor',
+            'result' => $this->doctorModel->getDoctors(),
         ];
-
-        return view('users/index', $data);
+        return view('doctor/index', $data);
     }
 
     public function add()
     {
-        return view('users/add');
+        return view('doctor/add');
     }
 
     public function store()
@@ -43,26 +38,23 @@ class Users extends BaseController
             $photoName = $photo->getError() === 4 ? "" : $photo->getRandomName();
 
             $data = [
-                'id_role' => $this->request->getPost('f_id_role'),
-                'id_clinic' => $this->request->getPost('f_id_clinic') ? $this->request->getPost('f_id_clinic') : null,
+                'id_doctor' => generateId($this->doctorModel, 'id_doctor', 'DR', 10),
                 'fullname' => $this->request->getPost('f_fullname'),
+                'doctor_type' => $this->request->getPost('f_doctor_type'),
                 'username' => $this->request->getPost('f_username'),
+                'education' => $this->request->getPost('f_education'),
                 'email' => $this->request->getPost('f_email'),
                 'password' => $this->request->getPost('f_password'),
                 'photo' => $photoName,
             ];
 
-            if ($photo->getError() === 4) {
-                unset($data['photo']);
-            }
-
             $validation->setRules([
-                'id_role' => 'required',
-                'id_clinic' => $data['id_role'] == 4 ? 'required' : 'permit_empty',
                 'fullname' => 'required|min_length[3]|max_length[255]',
-                'username' => 'required|min_length[3]|max_length[255]|is_unique[tbl_users.username]',
+                'doctor_type' => 'required|in_list[Umum,Gigi]',
+                "username" => "required|min_length[3]|max_length[255]|is_unique[tbl_users.username]",
+                'education' => 'permit_empty|min_length[3]|max_length[255]',
                 'email' => 'required|valid_email|min_length[3]|max_length[255]',
-                'password' => 'required|min_length[3]',
+                'password' => 'required|min_length[3]|max_length[255]',
                 'photo' => 'permit_empty|is_image[f_photo]|mime_in[f_photo,image/jpg,image/jpeg,image/gif,image/png]|max_size[f_photo,foto,2048]',
             ]);
 
@@ -70,8 +62,33 @@ class Users extends BaseController
                 if ($photo->getError() !== 4) {
                     $photo->move(ROOTPATH . 'public/uploads/photo/', $photoName);
                 }
-                $data['password'] = password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT);
-                $insert = $this->userModel->save($data);
+
+                // Insert data ke tabel user
+                $dataUser = [
+                    'id_role' => 2,
+                    'id_clinic' => null,
+                    'fullname' => $this->request->getPost('f_fullname'),
+                    'username' => $this->request->getPost('f_username'),
+                    'email' => $this->request->getPost('f_email'),
+                    'password' => password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT),
+                    'photo' => $photoName,
+                ];
+
+                if ($photo->getError() === 4) {
+                    unset($dataUser['photo']);
+                }
+                $this->userModel->save($dataUser);
+                $idUser = $this->userModel->insertID();
+
+                // Insert data ke tabel doctor
+                $dataDoctor = [
+                    'id_doctor' => $data['id_doctor'],
+                    'id_user' => $idUser,
+                    'fullname' => $this->request->getPost('f_fullname'),
+                    'doctor_type' => $this->request->getPost('f_doctor_type'),
+                    'education' => $this->request->getPost('f_education'),
+                ];
+                $insert = $this->doctorModel->save($dataDoctor);
                 if ($insert) {
                     session()->setFlashdata('message', 'Data berhasil disimpan');
                     $result['error'] = false;
@@ -93,9 +110,9 @@ class Users extends BaseController
     {
         $id = $this->request->getPost('id');
         $data = [
-            'result' => $this->userModel->find($id)
+            'result' => $this->doctorModel->getDoctors($id),
         ];
-        return view('users/edit', $data);
+        return view('doctor/edit', $data);
     }
 
     public function update()
@@ -108,33 +125,28 @@ class Users extends BaseController
             $photoName = $photo->getError() === 4 ? "" : $photo->getRandomName();
             $oldPhoto = $this->request->getPost('f_old_photo');
             $oldUsername = $this->request->getPost('f_old_username');
+
             $data = [
-                'id_role' => $this->request->getPost('f_id_role'),
-                'id_clinic' => $this->request->getPost('f_id_clinic') ? $this->request->getPost('f_id_clinic') : null,
+                'id_doctor' => generateId($this->doctorModel, 'id_doctor', 'DR', 10),
                 'fullname' => $this->request->getPost('f_fullname'),
+                'doctor_type' => $this->request->getPost('f_doctor_type'),
                 'username' => $this->request->getPost('f_username'),
+                'education' => $this->request->getPost('f_education'),
                 'email' => $this->request->getPost('f_email'),
                 'password' => $this->request->getPost('f_password'),
                 'photo' => $photoName,
             ];
 
-            if ($data['password'] == "") {
-                unset($data['password']);
-            }
-
-            if ($photo->getError() === 4) {
-                unset($data['photo']);
-            }
-
             $validation->setRules([
-                "id_role" => "required",
-                "id_clinic" => $data["id_role"] == 4 ? "required" : "permit_empty",
-                "fullname" => "required|min_length[3]|max_length[255]",
+                'fullname' => 'required|min_length[3]|max_length[255]',
+                'doctor_type' => 'required|in_list[Umum,Gigi]',
                 "username" => "required|min_length[3]|max_length[255]|is_unique[tbl_users.username,username,$oldUsername]",
-                "email" => "required|valid_email|min_length[3]|max_length[255]",
-                "password" => "permit_empty|min_length[3]",
-                "photo" => "permit_empty|is_image[f_photo]|mime_in[f_photo,image/jpg,image/jpeg,image/gif,image/png]|max_size[f_photo,foto,2048]",
+                'education' => 'permit_empty|min_length[3]|max_length[255]',
+                'email' => 'required|valid_email|min_length[3]|max_length[255]',
+                'password' => 'permit_empty|min_length[3]|max_length[255]',
+                'photo' => 'permit_empty|is_image[f_photo]|mime_in[f_photo,image/jpg,image/jpeg,image/gif,image/png]|max_size[f_photo,foto,2048]',
             ]);
+
 
             if ($validation->run($data)) {
                 $data['password'] = password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT);
@@ -144,7 +156,35 @@ class Users extends BaseController
                         unlink(ROOTPATH . 'public/uploads/photo/' .  $oldPhoto);
                     }
                 }
-                $update = $this->userModel->update($this->request->getPost('f_id'), $data);
+
+                // Update data ke tabel user
+                $dataUser = [
+                    'fullname' => $this->request->getPost('f_fullname'),
+                    'username' => $this->request->getPost('f_username'),
+                    'email' => $this->request->getPost('f_email'),
+                    'password' => password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT),
+                    'photo' => $photoName,
+                ];
+
+                if ($dataUser['password'] == "") {
+                    unset($dataUser['password']);
+                }
+
+                if ($photo->getError() === 4) {
+                    unset($dataUser['photo']);
+                }
+
+                $this->userModel->update($this->request->getPost('f_id_user'), $dataUser);
+
+                // Update data ke tabel doctor
+                $dataDoctor = [
+                    'fullname' => $this->request->getPost('f_fullname'),
+                    'doctor_type' => $this->request->getPost('f_doctor_type'),
+                    'education' => $this->request->getPost('f_education'),
+                ];
+
+                $update = $this->doctorModel->update($this->request->getPost('f_id_doctor'), $dataDoctor);
+
                 if ($update) {
                     session()->setFlashdata('message', 'Data berhasil disimpan');
                     $result['error'] = false;
@@ -164,16 +204,16 @@ class Users extends BaseController
 
     public function delete($id)
     {
-        $data = $this->userModel->find($id);
-        $delete = $this->userModel->delete($id);
+        $data = $this->doctorModel->find($id);
+        $user = $this->userModel->find($data['id_user']);
+        $delete = $this->doctorModel->delete($id);
         if ($delete) {
-            if ($data['photo'] != "") {
-                unlink(ROOTPATH . 'public/uploads/photo/' .  $data['photo']);
+            $this->userModel->delete($data['id_user']);
+            if ($user['photo'] != "") {
+                unlink(ROOTPATH . 'public/uploads/photo/' .  $user['photo']);
             }
             session()->setFlashdata('message', 'Hapus data berhasil');
-            return redirect()->to(base_url('/users/role/' . $data['id_role']));
-        } else {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException;
+            return redirect()->to(base_url('/doctor'));
         }
     }
 }

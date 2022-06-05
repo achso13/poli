@@ -27,7 +27,7 @@
       <h6 class="main-sidebar__nav-title">Data Master</h6>
 
       <li class="nav-item">
-            <a class="nav-link " href="<?= base_url('users/doctor') ?>">
+            <a class="nav-link " href="<?= base_url('doctor') ?>">
                   <i class="material-icons">group</i>
                   <span>Dokter</span>
             </a>
@@ -49,7 +49,14 @@
       </li>
 
       <li class="nav-item">
-            <a class="nav-link " href="<?= base_url('users/patient') ?>">
+            <a class="nav-link " href="<?= base_url('treatment') ?>">
+                  <i class="material-icons">medical_services</i>
+                  <span>Treatment</span>
+            </a>
+      </li>
+
+      <li class="nav-item">
+            <a class="nav-link " href="<?= base_url('patient') ?>">
                   <i class="material-icons">group</i>
                   <span>Pasien</span>
             </a>

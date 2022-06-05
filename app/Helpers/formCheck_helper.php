@@ -1,4 +1,13 @@
 <?php
+
+//	BEGIN of TIME FORMAT
+function time_format($the_time, $format)
+{
+    date_default_timezone_set('Etc/GMT-7');
+    return date($format, strtotime($the_time));
+}
+//	END of TIME FORMAT
+
 // 	BEGIN of SMART FORM
 function selectSet($form_value, $exist_value)
 {

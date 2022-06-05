@@ -5,14 +5,13 @@
             <thead>
                 <tr class="bg-light">
                     <td class="text-primary text-center" width="5%">No</td>
-                    <td class="text-primary text-center">Username</td>
-                    <td class="text-primary text-center">Email</td>
-                    <td class="text-primary text-center">Role</td>
-                    <?php if ($role == 4) : ?>
-                        <td class="text-primary text-center">Poliklinik</td>
-                    <?php endif; ?>
-                    <td class="text-primary text-center">Foto</td>
-                    <td class="text-primary text-center">Action</td>
+                    <td class="text-primary text-center" width="10%">ID Pasien</td>
+                    <td class="text-primary text-center">NIP</td>
+                    <td class="text-primary text-center">Nama</td>
+                    <td class="text-primary text-center" width="10%">Tanggal Pendaftaran</td>
+                    <td class="text-primary text-center" width="10%">Tanggal Lahir</td>
+                    <td class="text-primary text-center" width="10%">Foto</td>
+                    <td class="text-primary text-center" width="20%">Action</td>
                 </tr>
             </thead>
             <tbody>
@@ -20,16 +19,11 @@
                 <?php foreach ($result as $row) : ?>
                     <tr>
                         <td><?= $no ?></td>
-                        <td><?= $row['username'] ?></td>
-                        <td><?= $row['email'] ?></td>
-                        <td>
-                            <div class="d-table mx-auto">
-                                <span class="badge badge-pill badge-success"><?= $row['role'] ?></span>
-                            </div>
-                        </td>
-                        <?php if ($role == 4) : ?>
-                            <td class="text-primary text-center"><?= $row['clinic_name'] ?></td>
-                        <?php endif; ?>
+                        <td><?= $row['id_patient'] ?></td>
+                        <td><?= $row['nip'] ?></td>
+                        <td><?= $row['fullname'] ?></td>
+                        <td><?= $row['admission_date'] ?></td>
+                        <td><?= $row['birth_date'] ?></td>
                         <td>
                             <?php if ($row['photo'] == NULL) : ?>
                                 <img src="<?= base_url('assets/images/no-user-image.png') ?>" class="img-responsive user-photo rounded-circle">
@@ -37,14 +31,17 @@
                                 <img src="<?= base_url('uploads/photo/' . $row['photo']) ?>" class="img-responsive user-photo rounded-circle">
                             <?php endif; ?>
                         </td>
-                        <td width="17%">
-                            <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id'] ?>" data-toggle="modal" data-target="#form-modals">
+                        <td>
+                            <a href="<?= base_url('patient/record_medical/' . $row['id_patient']) ?>" class="btn btn-warning btn-sm btn-edit text-white">
+                                <i class="mr-1 fa fa-history"></i> Rekam Medis
+                            </a>
+                            <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_patient'] ?>" data-toggle="modal" data-target="#form-modals">
                                 <i class="mr-1 fa fa-pen-square"></i> Edit
                             </button>
-                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?= $row['id'] ?>">
+                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?= $row['id_patient'] ?>">
                                 <i class="mr-1 fa fa-trash-alt"></i> Delete
                             </button>
-                            <div class="modal fade" id="modals-delete-<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="modals-delete-<?= $row['id_patient'] ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog " role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -55,7 +52,7 @@
                                             <p class="text-center"><i class="fa fa-info-circle"></i> Do you really want to delete this record ?</p>
                                         </div>
                                         <div class="modal-footer">
-                                            <?= form_open('users/delete/' . $row['id']) ?>
+                                            <?= form_open('patient/delete/' . $row['id_patient']) ?>
                                             <?= csrf_field() ?>
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="btn btn-danger btn-delete">
@@ -82,7 +79,7 @@
 <?php endif; ?>
 
 <div class="modal fade" id="form-modals" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content load-form">
 
         </div>
@@ -95,14 +92,14 @@
         const base_url = $("#base-url").html();
 
         $('.btn-add').click(function() {
-            $('.load-form').load(base_url + '/users/add');
+            $('.load-form').load(base_url + '/patient/add');
         });
 
 
         $('.btn-edit').click(function() {
             var id = $(this).attr('uc');
 
-            $('.load-form').load(base_url + '/users/edit/', {
+            $('.load-form').load(base_url + '/patient/edit/', {
                 id: id
             });
         });

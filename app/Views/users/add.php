@@ -65,7 +65,7 @@
             if (isset($dep)) :
                 foreach ($dep as $de) :
             ?>
-                    <option value="<?= $de['id'] ?>"><?= $de['clinic_name'] ?></option>
+                    <option value="<?= $de['id_clinic'] ?>"><?= $de['clinic_name'] ?></option>
             <?php
                 endforeach;
             endif;
@@ -114,7 +114,7 @@
                         $.each(response.message, function(key, value) {
                             $('input[name=f_' + key + ']').addClass('is-invalid');
                             $('select[name=f_' + key + ']').addClass('is-invalid');
-                            $('[name=f_' + key + ']').next().text(value);
+                            $('[name=f_' + key + ']').parent().children(".invalid-feedback").text(value);
                         });
                     } else {
                         location.reload();

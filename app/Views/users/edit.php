@@ -1,7 +1,8 @@
 <?= form_open_multipart('users/update') ?>
 <?= csrf_field() ?>
 <input type="hidden" name="f_id" value="<?= $result['id'] ?>">
-<input type="hidden" name="f_photo_old" value="<?= $result['photo'] ?>">
+<input type="hidden" name="f_old_photo" value="<?= $result['photo'] ?>">
+<input type="hidden" name="f_old_username" value="<?= $result['username'] ?>">
 <div class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">User Update</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -54,7 +55,7 @@
             if (isset($dep)) :
                 foreach ($dep as $de) :
             ?>
-                    <option value="<?= $de['id'] ?>" <?= selectSet($result['id_clinic'], $de['id']) ?>><?= $de['clinic_name'] ?></option>
+                    <option value="<?= $de['id_clinic'] ?>" <?= selectSet($result['id_clinic'], $de['id_clinic']) ?>><?= $de['clinic_name'] ?></option>
             <?php
                 endforeach;
             endif;
@@ -118,7 +119,7 @@
                         $.each(response.message, function(key, value) {
                             $('input[name=f_' + key + ']').addClass('is-invalid');
                             $('select[name=f_' + key + ']').addClass('is-invalid');
-                            $('[name=f_' + key + ']').next().text(value);
+                            $('[name=f_' + key + ']').parent().children(".invalid-feedback").text(value);
                         });
                     } else {
                         location.reload();

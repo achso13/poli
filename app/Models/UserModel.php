@@ -16,7 +16,6 @@ class UserModel extends Model
         'email',
         'password',
         'photo',
-        'is_active',
     ];
 
     public function getUsers($id = 1)

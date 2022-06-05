@@ -5,12 +5,10 @@
             <thead>
                 <tr class="bg-light">
                     <td class="text-primary text-center" width="5%">No</td>
+                    <td class="text-primary text-center">Nama</td>
+                    <td class="text-primary text-center">Jenis</td>
                     <td class="text-primary text-center">Username</td>
                     <td class="text-primary text-center">Email</td>
-                    <td class="text-primary text-center">Role</td>
-                    <?php if ($role == 4) : ?>
-                        <td class="text-primary text-center">Poliklinik</td>
-                    <?php endif; ?>
                     <td class="text-primary text-center">Foto</td>
                     <td class="text-primary text-center">Action</td>
                 </tr>
@@ -20,16 +18,10 @@
                 <?php foreach ($result as $row) : ?>
                     <tr>
                         <td><?= $no ?></td>
+                        <td><?= $row['fullname'] ?></td>
+                        <td><?= $row['doctor_type'] ?></td>
                         <td><?= $row['username'] ?></td>
                         <td><?= $row['email'] ?></td>
-                        <td>
-                            <div class="d-table mx-auto">
-                                <span class="badge badge-pill badge-success"><?= $row['role'] ?></span>
-                            </div>
-                        </td>
-                        <?php if ($role == 4) : ?>
-                            <td class="text-primary text-center"><?= $row['clinic_name'] ?></td>
-                        <?php endif; ?>
                         <td>
                             <?php if ($row['photo'] == NULL) : ?>
                                 <img src="<?= base_url('assets/images/no-user-image.png') ?>" class="img-responsive user-photo rounded-circle">
@@ -38,13 +30,13 @@
                             <?php endif; ?>
                         </td>
                         <td width="17%">
-                            <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id'] ?>" data-toggle="modal" data-target="#form-modals">
+                            <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_doctor'] ?>" data-toggle="modal" data-target="#form-modals">
                                 <i class="mr-1 fa fa-pen-square"></i> Edit
                             </button>
-                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?= $row['id'] ?>">
+                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?= $row['id_doctor'] ?>">
                                 <i class="mr-1 fa fa-trash-alt"></i> Delete
                             </button>
-                            <div class="modal fade" id="modals-delete-<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="modals-delete-<?= $row['id_doctor'] ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog " role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -55,7 +47,7 @@
                                             <p class="text-center"><i class="fa fa-info-circle"></i> Do you really want to delete this record ?</p>
                                         </div>
                                         <div class="modal-footer">
-                                            <?= form_open('users/delete/' . $row['id']) ?>
+                                            <?= form_open('doctor/delete/' . $row['id_doctor']) ?>
                                             <?= csrf_field() ?>
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="btn btn-danger btn-delete">
@@ -82,7 +74,7 @@
 <?php endif; ?>
 
 <div class="modal fade" id="form-modals" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content load-form">
 
         </div>
@@ -95,14 +87,14 @@
         const base_url = $("#base-url").html();
 
         $('.btn-add').click(function() {
-            $('.load-form').load(base_url + '/users/add');
+            $('.load-form').load(base_url + '/doctor/add');
         });
 
 
         $('.btn-edit').click(function() {
             var id = $(this).attr('uc');
 
-            $('.load-form').load(base_url + '/users/edit/', {
+            $('.load-form').load(base_url + '/doctor/edit/', {
                 id: id
             });
         });

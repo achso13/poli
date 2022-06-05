@@ -20,15 +20,15 @@
                             <td><?= $row['description'] ?></td>
                             <td width="17%">
 
-                                <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id'] ?>" data-toggle="modal" data-target="#form-modals">
+                                <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_clinic'] ?>" data-toggle="modal" data-target="#form-modals">
                                     <i class="mr-1 fa fa-pen-square"></i> Edit
                                 </button>
 
-                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?= $row['id'] ?>">
+                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?= $row['id_clinic'] ?>">
                                     <i class="mr-1 fa fa-trash-alt"></i> Delete
                                 </button>
 
-                                <div class="modal fade" id="modals-delete-<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="modals-delete-<?= $row['id_clinic'] ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -39,7 +39,7 @@
                                                 <p class="text-center"><i class="fa fa-info-circle"></i> Do you really want to delete this record ?</p>
                                             </div>
                                             <div class="modal-footer">
-                                                <?= form_open('clinic/delete/' . $row['id']) ?>
+                                                <?= form_open('clinic/delete/' . $row['id_clinic']) ?>
                                                 <?= csrf_field() ?>
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <button type="submit" class="btn btn-danger btn-delete">
@@ -90,7 +90,6 @@
                 id: id
             });
         });
-
         var table = $('#dataTable').DataTable({
             "columnDefs": [{
                 "searchable": false,
@@ -98,5 +97,13 @@
                 "targets": 0
             }],
         });
+        table.on('order.dt search.dt', function() {
+            table.column(0, {
+                search: 'applied',
+                order: 'applied'
+            }).nodes().each(function(cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
     });
 </script>

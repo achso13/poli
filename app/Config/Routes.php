@@ -41,30 +41,52 @@ $routes->post('/auth/verifying', 'Auth::verifying');
 
 // Routes Users
 $routes->get('/users', 'Users::index');
-$routes->get('/users/role/(:num)', 'Users::role/$1');
+$routes->get('/users/role/(:segment)', 'Users::role/$1');
 $routes->match(['get', 'post'], '/users/add', 'Users::add');
 $routes->post('/users/store', 'Users::store');
 $routes->match(['get', 'post'], '/users/edit', 'Users::edit');
 $routes->post('/users/update', 'Users::update');
-$routes->delete('/users/delete/(:num)', 'Users::delete/$1');
+$routes->delete('/users/delete/(:segment)', 'Users::delete/$1');
 
 // Routes Medicine
 $routes->get('/medicine', 'Medicine::index');
-$routes->get('/medicine/role/(:num)', 'Medicine::role/$1');
 $routes->match(['get', 'post'], '/medicine/add', 'Medicine::add');
 $routes->post('/medicine/store', 'Medicine::store');
 $routes->match(['get', 'post'], '/medicine/edit', 'Medicine::edit');
 $routes->post('/medicine/update', 'Medicine::update');
-$routes->delete('/medicine/delete/(:num)', 'Medicine::delete/$1');
+$routes->delete('/medicine/delete/(:segment)', 'Medicine::delete/$1');
 
 // Routes Clinic
 $routes->get('/clinic', 'Clinic::index');
-$routes->get('/clinic/role/(:num)', 'Clinic::role/$1');
 $routes->match(['get', 'post'], '/clinic/add', 'Clinic::add');
 $routes->post('/clinic/store', 'Clinic::store');
 $routes->match(['get', 'post'], '/clinic/edit', 'Clinic::edit');
 $routes->post('/clinic/update', 'Clinic::update');
-$routes->delete('/clinic/delete/(:num)', 'Clinic::delete/$1');
+$routes->delete('/clinic/delete/(:segment)', 'Clinic::delete/$1');
+
+// Routes Doctor
+$routes->get('/doctor', 'Doctor::index');
+$routes->match(['get', 'post'], '/doctor/add', 'Doctor::add');
+$routes->post('/doctor/store', 'Doctor::store');
+$routes->match(['get', 'post'], '/doctor/edit', 'Doctor::edit');
+$routes->post('/doctor/update', 'Doctor::update');
+$routes->delete('/doctor/delete/(:segment)', 'Doctor::delete/$1');
+
+// Routes Patient
+$routes->get('/patient', 'Patient::index');
+$routes->match(['get', 'post'], '/patient/add', 'Patient::add');
+$routes->post('/patient/store', 'Patient::store');
+$routes->match(['get', 'post'], '/patient/edit', 'Patient::edit');
+$routes->post('/patient/update', 'Patient::update');
+$routes->delete('/patient/delete/(:segment)', 'Patient::delete/$1');
+
+// Routes Treatment
+$routes->get('/treatment', 'Treatment::index');
+$routes->match(['get', 'post'], '/treatment/add', 'Treatment::add');
+$routes->post('/treatment/store', 'Treatment::store');
+$routes->match(['get', 'post'], '/treatment/edit', 'Treatment::edit');
+$routes->post('/treatment/update', 'Treatment::update');
+$routes->delete('/treatment/delete/(:segment)', 'Treatment::delete/$1');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

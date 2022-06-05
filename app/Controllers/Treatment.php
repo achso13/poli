@@ -3,28 +3,28 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\MedicineModel;
+use App\Models\TreatmentModel;
 
-class Medicine extends BaseController
+class Treatment extends BaseController
 {
     public function __construct()
     {
-        $this->medicineModel = new MedicineModel();
+        $this->treatmentModel = new TreatmentModel();
     }
 
     public function index()
     {
         $data = [
-            'title' => 'Medicine',
-            'result' => $this->medicineModel->findAll(),
+            'title' => 'Treatment',
+            'result' => $this->treatmentModel->getTreatments(),
         ];
 
-        return view('medicine/index', $data);
+        return view('treatment/index', $data);
     }
 
     public function add()
     {
-        return view('medicine/add');
+        return view('treatment/add');
     }
 
     public function store()
@@ -33,22 +33,24 @@ class Medicine extends BaseController
             $validation = \Config\Services::validation();
 
             $data = [
-                'id_medicine' => generateId($this->medicineModel, 'id_medicine', 'OBT', 10),
-                'medicine_name' => $this->request->getPost('f_medicine_name'),
+                'id_treatment' => generateId($this->treatmentModel, 'id_treatment', 'TRT', 10),
+                'id_clinic' => $this->request->getPost('f_id_clinic'),
+                'treatment_name' => $this->request->getPost('f_treatment_name'),
                 'description' => $this->request->getPost('f_description'),
-                'stock' => $this->request->getPost('f_stock'),
-                'unit' => $this->request->getPost('f_unit'),
+                'open_time' => $this->request->getPost('f_open_time'),
+                'close_time' => $this->request->getPost('f_close_time'),
             ];
 
             $validation->setRules([
-                'medicine_name' => 'required|min_length[3]|max_length[100]',
-                'description' => 'required|min_length[3]|max_length[225]',
-                'stock' => 'required|numeric',
-                'unit' => 'required|min_length[3]|max_length[20]',
+                'id_clinic' => 'required',
+                'treatment_name' => 'required|min_length[3]|max_length[100]',
+                'description' => 'permit_empty|min_length[3]|max_length[225]',
+                'open_time' => 'required|min_length[3]|max_length[20]',
+                'close_time' => 'required|min_length[3]|max_length[20]',
             ]);
 
             if ($validation->run($data)) {
-                $insert = $this->medicineModel->save($data);
+                $insert = $this->treatmentModel->save($data);
                 if ($insert) {
                     session()->setFlashdata('message', 'Data berhasil disimpan');
                     $result['error'] = false;
@@ -70,9 +72,9 @@ class Medicine extends BaseController
     {
         $id = $this->request->getPost('id');
         $data = [
-            'result' => $this->medicineModel->find($id)
+            'result' => $this->treatmentModel->getTreatments($id)
         ];
-        return view('medicine/edit', $data);
+        return view('treatment/edit', $data);
     }
 
     public function update()
@@ -81,21 +83,24 @@ class Medicine extends BaseController
             $validation = \Config\Services::validation();
 
             $data = [
-                'medicine_name' => $this->request->getPost('f_medicine_name'),
+                'id_treatment' => generateId($this->treatmentModel, 'id_treatment', 'TRT', 10),
+                'id_clinic' => $this->request->getPost('f_id_clinic'),
+                'treatment_name' => $this->request->getPost('f_treatment_name'),
                 'description' => $this->request->getPost('f_description'),
-                'stock' => $this->request->getPost('f_stock'),
-                'unit' => $this->request->getPost('f_unit'),
+                'open_time' => $this->request->getPost('f_open_time'),
+                'close_time' => $this->request->getPost('f_close_time'),
             ];
 
             $validation->setRules([
-                'medicine_name' => 'required|min_length[3]|max_length[100]',
-                'description' => 'required|min_length[3]|max_length[225]',
-                'stock' => 'required|numeric',
-                'unit' => 'required|min_length[3]|max_length[20]',
+                'id_clinic' => 'required',
+                'treatment_name' => 'required|min_length[3]|max_length[100]',
+                'description' => 'permit_empty|min_length[3]|max_length[225]',
+                'open_time' => 'required',
+                'close_time' => 'required',
             ]);
 
             if ($validation->run($data)) {
-                $update = $this->medicineModel->update($this->request->getPost('f_id'), $data);
+                $update = $this->treatmentModel->update($this->request->getPost('f_id'), $data);
                 if ($update) {
                     session()->setFlashdata('message', 'Data berhasil disimpan');
                     $result['error'] = false;
@@ -115,10 +120,10 @@ class Medicine extends BaseController
 
     public function delete($id)
     {
-        $delete = $this->medicineModel->delete($id);
+        $delete = $this->treatmentModel->delete($id);
         if ($delete) {
             session()->setFlashdata('message', 'Hapus data berhasil');
-            return redirect()->to(base_url('medicine'));
+            return redirect()->to(base_url('treatment'));
         } else {
             throw new \CodeIgniter\Exceptions\PageNotFoundException;
         }

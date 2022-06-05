@@ -67,7 +67,7 @@
                             $('input[name=f_' + key + ']').addClass('is-invalid');
                             $('select[name=f_' + key + ']').addClass('is-invalid');
                             $('textarea[name=f_' + key + ']').addClass('is-invalid');
-                            $('[name=f_' + key + ']').next().text(value);
+                            $('[name=f_' + key + ']').parent().children(".invalid-feedback").text(value);
                         });
                     } else {
                         location.reload();

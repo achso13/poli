@@ -7597,3 +7597,10 @@ html .ql-toolbar .ql-picker .ql-picker-options {
     min-height: 21rem;
   }
 }
+
+.user-photo {
+  width: 2.5rem;
+  height:2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+}

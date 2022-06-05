@@ -7,8 +7,10 @@ use CodeIgniter\Model;
 class MedicineModel extends Model
 {
     protected $table            = 'tbl_medicine';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_medicine';
+    protected $useAutoIncrement = false;
     protected $allowedFields    = [
+        'id_medicine',
         'medicine_name',
         'description',
         'stock',

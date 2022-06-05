@@ -1,27 +1,55 @@
-<?= form_open('clinic/update') ?>
-<?= csrf_field() ?>
-<input type="hidden" name="f_id" value="<?= $result['id_clinic'] ?>">
+<?= form_open('treatment/store') ?>
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Klinik Update</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Treatment Add</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">
     <div class="form-group">
-        <label>Label<span class="text-danger">*</span></label>
-        <input type="text" class="form-control" name="f_clinic_name" value=<?= $result['clinic_name'] ?> placeholder="Nama dari obatnya">
+        <label>Nama Treatment<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" name="f_treatment_name" placeholder="Nama treatment yang diadakan">
         <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
-        <label>Deskripsi<span class="text-danger">*</span></label>
-        <input type="text" class="form-control" name="f_description" value="<?= $result['description'] ?>" placeholder="Isi dengan - jika tidak ada">
+        <label>Poliklinik<span class="text-danger">*</span></label>
+        <select name="f_id_clinic" class="form-control">
+            <option value="">---Choose---</option>
+            <?php
+            $dep = listClinic();
+
+            if (isset($dep)) :
+                foreach ($dep as $de) :
+            ?>
+                    <option value="<?= $de['id_clinic'] ?>"><?= $de['clinic_name'] ?></option>
+            <?php
+                endforeach;
+            endif;
+            ?>
+        </select>
+        <div class="invalid-feedback"></div>
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <textarea name="f_description" class="form-control" placeholder="Deskripsi treatment yang diadakan"></textarea>
+        <div class="invalid-feedback"></div>
+    </div>
+    <div class="form-group">
+        <label>Jam Buka Klinik<span class="text-danger">*</span></label>
+        <input type="time" class="form-control" name="f_open_time">
+        <div class="invalid-feedback"></div>
+    </div>
+    <div class="form-group">
+        <label>Jam Tutup Klinik<span class="text-danger">*</span></label>
+        <input type="time" class="form-control" name="f_close_time">
         <div class="invalid-feedback"></div>
     </div>
 </div>
+
 <div class="modal-footer">
-    <input type="submit" name="f_store" class="btn btn-primary" value="Save">
+    <input type="submit" name="f_store" class="btn btn-primary btn-simpan" value="Save">
 </div>
 
 <?= form_close(); ?>
+
 <script type="text/javascript">
     $(document).ready(function() {
         const base_url = $("#base-url").html();

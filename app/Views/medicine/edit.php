@@ -1,6 +1,6 @@
 <?= form_open('medicine/update') ?>
 <?= csrf_field() ?>
-<input type="hidden" name="f_id" value="<?= $result['id'] ?>">
+<input type="hidden" name="f_id" value="<?= $result['id_medicine'] ?>">
 <div class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">Medicine Update</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -68,7 +68,7 @@
                             $('input[name=f_' + key + ']').addClass('is-invalid');
                             $('select[name=f_' + key + ']').addClass('is-invalid');
                             $('textarea[name=f_' + key + ']').addClass('is-invalid');
-                            $('[name=f_' + key + ']').next().text(value);
+                            $('[name=f_' + key + ']').parent().children(".invalid-feedback").text(value);
                         });
                     } else {
                         location.reload();
