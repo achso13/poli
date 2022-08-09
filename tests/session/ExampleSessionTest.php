@@ -1,12 +1,12 @@
 <?php
 
-use CodeIgniter\Test\CIUnitTestCase;
+use CodeIgniter\Test\CIsatuanTestCase;
 use Config\Services;
 
 /**
  * @internal
  */
-final class ExampleSessionTest extends CIUnitTestCase
+final class ExampleSessionTest extends CIsatuanTestCase
 {
     public function testSessionSimple()
     {

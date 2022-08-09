@@ -68,7 +68,7 @@ $.widget = function( name, base, prototype ) {
 
 	var namespace = name.split( "." )[ 0 ];
 	name = name.split( "." )[ 1 ];
-	var fullName = namespace + "-" + name;
+	var nama = namespace + "-" + name;
 
 	if ( !prototype ) {
 		prototype = base;
@@ -80,8 +80,8 @@ $.widget = function( name, base, prototype ) {
 	}
 
 	// Create selector for plugin
-	$.expr[ ":" ][ fullName.toLowerCase() ] = function( elem ) {
-		return !!$.data( elem, fullName );
+	$.expr[ ":" ][ nama.toLowerCase() ] = function( elem ) {
+		return !!$.data( elem, nama );
 	};
 
 	$[ namespace ] = $[ namespace ] || {};
@@ -160,7 +160,7 @@ $.widget = function( name, base, prototype ) {
 		constructor: constructor,
 		namespace: namespace,
 		widgetName: name,
-		widgetFullName: fullName
+		widgetnama: nama
 	} );
 
 	// If this widget is being redefined then we need to find all widgets that
@@ -220,7 +220,7 @@ $.widget.extend = function( target ) {
 };
 
 $.widget.bridge = function( name, object ) {
-	var fullName = object.prototype.widgetFullName || name;
+	var nama = object.prototype.widgetnama || name;
 	$.fn[ name ] = function( options ) {
 		var isMethodCall = typeof options === "string";
 		var args = widgetSlice.call( arguments, 1 );
@@ -235,7 +235,7 @@ $.widget.bridge = function( name, object ) {
 			} else {
 				this.each( function() {
 					var methodValue;
-					var instance = $.data( this, fullName );
+					var instance = $.data( this, nama );
 
 					if ( options === "instance" ) {
 						returnValue = instance;
@@ -271,14 +271,14 @@ $.widget.bridge = function( name, object ) {
 			}
 
 			this.each( function() {
-				var instance = $.data( this, fullName );
+				var instance = $.data( this, nama );
 				if ( instance ) {
 					instance.option( options || {} );
 					if ( instance._init ) {
 						instance._init();
 					}
 				} else {
-					$.data( this, fullName, new object( options, this ) );
+					$.data( this, nama, new object( options, this ) );
 				}
 			} );
 		}
@@ -315,7 +315,7 @@ $.Widget.prototype = {
 		this.classesElementLookup = {};
 
 		if ( element !== this ) {
-			$.data( element, this.widgetFullName, this );
+			$.data( element, this.widgetnama, this );
 			this._on( true, this.element, {
 				remove: function( event ) {
 					if ( event.target === element ) {
@@ -370,7 +370,7 @@ $.Widget.prototype = {
 		// all event bindings should go through this._on()
 		this.element
 			.off( this.eventNamespace )
-			.removeData( this.widgetFullName );
+			.removeData( this.widgetnama );
 		this.widget()
 			.off( this.eventNamespace )
 			.removeAttr( "aria-disabled" );
@@ -483,7 +483,7 @@ $.Widget.prototype = {
 	},
 
 	_setOptionDisabled: function( value ) {
-		this._toggleClass( this.widget(), this.widgetFullName + "-disabled", null, !!value );
+		this._toggleClass( this.widget(), this.widgetnama + "-disabled", null, !!value );
 
 		// If the widget is becoming disabled, then nothing is interactive
 		if ( value ) {
@@ -5903,7 +5903,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 			for ( i = connectWith.length - 1; i >= 0; i-- ) {
 				cur = $( connectWith[ i ], this.document[ 0 ] );
 				for ( j = cur.length - 1; j >= 0; j-- ) {
-					inst = $.data( cur[ j ], this.widgetFullName );
+					inst = $.data( cur[ j ], this.widgetnama );
 					if ( inst && inst !== this && !inst.options.disabled ) {
 						queries.push( [ $.isFunction( inst.options.items ) ?
 							inst.options.items.call( inst.element ) :
@@ -5965,7 +5965,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 			for ( i = connectWith.length - 1; i >= 0; i-- ) {
 				cur = $( connectWith[ i ], this.document[ 0 ] );
 				for ( j = cur.length - 1; j >= 0; j-- ) {
-					inst = $.data( cur[ j ], this.widgetFullName );
+					inst = $.data( cur[ j ], this.widgetnama );
 					if ( inst && inst !== this && !inst.options.disabled ) {
 						queries.push( [ $.isFunction( inst.options.items ) ?
 							inst.options.items
@@ -15227,7 +15227,7 @@ $.widget( "ui.tabs", {
 
 		this.options.disabled = disabled;
 
-		this._toggleClass( this.widget(), this.widgetFullName + "-disabled", null,
+		this._toggleClass( this.widget(), this.widgetnama + "-disabled", null,
 			disabled === true );
 	},
 

@@ -33,13 +33,19 @@ class Clinic extends BaseController
             $validation = \Config\Services::validation();
 
             $data = [
-                'clinic_name' => $this->request->getPost('f_clinic_name'),
-                'description' => $this->request->getPost('f_description'),
+                'nama_klinik' => $this->request->getPost('f_nama_klinik'),
             ];
 
             $validation->setRules([
-                'clinic_name' => 'required|min_length[3]|max_length[100]',
-                'description' => 'required|max_length[225]',
+                'nama_klinik' => [
+                    'label' => 'Nama Klinik',
+                    'rules' => 'required|min_length[3]|max_length[100]',
+                    'error' => [
+                        'required' => 'Nama Klinik tidak boleh kosong',
+                        'min_length' => 'Nama Klinik minimal 3 karakter',
+                        'max_length' => 'Nama Klinik maksimal 100 karakter',
+                    ],
+                ]
             ]);
 
             if ($validation->run($data)) {
@@ -76,13 +82,19 @@ class Clinic extends BaseController
             $validation = \Config\Services::validation();
 
             $data = [
-                'clinic_name' => $this->request->getPost('f_clinic_name'),
-                'description' => $this->request->getPost('f_description'),
+                'nama_klinik' => $this->request->getPost('f_nama_klinik'),
             ];
 
             $validation->setRules([
-                'clinic_name' => 'required|min_length[3]|max_length[100]',
-                'description' => 'required|max_length[225]',
+                'nama_klinik' => [
+                    'label' => 'Nama Klinik',
+                    'rules' => 'required|min_length[3]|max_length[100]',
+                    'error' => [
+                        'required' => 'Nama Klinik tidak boleh kosong',
+                        'min_length' => 'Nama Klinik minimal 3 karakter',
+                        'max_length' => 'Nama Klinik maksimal 100 karakter',
+                    ],
+                ]
             ]);
 
             if ($validation->run($data)) {

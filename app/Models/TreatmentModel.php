@@ -6,26 +6,26 @@ use CodeIgniter\Model;
 
 class TreatmentModel extends Model
 {
-    protected $table            = 'tbl_treatment';
+    protected $table            = 'tb_treatment';
     protected $primaryKey       = 'id_treatment';
     protected $useAutoIncrement = false;
     protected $allowedFields    = [
         'id_treatment',
-        'id_clinic',
-        'treatment_name',
-        'description',
-        'open_time',
-        'close_time'
+        'id_klinik',
+        'nama_treatment',
+        'deskripsi',
+        'jam_buka',
+        'jam_tutup'
     ];
 
     public function getTreatments($id = NULL)
     {
         $builder = $this->db->table($this->table);
-        $builder->select('tbl_treatment.*, tbl_clinic.clinic_name');
-        $builder->join('tbl_clinic', 'tbl_clinic.id_clinic = tbl_treatment.id_clinic', 'left');
+        $builder->select('tb_treatment.*, tb_klinik.nama_klinik');
+        $builder->join('tb_klinik', 'tb_klinik.id_klinik = tb_treatment.id_klinik', 'left');
 
         if ($id !== NULL) {
-            $builder->where('tbl_treatment.id_treatment', $id);
+            $builder->where('tb_treatment.id_treatment', $id);
             $query = $builder->get();
             return $query->getRowArray();
         } else {

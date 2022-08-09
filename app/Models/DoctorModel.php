@@ -6,25 +6,33 @@ use CodeIgniter\Model;
 
 class DoctorModel extends Model
 {
-    protected $table            = 'tbl_doctor';
-    protected $primaryKey = 'id_doctor';
+    protected $table            = 'tb_dokter';
+    protected $primaryKey = 'id_dokter';
     protected $useAutoIncrement = false;
     protected $allowedFields    = [
-        'id_doctor',
+        'id_dokter',
         'id_user',
-        'fullname',
-        'doctor_type',
-        'education',
+        'nip',
+        'nama',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'jenis_kelamin',
+        'telepon',
+        'tipe_dokter',
     ];
+    protected $useTimestamps = true;
+    protected $dateFormat    = 'datetime';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
 
     public function getDoctors($id = NULL)
     {
         $builder = $this->db->table($this->table);
-        $builder->select('tbl_doctor.*, tbl_users.username, tbl_users.email, tbl_users.photo');
-        $builder->join('tbl_users', 'tbl_users.id = tbl_doctor.id_user', 'left');
+        $builder->select('tb_dokter.*, tb_user.username, tb_user.email, tb_user.photo');
+        $builder->join('tb_user', 'tb_user.id_user = tb_dokter.id_user', 'left');
 
         if ($id !== NULL) {
-            $builder->where('tbl_doctor.id_doctor', $id);
+            $builder->where('tb_dokter.id_dokter', $id);
             $query = $builder->get();
             return $query->getRowArray();
         } else {

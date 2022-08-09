@@ -1,6 +1,6 @@
 <?php
 
-use CodeIgniter\Test\CIUnitTestCase;
+use CodeIgniter\Test\CIsatuanTestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
 use Tests\Support\Database\Seeds\ExampleSeeder;
 use Tests\Support\Models\ExampleModel;
@@ -8,7 +8,7 @@ use Tests\Support\Models\ExampleModel;
 /**
  * @internal
  */
-final class ExampleDatabaseTest extends CIUnitTestCase
+final class ExampleDatabaseTest extends CIsatuanTestCase
 {
     use DatabaseTestTrait;
 

@@ -6,12 +6,7 @@
 <div class="modal-body">
     <div class="form-group">
         <label>Nama Klinik<span class="text-danger">*</span></label>
-        <input type="text" class="form-control" name="f_clinic_name" placeholder="Nama kliniknya">
-        <div class="invalid-feedback"></div>
-    </div>
-    <div class="form-group">
-        <label>Deskripsi</label>
-        <input type="text" class="form-control" name="f_description" placeholder="Isi dengan - jika tidak ada">
+        <input type="text" class="form-control" name="f_nama_klinik" placeholder="Nama kliniknya">
         <div class="invalid-feedback"></div>
     </div>
 </div>

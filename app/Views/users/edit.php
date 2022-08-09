@@ -1,6 +1,6 @@
 <?= form_open_multipart('users/update') ?>
 <?= csrf_field() ?>
-<input type="hidden" name="f_id" value="<?= $result['id'] ?>">
+<input type="hidden" name="f_id" value="<?= $result['id_user'] ?>">
 <input type="hidden" name="f_old_photo" value="<?= $result['photo'] ?>">
 <input type="hidden" name="f_old_username" value="<?= $result['username'] ?>">
 <div class="modal-header">
@@ -9,8 +9,8 @@
 </div>
 <div class="modal-body">
     <div class="form-group">
-        <label>Fullname<span class="text-danger">*</span></label>
-        <input type="text" class="form-control" name="f_fullname" value="<?= $result['fullname'] ?>" placeholder="Nama lengkap anda">
+        <label>Nama<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" name="f_nama" value="<?= $result['nama'] ?>" placeholder="Nama lengkap anda">
         <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
@@ -35,18 +35,18 @@
     </div>
     <div class="form-group">
         <label>Role<span class="text-danger">*</span></label>
-        <select name="f_id_role" class="form-control">
+        <select name="f_role" class="form-control">
             <option value="">--Select One--</option>
-            <option value="1" <?= selectSet($result['id_role'], 1) ?>>Administrator</option>
-            <option value="4" <?= selectSet($result['id_role'], 4) ?>>Klinik</option>
-            <option value="5" <?= selectSet($result['id_role'], 5) ?>>Apoteker</option>
+            <option value="ADMIN" <?= selectSet($result['role'], "ADMIN") ?>>Administrator</option>
+            <option value="KLINIK" <?= selectSet($result['role'], "KLINIK") ?>>Klinik</option>
+            <option value="APOTEKER" <?= selectSet($result['role'], "APOTEKER") ?>>Apoteker</option>
         </select>
         <div class="invalid-feedback"></div>
     </div>
 
     <div class="form-group load-dep" style="display: none;">
         <label>Poliklinik<span class="text-danger">*</span></label>
-        <select name="f_id_clinic" class="form-control">
+        <select name="f_id_klinik" class="form-control">
             <option value="">---Choose---</option>
             <?php
 
@@ -55,7 +55,7 @@
             if (isset($dep)) :
                 foreach ($dep as $de) :
             ?>
-                    <option value="<?= $de['id_clinic'] ?>" <?= selectSet($result['id_clinic'], $de['id_clinic']) ?>><?= $de['clinic_name'] ?></option>
+                    <option value="<?= $de['id_klinik'] ?>" <?= selectSet($result['id_klinik'], $de['id_klinik']) ?>><?= $de['nama_klinik'] ?></option>
             <?php
                 endforeach;
             endif;
@@ -74,15 +74,15 @@
     $(document).ready(function() {
         const base_url = $("#base-url").html();
 
-        const value = $('select[name=f_id_role]').val();
-        if (value == 4) {
+        const value = $('select[name=f_role]').val();
+        if (value == "KLINIK") {
             $('.load-dep').css('display', 'block');
         }
 
-        $('select[name=f_id_role]').change(function() {
+        $('select[name=f_role]').change(function() {
             var val = $(this).val();
 
-            if (val == 4) {
+            if (val == "KLINIK") {
                 $('.load-dep').css('display', 'block');
             } else {
                 $('.load-dep').css('display', 'none');

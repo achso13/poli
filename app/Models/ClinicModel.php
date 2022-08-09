@@ -6,10 +6,13 @@ use CodeIgniter\Model;
 
 class ClinicModel extends Model
 {
-    protected $table            = 'tbl_clinic';
-    protected $primaryKey       = 'id_clinic';
+    protected $table            = 'tb_klinik';
+    protected $primaryKey       = 'id_klinik';
     protected $allowedFields    = [
-        'clinic_name',
-        'description',
+        'nama_klinik'
     ];
+    protected $useTimestamps = true;
+    protected $dateFormat    = 'datetime';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
 }

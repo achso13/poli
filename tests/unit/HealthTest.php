@@ -1,6 +1,6 @@
 <?php
 
-use CodeIgniter\Test\CIUnitTestCase;
+use CodeIgniter\Test\CIsatuanTestCase;
 use Config\App;
 use Config\Services;
 use Tests\Support\Libraries\ConfigReader;
@@ -8,7 +8,7 @@ use Tests\Support\Libraries\ConfigReader;
 /**
  * @internal
  */
-final class HealthTest extends CIUnitTestCase
+final class HealthTest extends CIsatuanTestCase
 {
     public function testIsDefinedAppPath()
     {
@@ -28,7 +28,7 @@ final class HealthTest extends CIUnitTestCase
 
         if ($env) {
             // BaseURL in .env is a valid URL?
-            // phpunit.xml.dist sets app.baseURL in $_SERVER
+            // phpsatuan.xml.dist sets app.baseURL in $_SERVER
             // So if you set app.baseURL in .env, it takes precedence
             $config = new App();
             $this->assertTrue(
@@ -38,7 +38,7 @@ final class HealthTest extends CIUnitTestCase
         }
 
         // Get the baseURL in app/Config/App.php
-        // You can't use Config\App, because phpunit.xml.dist sets app.baseURL
+        // You can't use Config\App, because phpsatuan.xml.dist sets app.baseURL
         $reader = new ConfigReader();
 
         // BaseURL in app/Config/App.php is a valid URL?

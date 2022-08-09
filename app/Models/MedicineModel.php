@@ -6,16 +6,17 @@ use CodeIgniter\Model;
 
 class MedicineModel extends Model
 {
-    protected $table            = 'tbl_medicine';
-    protected $primaryKey       = 'id_medicine';
+    protected $table            = 'tb_obat';
+    protected $primaryKey       = 'id_obat';
     protected $useAutoIncrement = false;
     protected $allowedFields    = [
-        'id_medicine',
-        'medicine_name',
-        'description',
-        'stock',
-        'unit',
-        'created_at',
-        'updated_at',
+        'id_obat',
+        'nama_obat',
+        'stok',
+        'satuan',
     ];
+    // protected $useTimestamps = true;
+    // protected $dateFormat    = 'datetime';
+    // protected $createdField  = 'created_at';
+    // protected $updatedField  = 'updated_at';
 }

@@ -1,19 +1,14 @@
 <?= form_open('clinic/update') ?>
 <?= csrf_field() ?>
-<input type="hidden" name="f_id" value="<?= $result['id_clinic'] ?>">
+<input type="hidden" name="f_id" value="<?= $result['id_klinik'] ?>">
 <div class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">Klinik Update</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">
     <div class="form-group">
-        <label>Label<span class="text-danger">*</span></label>
-        <input type="text" class="form-control" name="f_clinic_name" value=<?= $result['clinic_name'] ?> placeholder="Nama dari obatnya">
-        <div class="invalid-feedback"></div>
-    </div>
-    <div class="form-group">
-        <label>Deskripsi<span class="text-danger">*</span></label>
-        <input type="text" class="form-control" name="f_description" value="<?= $result['description'] ?>" placeholder="Isi dengan - jika tidak ada">
+        <label>Nama Klinik<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" name="f_nama_klinik" value="<?= $result['nama_klinik'] ?>" placeholder="Nama kliniknya">
         <div class="invalid-feedback"></div>
     </div>
 </div>

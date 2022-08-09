@@ -33,18 +33,39 @@ class Medicine extends BaseController
             $validation = \Config\Services::validation();
 
             $data = [
-                'id_medicine' => generateId($this->medicineModel, 'id_medicine', 'OBT', 10),
-                'medicine_name' => $this->request->getPost('f_medicine_name'),
-                'description' => $this->request->getPost('f_description'),
-                'stock' => $this->request->getPost('f_stock'),
-                'unit' => $this->request->getPost('f_unit'),
+                'id_obat' => generateId($this->medicineModel, 'id_obat', 'OBT', 10),
+                'nama_obat' => $this->request->getPost('f_nama_obat'),
+                'stok' => $this->request->getPost('f_stok'),
+                'satuan' => $this->request->getPost('f_satuan'),
             ];
 
             $validation->setRules([
-                'medicine_name' => 'required|min_length[3]|max_length[100]',
-                'description' => 'required|min_length[3]|max_length[225]',
-                'stock' => 'required|numeric',
-                'unit' => 'required|min_length[3]|max_length[20]',
+                'nama_obat' => [
+                    'label' => 'Nama Obat',
+                    'rules' => 'required|min_length[3]|max_length[100]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 100 karakter',
+                    ],
+                ],
+                'stok' => [
+                    'label' => 'Stok',
+                    'rules' => 'required|numeric',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'numeric' => '{field} harus berupa angka',
+                    ],
+                ],
+                'satuan' => [
+                    'label' => 'Satuan',
+                    'rules' => 'required|min_length[3]|max_length[100]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 100 karakter',
+                    ],
+                ],
             ]);
 
             if ($validation->run($data)) {
@@ -81,17 +102,40 @@ class Medicine extends BaseController
             $validation = \Config\Services::validation();
 
             $data = [
-                'medicine_name' => $this->request->getPost('f_medicine_name'),
+                'nama_obat' => $this->request->getPost('f_nama_obat'),
                 'description' => $this->request->getPost('f_description'),
-                'stock' => $this->request->getPost('f_stock'),
-                'unit' => $this->request->getPost('f_unit'),
+                'stok' => $this->request->getPost('f_stok'),
+                'satuan' => $this->request->getPost('f_satuan'),
             ];
 
+
             $validation->setRules([
-                'medicine_name' => 'required|min_length[3]|max_length[100]',
-                'description' => 'required|min_length[3]|max_length[225]',
-                'stock' => 'required|numeric',
-                'unit' => 'required|min_length[3]|max_length[20]',
+                'nama_obat' => [
+                    'label' => 'Nama Obat',
+                    'rules' => 'required|min_length[3]|max_length[100]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 100 karakter',
+                    ],
+                ],
+                'stok' => [
+                    'label' => 'Stok',
+                    'rules' => 'required|numeric',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'numeric' => '{field} harus berupa angka',
+                    ],
+                ],
+                'satuan' => [
+                    'label' => 'Satuan',
+                    'rules' => 'required|min_length[3]|max_length[100]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 100 karakter',
+                    ],
+                ],
             ]);
 
             if ($validation->run($data)) {

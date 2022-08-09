@@ -6,25 +6,26 @@ use CodeIgniter\Model;
 
 class UserModel extends Model
 {
-    protected $table            = 'tbl_users';
-    protected $primaryKey       = 'id';
+    protected $table            = 'tb_user';
+    protected $primaryKey       = 'id_user';
+    protected $useTimestamps    = true;
     protected $allowedFields    = [
-        'id_role',
-        'id_clinic',
-        'fullname',
+        'id_klinik',
+        'role',
+        'nama',
         'username',
-        'email',
         'password',
+        'email',
         'photo',
     ];
 
-    public function getUsers($id = 1)
+    public function getUsers($role = "ADMIN")
     {
         $builder = $this->db->table($this->table);
-        $builder->select('tbl_users.*, tbl_roles.role, tbl_clinic.clinic_name');
-        $builder->join('tbl_roles', 'tbl_roles.id = tbl_users.id_role');
-        $builder->join('tbl_clinic', 'tbl_clinic.id = tbl_users.id_clinic', 'left');
-        $builder->where('tbl_users.id_role', $id);
+        $builder->select('tb_user.*, tb_klinik.nama_klinik');
+        $builder->join('tb_klinik', 'tb_klinik.id_klinik = tb_user.id_klinik', 'left');
+        $builder->where('role', $role);
+
 
         return $builder->get()->getResultArray();
     }

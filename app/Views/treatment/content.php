@@ -6,8 +6,8 @@
                     <tr class="bg-light">
                         <td class="text-primary text-center" width="5%">No</td>
                         <td class="text-primary text-center">Nama Treatment</td>
-                        <td class="text-primary text-center">Poliklinik</td>
-                        <td class="text-primary text-center" width="25%">Description</td>
+                        <td class="text-primary text-center">Klinik</td>
+                        <td class="text-primary text-center" width="25%">Deskripsi</td>
                         <td class="text-primary text-center" width="15%">Waktu Treatment</td>
                         <td class="text-primary text-center">Action</td>
                     </tr>
@@ -17,11 +17,11 @@
                     <?php foreach ($result as $row) : ?>
                         <tr>
                             <td><?= $no ?></td>
-                            <td><?= $row['treatment_name'] ?></td>
-                            <td class="text-primary"><?= $row['clinic_name'] ?></td>
-                            <td><?= $row['description'] ?></td>
-                            <td><?= $row['open_time'] ?> s/d <?= $row['close_time'] ?></td>
-                            <td width="17%">
+                            <td><?= $row['nama_treatment'] ?></td>
+                            <td class="text-primary"><?= $row['nama_klinik'] ?></td>
+                            <td><?= $row['deskripsi'] ?></td>
+                            <td><?= $row['jam_buka'] ?> s/d <?= $row['jam_tutup'] ?></td>
+                            <td width="25%">
 
                                 <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_treatment'] ?>" data-toggle="modal" data-target="#form-modals">
                                     <i class="mr-1 fa fa-pen-square"></i> Edit

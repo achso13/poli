@@ -8,8 +8,8 @@
                     <td class="text-primary text-center" width="10%">ID Pasien</td>
                     <td class="text-primary text-center">NIP</td>
                     <td class="text-primary text-center">Nama</td>
-                    <td class="text-primary text-center" width="10%">Tanggal Pendaftaran</td>
-                    <td class="text-primary text-center" width="10%">Tanggal Lahir</td>
+                    <td class="text-primary text-center" width="10%">Biro</td>
+                    <td class="text-primary text-center" width="10%">Bagian</td>
                     <td class="text-primary text-center" width="10%">Foto</td>
                     <td class="text-primary text-center" width="20%">Action</td>
                 </tr>
@@ -19,11 +19,11 @@
                 <?php foreach ($result as $row) : ?>
                     <tr>
                         <td><?= $no ?></td>
-                        <td><?= $row['id_patient'] ?></td>
+                        <td><?= $row['id_pasien'] ?></td>
                         <td><?= $row['nip'] ?></td>
-                        <td><?= $row['fullname'] ?></td>
-                        <td><?= $row['admission_date'] ?></td>
-                        <td><?= $row['birth_date'] ?></td>
+                        <td><?= $row['nama'] ?></td>
+                        <td><?= $row['nama_biro'] ?></td>
+                        <td><?= $row['nama_bagian'] ?></td>
                         <td>
                             <?php if ($row['photo'] == NULL) : ?>
                                 <img src="<?= base_url('assets/images/no-user-image.png') ?>" class="img-responsive user-photo rounded-circle">
@@ -32,16 +32,16 @@
                             <?php endif; ?>
                         </td>
                         <td>
-                            <a href="<?= base_url('patient/record_medical/' . $row['id_patient']) ?>" class="btn btn-warning btn-sm btn-edit text-white">
+                            <a href="<?= base_url('patient/record_medical/' . $row['id_pasien']) ?>" class="btn btn-warning btn-sm btn-edit text-white">
                                 <i class="mr-1 fa fa-history"></i> Rekam Medis
                             </a>
-                            <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_patient'] ?>" data-toggle="modal" data-target="#form-modals">
+                            <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_pasien'] ?>" data-toggle="modal" data-target="#form-modals">
                                 <i class="mr-1 fa fa-pen-square"></i> Edit
                             </button>
-                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?= $row['id_patient'] ?>">
+                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?= $row['id_pasien'] ?>">
                                 <i class="mr-1 fa fa-trash-alt"></i> Delete
                             </button>
-                            <div class="modal fade" id="modals-delete-<?= $row['id_patient'] ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="modals-delete-<?= $row['id_pasien'] ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog " role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -52,7 +52,7 @@
                                             <p class="text-center"><i class="fa fa-info-circle"></i> Do you really want to delete this record ?</p>
                                         </div>
                                         <div class="modal-footer">
-                                            <?= form_open('patient/delete/' . $row['id_patient']) ?>
+                                            <?= form_open('patient/delete/' . $row['id_pasien']) ?>
                                             <?= csrf_field() ?>
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="btn btn-danger btn-delete">

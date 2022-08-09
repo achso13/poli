@@ -1,9 +1,9 @@
 <script type="text/javascript">
     $(document).ready(function() {
-        $('select[name=f_id_role]').change(function() {
+        $('select[name=f_role]').change(function() {
             var val = $(this).val();
 
-            if (val == 4) {
+            if (val == "KLINIK") {
                 $('.load-dep').css('display', 'block');
             } else {
                 $('.load-dep').css('display', 'none');
@@ -20,8 +20,8 @@
 </div>
 <div class="modal-body">
     <div class="form-group">
-        <label>Fullname <span class="text-danger">*</span></label>
-        <input type="text" class="form-control" name="f_fullname" placeholder="Nama lengkap anda">
+        <label>Nama <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" name="f_nama" placeholder="Nama lengkap anda">
         <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
@@ -46,18 +46,18 @@
     </div>
     <div class="form-group">
         <label>Role <span class="text-danger">*</span></label>
-        <select name="f_id_role" class="form-control">
+        <select name="f_role" class="form-control">
             <option value="">--Select One--</option>
-            <option value="1">Administrator</option>
-            <option value="4">Klinik</option>
-            <option value="5">Apoteker</option>
+            <option value="ADMIN">Administrator</option>
+            <option value="KLINIK">Klinik</option>
+            <option value="APOTEKER">Apoteker</option>
         </select>
         <div class="invalid-feedback"></div>
     </div>
 
     <div class="form-group load-dep" style="display: none;">
-        <label>Poliklinik <span class="text-danger">*</span></label>
-        <select name="f_id_clinic" class="form-control">
+        <label>Klinik <span class="text-danger">*</span></label>
+        <select name="f_id_klinik" class="form-control">
             <option value="">---Choose---</option>
             <?php
             $dep = listClinic();
@@ -65,7 +65,7 @@
             if (isset($dep)) :
                 foreach ($dep as $de) :
             ?>
-                    <option value="<?= $de['id_clinic'] ?>"><?= $de['clinic_name'] ?></option>
+                    <option value="<?= $de['id_klinik'] ?>"><?= $de['nama_klinik'] ?></option>
             <?php
                 endforeach;
             endif;

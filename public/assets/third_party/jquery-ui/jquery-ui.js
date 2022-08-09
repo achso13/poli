@@ -334,14 +334,14 @@ $.cleanData = function( elems ) {
 };
 
 $.widget = function( name, base, prototype ) {
-	var fullName, existingConstructor, constructor, basePrototype,
+	var nama, existingConstructor, constructor, basePrototype,
 		// proxiedPrototype allows the provided prototype to remain unmodified
 		// so that it can be used as a mixin for multiple widgets (#8876)
 		proxiedPrototype = {},
 		namespace = name.split( "." )[ 0 ];
 
 	name = name.split( "." )[ 1 ];
-	fullName = namespace + "-" + name;
+	nama = namespace + "-" + name;
 
 	if ( !prototype ) {
 		prototype = base;
@@ -349,8 +349,8 @@ $.widget = function( name, base, prototype ) {
 	}
 
 	// create selector for plugin
-	$.expr[ ":" ][ fullName.toLowerCase() ] = function( elem ) {
-		return !!$.data( elem, fullName );
+	$.expr[ ":" ][ nama.toLowerCase() ] = function( elem ) {
+		return !!$.data( elem, nama );
 	};
 
 	$[ namespace ] = $[ namespace ] || {};
@@ -421,7 +421,7 @@ $.widget = function( name, base, prototype ) {
 		constructor: constructor,
 		namespace: namespace,
 		widgetName: name,
-		widgetFullName: fullName
+		widgetnama: nama
 	});
 
 	// If this widget is being redefined then we need to find all widgets that
@@ -473,7 +473,7 @@ $.widget.extend = function( target ) {
 };
 
 $.widget.bridge = function( name, object ) {
-	var fullName = object.prototype.widgetFullName || name;
+	var nama = object.prototype.widgetnama || name;
 	$.fn[ name ] = function( options ) {
 		var isMethodCall = typeof options === "string",
 			args = slice.call( arguments, 1 ),
@@ -487,7 +487,7 @@ $.widget.bridge = function( name, object ) {
 		if ( isMethodCall ) {
 			this.each(function() {
 				var methodValue,
-					instance = $.data( this, fullName );
+					instance = $.data( this, nama );
 				if ( !instance ) {
 					return $.error( "cannot call methods on " + name + " prior to initialization; " +
 						"attempted to call method '" + options + "'" );
@@ -505,11 +505,11 @@ $.widget.bridge = function( name, object ) {
 			});
 		} else {
 			this.each(function() {
-				var instance = $.data( this, fullName );
+				var instance = $.data( this, nama );
 				if ( instance ) {
 					instance.option( options || {} )._init();
 				} else {
-					$.data( this, fullName, new object( options, this ) );
+					$.data( this, nama, new object( options, this ) );
 				}
 			});
 		}
@@ -546,7 +546,7 @@ $.Widget.prototype = {
 		this.focusable = $();
 
 		if ( element !== this ) {
-			$.data( element, this.widgetFullName, this );
+			$.data( element, this.widgetnama, this );
 			this._on( true, this.element, {
 				remove: function( event ) {
 					if ( event.target === element ) {
@@ -580,15 +580,15 @@ $.Widget.prototype = {
 			// 1.9 BC for #7810
 			// TODO remove dual storage
 			.removeData( this.widgetName )
-			.removeData( this.widgetFullName )
+			.removeData( this.widgetnama )
 			// support: jquery <1.6.3
 			// http://bugs.jquery.com/ticket/9413
-			.removeData( $.camelCase( this.widgetFullName ) );
+			.removeData( $.camelCase( this.widgetnama ) );
 		this.widget()
 			.unbind( this.eventNamespace )
 			.removeAttr( "aria-disabled" )
 			.removeClass(
-				this.widgetFullName + "-disabled " +
+				this.widgetnama + "-disabled " +
 				"ui-state-disabled" );
 
 		// clean up events and states
@@ -655,7 +655,7 @@ $.Widget.prototype = {
 
 		if ( key === "disabled" ) {
 			this.widget()
-				.toggleClass( this.widgetFullName + "-disabled ui-state-disabled", !!value )
+				.toggleClass( this.widgetnama + "-disabled ui-state-disabled", !!value )
 				.attr( "aria-disabled", value );
 			this.hoverable.removeClass( "ui-state-hover" );
 			this.focusable.removeClass( "ui-state-focus" );
@@ -4096,7 +4096,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 			for (i = connectWith.length - 1; i >= 0; i--){
 				cur = $(connectWith[i]);
 				for ( j = cur.length - 1; j >= 0; j--){
-					inst = $.data(cur[j], this.widgetFullName);
+					inst = $.data(cur[j], this.widgetnama);
 					if(inst && inst !== this && !inst.options.disabled) {
 						queries.push([$.isFunction(inst.options.items) ? inst.options.items.call(inst.element) : $(inst.options.items, inst.element).not(".ui-sortable-helper").not(".ui-sortable-placeholder"), inst]);
 					}
@@ -4145,7 +4145,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 			for (i = connectWith.length - 1; i >= 0; i--){
 				cur = $(connectWith[i]);
 				for (j = cur.length - 1; j >= 0; j--){
-					inst = $.data(cur[j], this.widgetFullName);
+					inst = $.data(cur[j], this.widgetnama);
 					if(inst && inst !== this && !inst.options.disabled) {
 						queries.push([$.isFunction(inst.options.items) ? inst.options.items.call(inst.element[0], event, { item: this.currentItem }) : $(inst.options.items, inst.element), inst]);
 						this.containers.push(inst);
@@ -11631,7 +11631,7 @@ $.widget( "ui.menu", {
 		menus.children( ":not(.ui-menu-item)" ).each(function() {
 			var item = $( this );
 			// hyphen, em dash, en dash
-			if ( !/[^\-—–\s]/.test( item.text() ) ) {
+			if ( !/[^\-ï¿½ï¿½\s]/.test( item.text() ) ) {
 				item.addClass( "ui-widget-content ui-menu-divider" );
 			}
 		});

@@ -41,12 +41,12 @@ $routes->post('/auth/verifying', 'Auth::verifying');
 
 // Routes Users
 $routes->get('/users', 'Users::index');
-$routes->get('/users/role/(:segment)', 'Users::role/$1');
+$routes->get('/users/role/(:alpha)', 'Users::role/$1');
 $routes->match(['get', 'post'], '/users/add', 'Users::add');
 $routes->post('/users/store', 'Users::store');
 $routes->match(['get', 'post'], '/users/edit', 'Users::edit');
 $routes->post('/users/update', 'Users::update');
-$routes->delete('/users/delete/(:segment)', 'Users::delete/$1');
+$routes->delete('/users/delete/(:num)', 'Users::delete/$1');
 
 // Routes Medicine
 $routes->get('/medicine', 'Medicine::index');
@@ -72,6 +72,14 @@ $routes->match(['get', 'post'], '/doctor/edit', 'Doctor::edit');
 $routes->post('/doctor/update', 'Doctor::update');
 $routes->delete('/doctor/delete/(:segment)', 'Doctor::delete/$1');
 
+// RouteS Jadwal Dokter
+$routes->get('/doctor/jadwal', 'JadwalDokter::index');
+$routes->match(['get', 'post'], '/doctor/jadwal/add', 'JadwalDokter::add');
+$routes->post('/doctor/jadwal/store', 'JadwalDokter::store');
+$routes->match(['get', 'post'], '/doctor/jadwal/edit', 'JadwalDokter::edit');
+$routes->post('/doctor/jadwal/update', 'JadwalDokter::update');
+$routes->delete('/doctor/jadwal/delete/(:segment)', 'JadwalDokter::delete/$1');
+
 // Routes Patient
 $routes->get('/patient', 'Patient::index');
 $routes->match(['get', 'post'], '/patient/add', 'Patient::add');
@@ -87,6 +95,10 @@ $routes->post('/treatment/store', 'Treatment::store');
 $routes->match(['get', 'post'], '/treatment/edit', 'Treatment::edit');
 $routes->post('/treatment/update', 'Treatment::update');
 $routes->delete('/treatment/delete/(:segment)', 'Treatment::delete/$1');
+
+// routes unitkerja
+$routes->get('/unitkerja/get_bagian/(:num)', 'Unitkerja::ajaxBagian/$1');
+$routes->get('/unitkerja/get_biro', 'Unitkerja::ajaxBiro');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

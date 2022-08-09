@@ -1,29 +1,24 @@
 <?= form_open('medicine/update') ?>
 <?= csrf_field() ?>
-<input type="hidden" name="f_id" value="<?= $result['id_medicine'] ?>">
+<input type="hidden" name="f_id" value="<?= $result['id_obat'] ?>">
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Medicine Update</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Update Obat</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">
     <div class="form-group">
-        <label>Label<span class="text-danger">*</span></label>
-        <input type="text" class="form-control" name="f_medicine_name" value=<?= $result['medicine_name'] ?> placeholder="Nama dari obatnya">
+        <label>Nama obat<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" name="f_nama_obat" value=<?= $result['nama_obat'] ?> placeholder="Nama dari obatnya">
         <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
-        <label>Deskripsi<span class="text-danger">*</span></label>
-        <textarea name="f_description" class="form-control" placeholder="Penjelasan dari obatnya"><?= $result['description'] ?></textarea>
+        <label>Stok<span class="text-danger">*</span></label>
+        <input type="number" class="form-control" name="f_stok" value="<?= $result['stok'] ?>" placeholder="Stok obat">
         <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
-        <label>Stock<span class="text-danger">*</span></label>
-        <input type="number" class="form-control" name="f_stock" value="<?= $result['stock'] ?>" placeholder="Stok obat">
-        <div class="invalid-feedback"></div>
-    </div>
-    <div class="form-group">
-        <label>Unit<span class="text-danger">*</span></label>
-        <input type="text" class="form-control" name="f_unit" value="<?= $result['unit'] ?>" placeholder="Satuan, contoh: Strip, Botol dst">
+        <label>Satuan<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" name="f_satuan" value="<?= $result['satuan'] ?>" placeholder="Satuan, contoh: Strip, Botol dst">
         <div class="invalid-feedback"></div>
     </div>
 </div>

@@ -1,89 +1,123 @@
+<script>
+    $(document).ready(function() {
+        $('select[name=f_id_biro]').change(function() {
+            var val = $(this).val();
+
+            $.ajax({
+                url: '<?= base_url('unitkerja/get_bagian') ?>' + "/" + val,
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(response) {
+                    $('select[name=f_id_unitkerja]').empty();
+                    $('select[name=f_id_unitkerja]').append('<option value="">---Choose---</option>');
+                    $.each(response, function(key, value) {
+                        $('select[name=f_id_unitkerja]').append('<option value="' + value.id_unitkerja + '">' + value.nama_bagian + '</option>');
+                    });
+                }
+            });
+        })
+    });
+</script>
+
 <?= form_open_multipart('patient/store') ?>
 <?= csrf_field() ?>
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Patient Add</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Tambah Pasien</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label>Nama Lengkap<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="f_fullname" placeholder="Nama lengkap pasien">
+                <label>Nama Lengkap <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="f_nama" placeholder="Nama lengkap pasien">
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
-                <label>NIP<span class="text-danger">*</span></label>
+                <label>NIP <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" name="f_nip" placeholder="Nomor induk pegawai pasien">
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
-                <label>Tanggal Lahir<span class="text-danger">*</span></label>
-                <input type="date" class="form-control" name="f_birth_date" placeholder="Tanggal lahir pasien">
+                <label>Biro <span class="text-danger">*</span></label>
+                <select name="f_id_biro" class="form-control biro">
+                    <option value="">---Choose---</option>
+                    <?php
+                    if (isset($biro)) :
+                        foreach ($biro as $list) :
+                    ?>
+                            <option value="<?= $list['id_biro'] ?>"><?= $list['nama_biro'] ?></option>
+                    <?php
+                        endforeach;
+                    endif;
+                    ?>
+                </select>
+                <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Bagian <span class="text-danger">*</span></label>
+                <select name="f_id_unitkerja" class="form-control bagian">
+                    <option value="">---Choose---</option>
+                </select>
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
-                <label>Jenis Kelamin<span class="text-danger">*</span></label>
+                <label>Tempat Lahir <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="f_tempat_lahir" placeholder="Tempat lahir pasien">
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label>Tanggal Lahir <span class="text-danger">*</span></label>
+                <input type="date" class="form-control" name="f_tanggal_lahir" placeholder="Tanggal lahir pasien">
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label>Jenis Kelamin <span class="text-danger">*</span></label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="f_gender" value="L" id="laki" checked>
+                    <input class="form-check-input" type="radio" name="f_jenis_kelamin" value="Laki-laki" id="laki" checked>
                     <label class="form-check-label" for="laki">
                         Laki-Laki
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="f_gender" value="P" id="perempuan">
+                    <input class="form-check-input" type="radio" name="f_jenis_kelamin" value="Perempuan" id="perempuan">
                     <label class="form-check-label" for="perempuan">
                         Perempuan
                     </label>
                     <div class="invalid-feedback"></div>
                 </div>
             </div>
-            <div class="form-group">
-                <label>Golongan Darah<span class="text-danger">*</span></label>
-                <select class="form-control show-tick" name="f_blood_type">
-                    <option value="">Select One</option>
-                    <?php foreach (BLOOD_TYPE as $blood_type) : ?>
-                        <option value="<?= $blood_type ?>"><?= $blood_type ?></option>
-                    <?php endforeach; ?>
-                </select>
-                <div class="invalid-feedback"></div>
-            </div>
 
             <div class="form-group">
-                <label>Alamat<span class="text-danger">*</span></label>
-                <textarea name="f_address" class="form-control" placeholder="Alamat rumah pasien"></textarea>
+                <label>Alamat Rumah <span class="text-danger">*</span></label>
+                <textarea name="f_alamat_rumah" class="form-control" placeholder="Alamat rumah pasien"></textarea>
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
-                <label>Nomor HP<span class="text-danger">*</span></label>
-                <input type="number" class="form-control" name="f_phone" placeholder="Nomor handphone pasien, contoh: 0851xxx">
+                <label>Nomor Telepon/HP <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" name="f_telepon" placeholder="Nomor telepon/handphone pasien, contoh: 0851xxx">
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
-                <label>Photo</label>
+                <label>Photo </label>
                 <input type="file" class="form-control" name="f_photo">
                 <div class="invalid-feedback"></div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label>Tanggal Pendaftaran<span class="text-danger">*</span></label>
-                <input type="date" class="form-control" name="f_admission_date">
+                <label>Username <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="f_username" placeholder="Username untuk login pasien (NIP)" disabled>
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
-                <label>Username<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="f_username" placeholder="Username untuk login pasien">
-                <div class="invalid-feedback"></div>
-            </div>
-            <div class="form-group">
-                <label>Password<span class="text-danger">*</span></label>
+                <label>Password <span class="text-danger">*</span></label>
                 <input type="password" class="form-control" name="f_password" placeholder="Minimal 3 karakter">
                 <div class="invalid-feedback"></div>
             </div>
-
             <div class="form-group">
-                <label>Email<span class="text-danger">*</span></label>
+                <label>Email <span class="text-danger">*</span></label>
                 <input type="email" class="form-control" name="f_email" placeholder="Email pasien">
                 <div class="invalid-feedback"></div>
             </div>

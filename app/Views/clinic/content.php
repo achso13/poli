@@ -7,7 +7,6 @@
                     <tr class="bg-light">
                         <td class="text-primary text-center" width="5%">No</td>
                         <td class="text-primary text-center">Klinik</td>
-                        <td class="text-primary text-center" width="30%">Deskripsi</td>
                         <td class="text-primary text-center">Action</td>
                     </tr>
                 </thead>
@@ -16,19 +15,18 @@
                     <?php foreach ($result as $row) : ?>
                         <tr>
                             <td><?= $no ?></td>
-                            <td><?= $row['clinic_name'] ?></td>
-                            <td><?= $row['description'] ?></td>
-                            <td width="17%">
+                            <td><?= $row['nama_klinik'] ?></td>
+                            <td width="25%">
 
-                                <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_clinic'] ?>" data-toggle="modal" data-target="#form-modals">
+                                <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_klinik'] ?>" data-toggle="modal" data-target="#form-modals">
                                     <i class="mr-1 fa fa-pen-square"></i> Edit
                                 </button>
 
-                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?= $row['id_clinic'] ?>">
+                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?= $row['id_klinik'] ?>">
                                     <i class="mr-1 fa fa-trash-alt"></i> Delete
                                 </button>
 
-                                <div class="modal fade" id="modals-delete-<?= $row['id_clinic'] ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="modals-delete-<?= $row['id_klinik'] ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -39,7 +37,7 @@
                                                 <p class="text-center"><i class="fa fa-info-circle"></i> Do you really want to delete this record ?</p>
                                             </div>
                                             <div class="modal-footer">
-                                                <?= form_open('clinic/delete/' . $row['id_clinic']) ?>
+                                                <?= form_open('clinic/delete/' . $row['id_klinik']) ?>
                                                 <?= csrf_field() ?>
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <button type="submit" class="btn btn-danger btn-delete">

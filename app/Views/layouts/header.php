@@ -41,19 +41,19 @@
                     <?php
 
                     switch (session()->get('log_role')) {
-                        case 1:
+                        case "ADMIN":
                             $menu = 'menu_admin';
                             break;
-                        case 2:
+                        case "DOKTER":
                             $menu = 'menu_doctor';
                             break;
-                        case 3:
+                        case "PASIEN":
                             $menu = 'menu_pasien';
                             break;
-                        case 4:
+                        case "KLINIK":
                             $menu = 'menu_klinik';
                             break;
-                        case 5:
+                        case "APOTEKER":
                             $menu = 'menu_apoteker';
                             break;
                     }
@@ -85,7 +85,7 @@
                                     <?php else : ?>
                                         <img src="<?= base_url('uploads/photo/' . session()->get('log_photo')) ?>" class="img-responsive user-avatar rounded-circle mr-2">
                                     <?php endif; ?>
-                                    <span class="d-none d-md-inline-block"><?= session()->get('log_fullname') ?></span>
+                                    <span class="d-none d-md-inline-block"><?= session()->get('log_nama') ?></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-small ">
                                     <a class="dropdown-item" href="<?= base_url('profile') ?>"><i class="material-icons">summarize</i> Profile</a>

@@ -28,6 +28,7 @@ class Auth extends BaseController
         $username = $this->request->getPost('f_username');
         $password = $this->request->getPost('f_password');
 
+
         if (!$username || !$password) {
             session()->setFlashdata('info', [
                 'class' => 'alert-warning',
@@ -42,8 +43,8 @@ class Auth extends BaseController
         if ($user) {
             if (password_verify($password, $user['password'])) {
                 $data = [
-                    'log_id' => $user['id'],
-                    'log_role' => $user['id_role'],
+                    'log_id' => $user['id_user'],
+                    'log_role' => $user['role'],
                 ];
                 session()->set($data);
                 return redirect()->to('/');

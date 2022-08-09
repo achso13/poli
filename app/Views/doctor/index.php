@@ -15,6 +15,20 @@
 </div>
 <!-- End Page Header -->
 
+<div class="row mb-3">
+	<div class="col-md-12">
+		<div class="btn-group ">
+			<a href="<?= base_url('doctor') ?>" class="btn btn-white btn-sm btn-edit text-primary">
+				Dokter
+			</a>
+			<a href="<?= base_url('doctor/jadwal') ?>" class="btn btn-white btn-sm btn-edit text-primary ml-2">
+				Jadwal Dokter
+			</a>
+		</div>
+	</div>
+</div>
+
+
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">

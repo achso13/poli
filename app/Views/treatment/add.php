@@ -6,12 +6,12 @@
 <div class="modal-body">
     <div class="form-group">
         <label>Nama Treatment<span class="text-danger">*</span></label>
-        <input type="text" class="form-control" name="f_treatment_name" placeholder="Nama treatment yang diadakan">
+        <input type="text" class="form-control" name="f_nama_treatment" placeholder="Nama treatment yang diadakan">
         <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
         <label>Poliklinik<span class="text-danger">*</span></label>
-        <select name="f_id_clinic" class="form-control">
+        <select name="f_id_klinik" class="form-control">
             <option value="">---Choose---</option>
             <?php
             $dep = listClinic();
@@ -19,7 +19,7 @@
             if (isset($dep)) :
                 foreach ($dep as $de) :
             ?>
-                    <option value="<?= $de['id_clinic'] ?>"><?= $de['clinic_name'] ?></option>
+                    <option value="<?= $de['id_klinik'] ?>"><?= $de['nama_klinik'] ?></option>
             <?php
                 endforeach;
             endif;
@@ -28,18 +28,18 @@
         <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
-        <label>Description</label>
-        <textarea name="f_description" class="form-control" placeholder="Deskripsi treatment yang diadakan"></textarea>
+        <label>Deskripsi</label>
+        <textarea name="f_deskripsi" class="form-control" placeholder="Deskripsi treatment yang diadakan"></textarea>
         <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
         <label>Jam Buka Klinik<span class="text-danger">*</span></label>
-        <input type="time" class="form-control" name="f_open_time">
+        <input type="time" class="form-control" name="f_jam_buka">
         <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
         <label>Jam Tutup Klinik<span class="text-danger">*</span></label>
-        <input type="time" class="form-control" name="f_close_time">
+        <input type="time" class="form-control" name="f_jam_tutup">
         <div class="invalid-feedback"></div>
     </div>
 </div>

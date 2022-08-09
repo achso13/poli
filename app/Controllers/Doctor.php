@@ -38,24 +38,118 @@ class Doctor extends BaseController
             $photoName = $photo->getError() === 4 ? "" : $photo->getRandomName();
 
             $data = [
-                'id_doctor' => generateId($this->doctorModel, 'id_doctor', 'DR', 10),
-                'fullname' => $this->request->getPost('f_fullname'),
-                'doctor_type' => $this->request->getPost('f_doctor_type'),
+                'id_dokter' => generateId($this->doctorModel, 'id_dokter', 'DR', 10),
+                'nip' => $this->request->getPost('f_nip'),
+                'nama' => $this->request->getPost('f_nama'),
+                'tipe_dokter' => $this->request->getPost('f_tipe_dokter'),
+                'tempat_lahir' => $this->request->getPost('f_tempat_lahir'),
+                'tanggal_lahir' => $this->request->getPost('f_tanggal_lahir'),
+                'jenis_kelamin' => $this->request->getPost('f_jenis_kelamin'),
+                'telepon' => $this->request->getPost('f_telepon'),
                 'username' => $this->request->getPost('f_username'),
-                'education' => $this->request->getPost('f_education'),
                 'email' => $this->request->getPost('f_email'),
                 'password' => $this->request->getPost('f_password'),
                 'photo' => $photoName,
             ];
 
             $validation->setRules([
-                'fullname' => 'required|min_length[3]|max_length[255]',
-                'doctor_type' => 'required|in_list[Umum,Gigi]',
-                "username" => "required|min_length[3]|max_length[255]|is_unique[tbl_users.username]",
-                'education' => 'permit_empty|min_length[3]|max_length[255]',
-                'email' => 'required|valid_email|min_length[3]|max_length[255]',
-                'password' => 'required|min_length[3]|max_length[255]',
-                'photo' => 'permit_empty|is_image[f_photo]|mime_in[f_photo,image/jpg,image/jpeg,image/gif,image/png]|max_size[f_photo,foto,2048]',
+                'nip' => [
+                    'label' => 'NIP',
+                    'rules' => 'required|numeric|min_length[16]|max_length[16]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'numeric' => '{field} hanya boleh berisi angka',
+                        'min_length' => '{field} minimal 16 karakter',
+                        'max_length' => '{field} maksimal 16 karakter',
+                    ],
+                ],
+                'nama' => [
+                    'label' => 'Nama',
+                    'rules' => 'required|min_length[3]|max_length[100]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 100 karakter',
+                    ],
+                ],
+                'tipe_dokter' => [
+                    'label' => 'Tipe Dokter',
+                    'rules' => 'required|min_length[3]|max_length[100]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 100 karakter',
+                    ],
+                ],
+                'tempat_lahir' => [
+                    'label' => 'Tempat Lahir',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+                'tanggal_lahir' => [
+                    'label' => 'Tanggal Lahir',
+                    'rules' => 'required|valid_date',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'valid_date' => '{field} tidak valid',
+                    ],
+                ],
+                'jenis_kelamin' => [
+                    'label' => 'Jenis Kelamin',
+                    'rules' => 'required|in_list[Laki-laki,Perempuan]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'in_list' => '{field} tidak valid',
+                    ],
+                ],
+                'telepon' => [
+                    'label' => 'Telepon',
+                    'rules' => 'required|numeric|min_length[10]|max_length[20]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'numeric' => '{field} hanya boleh berisi angka',
+                        'min_length' => '{field} minimal 10 karakter',
+                        'max_length' => '{field} maksimal 20 karakter',
+                    ],
+                ],
+                'username' => [
+                    'label' => 'Username',
+                    'rules' => 'required|is_unique[tb_user.username]|min_length[3]|max_length[100]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'is_unique' => '{field} sudah terdaftar',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 100 karakter',
+                    ],
+                ],
+                'email' => [
+                    'label' => 'Email',
+                    'rules' => 'required|valid_email',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'valid_email' => '{field} tidak valid',
+                    ],
+                ],
+                'password' => [
+                    'label' => 'Password',
+                    'rules' => 'required|min_length[3]|max_length[20]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 20 karakter',
+                    ],
+                ],
+                'photo' => [
+                    'label' => 'Photo',
+                    'rules' => 'permit_empty|max_size[f_photo,2048]|mime_in[f_photo,image/jpg,image/jpeg,image/png]|is_image[f_photo]',
+                    'errors' => [
+                        'max_size' => '{field} tidak boleh lebih dari 1MB',
+                        'mime_in' => '{field} harus berupa file gambar',
+                        'is_image' => '{field} harus berupa file gambar',
+                    ],
+                ],
             ]);
 
             if ($validation->run($data)) {
@@ -65,9 +159,9 @@ class Doctor extends BaseController
 
                 // Insert data ke tabel user
                 $dataUser = [
-                    'id_role' => 2,
-                    'id_clinic' => null,
-                    'fullname' => $this->request->getPost('f_fullname'),
+                    'role' => "DOKTER",
+                    'id_klinik' => null,
+                    'nama' => $this->request->getPost('f_nama'),
                     'username' => $this->request->getPost('f_username'),
                     'email' => $this->request->getPost('f_email'),
                     'password' => password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT),
@@ -82,11 +176,15 @@ class Doctor extends BaseController
 
                 // Insert data ke tabel doctor
                 $dataDoctor = [
-                    'id_doctor' => $data['id_doctor'],
+                    'id_dokter' => $data['id_dokter'],
                     'id_user' => $idUser,
-                    'fullname' => $this->request->getPost('f_fullname'),
-                    'doctor_type' => $this->request->getPost('f_doctor_type'),
-                    'education' => $this->request->getPost('f_education'),
+                    'nip' => $this->request->getPost('f_nip'),
+                    'nama' => $this->request->getPost('f_nama'),
+                    'tipe_dokter' => $this->request->getPost('f_tipe_dokter'),
+                    'tempat_lahir' => $this->request->getPost('f_tempat_lahir'),
+                    'tanggal_lahir' => $this->request->getPost('f_tanggal_lahir'),
+                    'jenis_kelamin' => $this->request->getPost('f_jenis_kelamin'),
+                    'telepon' => $this->request->getPost('f_telepon'),
                 ];
                 $insert = $this->doctorModel->save($dataDoctor);
                 if ($insert) {
@@ -127,39 +225,132 @@ class Doctor extends BaseController
             $oldUsername = $this->request->getPost('f_old_username');
 
             $data = [
-                'id_doctor' => generateId($this->doctorModel, 'id_doctor', 'DR', 10),
-                'fullname' => $this->request->getPost('f_fullname'),
-                'doctor_type' => $this->request->getPost('f_doctor_type'),
+                'id_dokter' => generateId($this->doctorModel, 'id_dokter', 'DR', 10),
+                'nip' => $this->request->getPost('f_nip'),
+                'nama' => $this->request->getPost('f_nama'),
+                'tipe_dokter' => $this->request->getPost('f_tipe_dokter'),
+                'tempat_lahir' => $this->request->getPost('f_tempat_lahir'),
+                'tanggal_lahir' => $this->request->getPost('f_tanggal_lahir'),
+                'jenis_kelamin' => $this->request->getPost('f_jenis_kelamin'),
+                'telepon' => $this->request->getPost('f_telepon'),
                 'username' => $this->request->getPost('f_username'),
-                'education' => $this->request->getPost('f_education'),
                 'email' => $this->request->getPost('f_email'),
                 'password' => $this->request->getPost('f_password'),
                 'photo' => $photoName,
             ];
 
             $validation->setRules([
-                'fullname' => 'required|min_length[3]|max_length[255]',
-                'doctor_type' => 'required|in_list[Umum,Gigi]',
-                "username" => "required|min_length[3]|max_length[255]|is_unique[tbl_users.username,username,$oldUsername]",
-                'education' => 'permit_empty|min_length[3]|max_length[255]',
-                'email' => 'required|valid_email|min_length[3]|max_length[255]',
-                'password' => 'permit_empty|min_length[3]|max_length[255]',
-                'photo' => 'permit_empty|is_image[f_photo]|mime_in[f_photo,image/jpg,image/jpeg,image/gif,image/png]|max_size[f_photo,foto,2048]',
+                'nip' => [
+                    'label' => 'NIP',
+                    'rules' => 'required|numeric|min_length[16]|max_length[16]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'numeric' => '{field} hanya boleh berisi angka',
+                        'min_length' => '{field} minimal 16 karakter',
+                        'max_length' => '{field} maksimal 16 karakter',
+                    ],
+                ],
+                'nama' => [
+                    'label' => 'Nama',
+                    'rules' => 'required|min_length[3]|max_length[100]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 100 karakter',
+                    ],
+                ],
+                'tipe_dokter' => [
+                    'label' => 'Tipe Dokter',
+                    'rules' => 'required|min_length[3]|max_length[100]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 100 karakter',
+                    ],
+                ],
+                'tempat_lahir' => [
+                    'label' => 'Tempat Lahir',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                    ],
+                ],
+                'tanggal_lahir' => [
+                    'label' => 'Tanggal Lahir',
+                    'rules' => 'required|valid_date',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'valid_date' => '{field} tidak valid',
+                    ],
+                ],
+                'jenis_kelamin' => [
+                    'label' => 'Jenis Kelamin',
+                    'rules' => 'required|in_list[Laki-laki,Perempuan]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'in_list' => '{field} tidak valid',
+                    ],
+                ],
+                'telepon' => [
+                    'label' => 'Telepon',
+                    'rules' => 'required|numeric|min_length[10]|max_length[20]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'numeric' => '{field} hanya boleh berisi angka',
+                        'min_length' => '{field} minimal 10 karakter',
+                        'max_length' => '{field} maksimal 20 karakter',
+                    ],
+                ],
+                'username' => [
+                    'label' => 'Username',
+                    'rules' => "required|min_length[3]|max_length[100]|is_unique[tb_user.username,username,$oldUsername]",
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'is_unique' => '{field} sudah terdaftar',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 100 karakter',
+                        'is_unique' => '{field} sudah terdaftar',
+                    ],
+                ],
+                'email' => [
+                    'label' => 'Email',
+                    'rules' => 'required|valid_email',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'valid_email' => '{field} tidak valid',
+                    ],
+                ],
+                'password' => [
+                    'label' => 'Password',
+                    'rules' => 'permit_empty|min_length[3]|max_length[20]',
+                    'errors' => [
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 20 karakter',
+                    ],
+                ],
+                'photo' => [
+                    'label' => 'Photo',
+                    'rules' => 'permit_empty|max_size[f_photo,2048]|mime_in[f_photo,image/jpg,image/jpeg,image/png]|is_image[f_photo]',
+                    'errors' => [
+                        'max_size' => '{field} tidak boleh lebih dari 1MB',
+                        'mime_in' => '{field} harus berupa file gambar',
+                        'is_image' => '{field} harus berupa file gambar',
+                    ],
+                ],
             ]);
-
 
             if ($validation->run($data)) {
                 $data['password'] = password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT);
                 if ($photo->getError() !== 4) {
                     $photo->move(ROOTPATH . 'public/uploads/photo/', $photoName);
-                    if ($oldPhoto !== NULL) {
+                    if (!isset($oldPhoto) || $oldPhoto != '') {
                         unlink(ROOTPATH . 'public/uploads/photo/' .  $oldPhoto);
                     }
                 }
 
                 // Update data ke tabel user
                 $dataUser = [
-                    'fullname' => $this->request->getPost('f_fullname'),
+                    'nama' => $this->request->getPost('f_nama'),
                     'username' => $this->request->getPost('f_username'),
                     'email' => $this->request->getPost('f_email'),
                     'password' => password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT),
@@ -178,12 +369,16 @@ class Doctor extends BaseController
 
                 // Update data ke tabel doctor
                 $dataDoctor = [
-                    'fullname' => $this->request->getPost('f_fullname'),
-                    'doctor_type' => $this->request->getPost('f_doctor_type'),
-                    'education' => $this->request->getPost('f_education'),
+                    'nip' => $this->request->getPost('f_nip'),
+                    'nama' => $this->request->getPost('f_nama'),
+                    'tipe_dokter' => $this->request->getPost('f_tipe_dokter'),
+                    'tempat_lahir' => $this->request->getPost('f_tempat_lahir'),
+                    'tanggal_lahir' => $this->request->getPost('f_tanggal_lahir'),
+                    'jenis_kelamin' => $this->request->getPost('f_jenis_kelamin'),
+                    'telepon' => $this->request->getPost('f_telepon'),
                 ];
 
-                $update = $this->doctorModel->update($this->request->getPost('f_id_doctor'), $dataDoctor);
+                $update = $this->doctorModel->update($this->request->getPost('f_id_dokter'), $dataDoctor);
 
                 if ($update) {
                     session()->setFlashdata('message', 'Data berhasil disimpan');

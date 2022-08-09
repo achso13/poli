@@ -5,10 +5,9 @@
                 <thead>
                     <tr class="bg-light">
                         <td class="text-primary text-center" width="5%">No</td>
-                        <td class="text-primary text-center" width="10%">ID Obat</td>
-                        <td class="text-primary text-center">Label</td>
-                        <td class="text-primary text-center" width="30%">Deskripsi</td>
-                        <td class="text-primary text-center" width="5%">Stock</td>
+                        <td class="text-primary text-center" width="15%">ID Obat</td>
+                        <td class="text-primary text-center">Nama Obat</td>
+                        <td class="text-primary text-center" width="5%">Stok</td>
                         <td class="text-primary text-center" width="5%">Satuan</td>
                         <td class="text-primary text-center">Action</td>
                     </tr>
@@ -18,22 +17,21 @@
                     <?php foreach ($result as $row) : ?>
                         <tr>
                             <td><?= $no ?></td>
-                            <td><?= $row['id_medicine'] ?></td>
-                            <td><?= $row['medicine_name'] ?></td>
-                            <td><?= $row['description'] ?></td>
-                            <td><?= $row['stock'] ?></td>
-                            <td><?= $row['unit'] ?></td>
-                            <td width="17%">
+                            <td><?= $row['id_obat'] ?></td>
+                            <td><?= $row['nama_obat'] ?></td>
+                            <td><?= $row['stok'] ?></td>
+                            <td><?= $row['satuan'] ?></td>
+                            <td width="25%">
 
-                                <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_medicine'] ?>" data-toggle="modal" data-target="#form-modals">
+                                <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_obat'] ?>" data-toggle="modal" data-target="#form-modals">
                                     <i class="mr-1 fa fa-pen-square"></i> Edit
                                 </button>
 
-                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?= $row['id_medicine'] ?>">
+                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?= $row['id_obat'] ?>">
                                     <i class="mr-1 fa fa-trash-alt"></i> Delete
                                 </button>
 
-                                <div class="modal fade" id="modals-delete-<?= $row['id_medicine'] ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="modals-delete-<?= $row['id_obat'] ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -44,7 +42,7 @@
                                                 <p class="text-center"><i class="fa fa-info-circle"></i> Do you really want to delete this record ?</p>
                                             </div>
                                             <div class="modal-footer">
-                                                <?= form_open('medicine/delete/' . $row['id_medicine']) ?>
+                                                <?= form_open('medicine/delete/' . $row['id_obat']) ?>
                                                 <?= csrf_field() ?>
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <button type="submit" class="btn btn-danger btn-delete">

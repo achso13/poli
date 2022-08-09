@@ -5,8 +5,9 @@
             <thead>
                 <tr class="bg-light">
                     <td class="text-primary text-center" width="5%">No</td>
+                    <td class="text-primary text-center">NIP</td>
                     <td class="text-primary text-center">Nama</td>
-                    <td class="text-primary text-center">Jenis</td>
+                    <td class="text-primary text-center">Tipe</td>
                     <td class="text-primary text-center">Username</td>
                     <td class="text-primary text-center">Email</td>
                     <td class="text-primary text-center">Foto</td>
@@ -18,8 +19,9 @@
                 <?php foreach ($result as $row) : ?>
                     <tr>
                         <td><?= $no ?></td>
-                        <td><?= $row['fullname'] ?></td>
-                        <td><?= $row['doctor_type'] ?></td>
+                        <td><?= $row['nip'] ?></td>
+                        <td><?= $row['nama'] ?></td>
+                        <td><?= $row['tipe_dokter'] ?></td>
                         <td><?= $row['username'] ?></td>
                         <td><?= $row['email'] ?></td>
                         <td>
@@ -29,14 +31,14 @@
                                 <img src="<?= base_url('uploads/photo/' . $row['photo']) ?>" class="img-responsive user-photo rounded-circle">
                             <?php endif; ?>
                         </td>
-                        <td width="17%">
-                            <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_doctor'] ?>" data-toggle="modal" data-target="#form-modals">
+                        <td width="25%">
+                            <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_dokter'] ?>" data-toggle="modal" data-target="#form-modals">
                                 <i class="mr-1 fa fa-pen-square"></i> Edit
                             </button>
-                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?= $row['id_doctor'] ?>">
+                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?= $row['id_dokter'] ?>">
                                 <i class="mr-1 fa fa-trash-alt"></i> Delete
                             </button>
-                            <div class="modal fade" id="modals-delete-<?= $row['id_doctor'] ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="modals-delete-<?= $row['id_dokter'] ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog " role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -47,7 +49,7 @@
                                             <p class="text-center"><i class="fa fa-info-circle"></i> Do you really want to delete this record ?</p>
                                         </div>
                                         <div class="modal-footer">
-                                            <?= form_open('doctor/delete/' . $row['id_doctor']) ?>
+                                            <?= form_open('doctor/delete/' . $row['id_dokter']) ?>
                                             <?= csrf_field() ?>
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="btn btn-danger btn-delete">

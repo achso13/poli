@@ -18,13 +18,13 @@
 <div class="row mb-3">
 	<div class="col-md-12">
 		<div class="btn-group ">
-			<a href="<?= base_url('users/role/1') ?>" class="btn btn-white btn-sm btn-edit text-primary">
+			<a href="<?= base_url('users/role/admin') ?>" class="btn btn-white btn-sm btn-edit text-primary">
 				Administrator
 			</a>
-			<a href="<?= base_url('users/role/4') ?>" class="btn btn-white btn-sm btn-edit text-primary ml-2">
+			<a href="<?= base_url('users/role/klinik') ?>" class="btn btn-white btn-sm btn-edit text-primary ml-2">
 				Klinik
 			</a>
-			<a href="<?= base_url('users/role/5') ?>" class="btn btn-white btn-sm btn-edit text-primary ml-2">
+			<a href="<?= base_url('users/role/apoteker') ?>" class="btn btn-white btn-sm btn-edit text-primary ml-2">
 				Apoteker
 			</a>
 		</div>

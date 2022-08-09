@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\UserModel;
 use App\Models\PatientModel;
+use App\Models\BiroModel;
+use App\Models\UnitKerjaModel;
 
 class Patient extends BaseController
 {
@@ -12,6 +14,8 @@ class Patient extends BaseController
     {
         $this->userModel = new UserModel;
         $this->patientModel = new PatientModel;
+        $this->biroModel = new BiroModel;
+        $this->unitKerjaModel = new UnitKerjaModel;
     }
 
     public function index()
@@ -25,7 +29,11 @@ class Patient extends BaseController
 
     public function add()
     {
-        return view('patient/add');
+
+        $data = [
+            'biro' => $this->biroModel->findAll(),
+        ];
+        return view('patient/add', $data);
     }
 
     public function store()
@@ -38,31 +46,35 @@ class Patient extends BaseController
             $photoName = $photo->getError() === 4 ? "" : $photo->getRandomName();
 
             $data = [
-                'id_patient' => generateId($this->patientModel, 'id_patient', 'PSN', 10),
+                'id_pasien' => generateId($this->patientModel, 'id_pasien', 'PSN', 10),
+                'id_biro' => $this->request->getPost('f_id_biro'),
+                'id_unitkerja' => $this->request->getPost('f_id_unitkerja'),
                 'nip' => $this->request->getPost('f_nip'),
-                'fullname' => $this->request->getPost('f_fullname'),
-                'address' => $this->request->getPost('f_address'),
-                'phone' => $this->request->getPost('f_phone'),
-                'blood_type' => $this->request->getPost('f_blood_type'),
-                'birth_date' => $this->request->getPost('f_birth_date'),
-                'admission_date' => $this->request->getPost('f_admission_date'),
-                'username' => $this->request->getPost('f_username'),
+                'nama' => $this->request->getPost('f_nama'),
+                'alamat_rumah' => $this->request->getPost('f_alamat_rumah'),
+                'telepon' => $this->request->getPost('f_telepon'),
+                'jenis_kelamin' => $this->request->getPost('f_jenis_kelamin'),
+                'tempat_lahir' => $this->request->getPost('f_tempat_lahir'),
+                'tanggal_lahir' => $this->request->getPost('f_tanggal_lahir'),
+                'username' => $this->request->getPost('f_nip'),
                 'password' => $this->request->getPost('f_password'),
                 'email' => $this->request->getPost('f_email'),
             ];
 
             $validation->setRules([
-                "nip" => "required|min_length[16]|max_length[16]",
-                "fullname" => "required|min_length[3]|max_length[255]",
-                "address" => "required|min_length[3]|max_length[255]",
-                "phone" => "required|min_length[3]|max_length[255]|numeric",
-                "blood_type" => "required|in_list[A+, A-, B+, B-, O+, O-, AB+, AB-]",
-                "birth_date" => "required|valid_date",
-                "admission_date" => "required|valid_date",
-                "username" => "required|min_length[3]|max_length[255]|is_unique[tbl_users.username]",
-                "password" => "required|min_length[3]|max_length[255]",
-                "email" => "required|valid_email|min_length[3]|max_length[255]",
-                "photo" => "permit_empty|is_image[f_photo]|mime_in[f_photo,image/jpg,image/jpeg,image/gif,image/png]|max_size[f_photo,foto,2048]",
+                'id_biro' => ['label' => 'Biro', 'rules' => 'required'],
+                'id_unitkerja' => ['label' => 'Bagian', 'rules' => 'required'],
+                "nip" => ['label' => 'NIP', 'rules' => "required|min_length[16]|max_length[16]|is_unique[tb_user.username]"],
+                "nama" => ['label' => 'Nama', 'rules' => "required|min_length[3]|max_length[255]"],
+                "alamat_rumah" => ['label' => 'Alamat Rumah', 'rules' => "required|min_length[3]|max_length[255]"],
+                "telepon" => ['label' => 'Telepon', 'rules' => "required|numeric|min_length[10]|max_length[20]"],
+                "jenis_kelamin" => ['label' => 'Jenis Kelamin', 'rules' => "required|in_list[Laki-laki,Perempuan]"],
+                "tempat_lahir" => ['label' => 'Tempat Lahir', 'rules' => "required|min_length[3]|max_length[255]"],
+                "tanggal_lahir" => ['label' => 'Tanggal Lahir', 'rules' => "required|valid_date"],
+                // "username" => ['label' => 'Username', 'rules' => "required|min_length[3]|max_length[255]|is_unique[tb_user.username]"],
+                "password" => ['label' => 'Password', 'rules' => "required|min_length[3]|max_length[255]"],
+                "email" => ['label' => 'Email', 'rules' => "required|valid_email|min_length[3]|max_length[255]"],
+                "photo" => ['label' => 'Photo', 'rules' => "permit_empty|is_image[f_photo]|mime_in[f_photo,image/jpg,image/jpeg,image/gif,image/png]|max_size[f_photo,foto,2048]"],
             ]);
 
             if ($validation->run($data)) {
@@ -72,13 +84,13 @@ class Patient extends BaseController
 
                 // Insert data ke tabel user
                 $dataUser = [
-                    'id_role' => 3,
-                    'id_clinic' => null,
-                    'fullname' => $this->request->getPost('f_fullname'),
-                    'username' => $this->request->getPost('f_username'),
+                    'id_klinik' => null,
+                    'nama' => $this->request->getPost('f_nama'),
+                    'username' => $this->request->getPost('f_nip'),
                     'email' => $this->request->getPost('f_email'),
                     'password' => password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT),
                     'photo' => $photoName,
+                    'role' => "PASIEN"
                 ];
 
                 if ($photo->getError() === 4) {
@@ -90,15 +102,16 @@ class Patient extends BaseController
 
                 // Insert data ke tabel patient
                 $dataPatient = [
-                    'id_patient' => $data['id_patient'],
+                    'id_pasien' => $data['id_pasien'],
+                    'id_unitkerja' => $data['id_unitkerja'],
                     'id_user' => $idUser,
                     'nip' => $data['nip'],
-                    'fullname' => $data['fullname'],
-                    'address' => $data['address'],
-                    'phone' => $data['phone'],
-                    'blood_type' => $data['blood_type'],
-                    'birth_date' => $data['birth_date'],
-                    'admission_date' => $data['admission_date'],
+                    'nama' => $data['nama'],
+                    'alamat_rumah' => $data['alamat_rumah'],
+                    'telepon' => $data['telepon'],
+                    'jenis_kelamin' => $data['jenis_kelamin'],
+                    'tempat_lahir' => $data['tempat_lahir'],
+                    'tanggal_lahir' => $data['tanggal_lahir'],
                 ];
 
                 $insert = $this->patientModel->save($dataPatient);
@@ -124,7 +137,18 @@ class Patient extends BaseController
         $id = $this->request->getPost('id');
         $data = [
             'result' => $this->patientModel->getPatients($id),
+            'biro' => $this->biroModel->findAll(),
         ];
+
+        $idBiro = $data['result']['id_biro'];
+
+        $data['unitkerja'] = $this
+            ->unitKerjaModel
+            ->where(
+                'id_biro',
+                $idBiro
+            )->findAll();
+
         return view('patient/edit', $data);
     }
 
@@ -138,33 +162,37 @@ class Patient extends BaseController
             $photoName = $photo->getError() === 4 ? "" : $photo->getRandomName();
             $oldPhoto = $this->request->getPost('f_old_photo');
             $oldUsername = $this->request->getPost('f_old_username');
+            // dd($oldPhoto);
 
             $data = [
-                'id_patient' => generateId($this->patientModel, 'id_patient', 'PSN', 10),
+                'id_biro' => $this->request->getPost('f_id_biro'),
+                'id_unitkerja' => $this->request->getPost('f_id_unitkerja'),
                 'nip' => $this->request->getPost('f_nip'),
-                'fullname' => $this->request->getPost('f_fullname'),
-                'address' => $this->request->getPost('f_address'),
-                'phone' => $this->request->getPost('f_phone'),
-                'blood_type' => $this->request->getPost('f_blood_type'),
-                'birth_date' => $this->request->getPost('f_birth_date'),
-                'admission_date' => $this->request->getPost('f_admission_date'),
-                'username' => $this->request->getPost('f_username'),
+                'nama' => $this->request->getPost('f_nama'),
+                'alamat_rumah' => $this->request->getPost('f_alamat_rumah'),
+                'telepon' => $this->request->getPost('f_telepon'),
+                'jenis_kelamin' => $this->request->getPost('f_jenis_kelamin'),
+                'tempat_lahir' => $this->request->getPost('f_tempat_lahir'),
+                'tanggal_lahir' => $this->request->getPost('f_tanggal_lahir'),
+                'username' => $this->request->getPost('f_nip'),
                 'password' => $this->request->getPost('f_password'),
                 'email' => $this->request->getPost('f_email'),
             ];
 
             $validation->setRules([
-                "nip" => "required|min_length[16]|max_length[16]",
-                "fullname" => "required|min_length[3]|max_length[255]",
-                "address" => "required|min_length[3]|max_length[255]",
-                "phone" => "required|min_length[3]|max_length[255]|numeric",
-                "blood_type" => "required|in_list[A+, A-, B+, B-, O+, O-, AB+, AB-]",
-                "birth_date" => "required|valid_date",
-                "admission_date" => "required|valid_date",
-                "username" => "required|min_length[3]|max_length[255]|is_unique[tbl_users.username,username,$oldUsername]",
-                "password" => "permit_empty|min_length[3]|max_length[255]",
-                "email" => "required|valid_email|min_length[3]|max_length[255]",
-                "photo" => "permit_empty|is_image[f_photo]|mime_in[f_photo,image/jpg,image/jpeg,image/gif,image/png]|max_size[f_photo,foto,2048]",
+                "id_biro" => ['label' => 'Biro', 'rules' => "required"],
+                "id_unitkerja" => ['label' => 'Bagian', 'rules' => "required"],
+                "nip" => ['label' => 'NIP', 'rules' => "required|min_length[16]|max_length[16]|is_unique[tb_pasien.nip,nip,$oldUsername]"],
+                "nama" => ['label' => 'Nama', 'rules' => "required|min_length[3]|max_length[255]"],
+                "alamat_rumah" => ['label' => 'Alamat Rumah', 'rules' => "required|min_length[3]|max_length[255]"],
+                "telepon" => ['label' => 'Telepon', 'rules' => "required|min_length[3]|max_length[255]|numeric"],
+                "jenis_kelamin" => ['label' => 'Jenis Kelamin', 'rules' => "required|in_list[Laki-laki,Perempuan]"],
+                "tempat_lahir" => ['label' => 'Tempat Lahir', 'rules' => "required|min_length[3]|max_length[255]"],
+                "tanggal_lahir" => ['label' => 'Tanggal Lahir', 'rules' => "required|valid_date"],
+                // "username" => ['label' => 'Username', 'rules' => "required|min_length[3]|max_length[255]"],
+                "password" => ['label' => 'Password', 'rules' => "permit_empty|min_length[3]|max_length[255]"],
+                "email" => ['label' => 'Email', 'rules' => "required|valid_email|min_length[3]|max_length[255]"],
+                "photo" => ['label' => 'Photo', 'rules' => "permit_empty|is_image[f_photo]|mime_in[f_photo,image/jpg,image/jpeg,image/gif,image/png]|max_size[f_photo,foto,2048]"],
             ]);
 
 
@@ -172,14 +200,14 @@ class Patient extends BaseController
                 $data['password'] = password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT);
                 if ($photo->getError() !== 4) {
                     $photo->move(ROOTPATH . 'public/uploads/photo/', $photoName);
-                    if ($oldPhoto !== NULL) {
+                    if (!isset($oldPhoto) && $oldPhoto != "") {
                         unlink(ROOTPATH . 'public/uploads/photo/' .  $oldPhoto);
                     }
                 }
 
                 // Update data ke tabel user
                 $dataUser = [
-                    'fullname' => $this->request->getPost('f_fullname'),
+                    'nama' => $this->request->getPost('f_nama'),
                     'username' => $this->request->getPost('f_username'),
                     'email' => $this->request->getPost('f_email'),
                     'password' => password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT),
@@ -198,16 +226,17 @@ class Patient extends BaseController
 
                 // Update data ke tabel patient
                 $dataPatient = [
+                    'id_unitkerja' => $data['id_unitkerja'],
                     'nip' => $data['nip'],
-                    'fullname' => $data['fullname'],
-                    'address' => $data['address'],
-                    'phone' => $data['phone'],
-                    'blood_type' => $data['blood_type'],
-                    'birth_date' => $data['birth_date'],
-                    'admission_date' => $data['admission_date'],
+                    'nama' => $data['nama'],
+                    'alamat_rumah' => $data['alamat_rumah'],
+                    'telepon' => $data['telepon'],
+                    'jenis_kelamin' => $data['jenis_kelamin'],
+                    'tempat_lahir' => $data['tempat_lahir'],
+                    'tanggal_lahir' => $data['tanggal_lahir'],
                 ];
 
-                $update = $this->patientModel->update($this->request->getPost('f_id_patient'), $dataPatient);
+                $update = $this->patientModel->update($this->request->getPost('f_id_pasien'), $dataPatient);
 
                 if ($update) {
                     session()->setFlashdata('message', 'Data berhasil disimpan');

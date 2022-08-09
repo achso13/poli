@@ -6,9 +6,9 @@ function getLoggedInUser()
 
     session()->set(
         [
-            'log_role' => $user['id_role'],
-            'log_fullname' => $user['fullname'],
-            'log_departement' => $user['id_clinic'],
+            'log_role' => $user['role'],
+            'log_nama' => $user['nama'],
+            'log_departement' => $user['id_klinik'],
             'log_photo' => $user['photo'],
         ]
     );

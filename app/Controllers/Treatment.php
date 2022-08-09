@@ -34,19 +34,19 @@ class Treatment extends BaseController
 
             $data = [
                 'id_treatment' => generateId($this->treatmentModel, 'id_treatment', 'TRT', 10),
-                'id_clinic' => $this->request->getPost('f_id_clinic'),
-                'treatment_name' => $this->request->getPost('f_treatment_name'),
-                'description' => $this->request->getPost('f_description'),
-                'open_time' => $this->request->getPost('f_open_time'),
-                'close_time' => $this->request->getPost('f_close_time'),
+                'id_klinik' => $this->request->getPost('f_id_klinik'),
+                'nama_treatment' => $this->request->getPost('f_nama_treatment'),
+                'deskripsi' => $this->request->getPost('f_deskripsi'),
+                'jam_buka' => $this->request->getPost('f_jam_buka'),
+                'jam_tutup' => $this->request->getPost('f_jam_tutup'),
             ];
 
             $validation->setRules([
-                'id_clinic' => 'required',
-                'treatment_name' => 'required|min_length[3]|max_length[100]',
-                'description' => 'permit_empty|min_length[3]|max_length[225]',
-                'open_time' => 'required|min_length[3]|max_length[20]',
-                'close_time' => 'required|min_length[3]|max_length[20]',
+                'id_klinik' => ['label' => 'Klinik', 'rules' => 'required'],
+                'nama_treatment' => ['label' => 'Nama Treatment', 'rules' => 'required|min_length[3]|max_length[100]'],
+                'deskripsi' => ['label' => 'Deskripsi', 'rules' => 'permit_empty|max_length[225]'],
+                'jam_buka' => ['label' => 'Jam Buka', 'rules' => 'required|min_length[3]|max_length[20]'],
+                'jam_tutup' => ['label' => 'Jam Tutup', 'rules' => 'required|min_length[3]|max_length[20]'],
             ]);
 
             if ($validation->run($data)) {
@@ -84,19 +84,19 @@ class Treatment extends BaseController
 
             $data = [
                 'id_treatment' => generateId($this->treatmentModel, 'id_treatment', 'TRT', 10),
-                'id_clinic' => $this->request->getPost('f_id_clinic'),
-                'treatment_name' => $this->request->getPost('f_treatment_name'),
-                'description' => $this->request->getPost('f_description'),
-                'open_time' => $this->request->getPost('f_open_time'),
-                'close_time' => $this->request->getPost('f_close_time'),
+                'id_klinik' => $this->request->getPost('f_id_klinik'),
+                'nama_treatment' => $this->request->getPost('f_nama_treatment'),
+                'deskripsi' => $this->request->getPost('f_deskripsi'),
+                'jam_buka' => $this->request->getPost('f_jam_buka'),
+                'jam_tutup' => $this->request->getPost('f_jam_tutup'),
             ];
 
             $validation->setRules([
-                'id_clinic' => 'required',
-                'treatment_name' => 'required|min_length[3]|max_length[100]',
-                'description' => 'permit_empty|min_length[3]|max_length[225]',
-                'open_time' => 'required',
-                'close_time' => 'required',
+                'id_klinik' => ['label' => 'Klinik', 'rules' => 'required'],
+                'nama_treatment' => ['label' => 'Nama Treatment', 'rules' => 'required|min_length[3]|max_length[100]'],
+                'deskripsi' => ['label' => 'Deskripsi', 'rules' => 'permit_empty|max_length[225]'],
+                'jam_buka' => ['label' => 'Jam Buka', 'rules' => 'required|min_length[3]|max_length[20]'],
+                'jam_tutup' => ['label' => 'Jam Tutup', 'rules' => 'required|min_length[3]|max_length[20]'],
             ]);
 
             if ($validation->run($data)) {
