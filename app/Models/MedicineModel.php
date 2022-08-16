@@ -15,8 +15,20 @@ class MedicineModel extends Model
         'stok',
         'satuan',
     ];
-    // protected $useTimestamps = true;
-    // protected $dateFormat    = 'datetime';
-    // protected $createdField  = 'created_at';
-    // protected $updatedField  = 'updated_at';
+    protected $useTimestamps = true;
+
+    public function addStock($id_obat, $jumlah)
+    {
+        $oldStock = $this->find($id_obat)["stok"];
+        $newStock = $oldStock + $jumlah;
+        return $this->update($id_obat, ['stok' => $newStock]);
+    }
+
+    public function removeStock($id_obat, $jumlah)
+    {
+        $oldStock = $this->find($id_obat)["stok"];
+        $newStock = $oldStock - $jumlah;
+
+        return $this->update($id_obat, ['stok' => $newStock]);
+    }
 }

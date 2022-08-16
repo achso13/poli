@@ -71,6 +71,13 @@
             </a>
       </li>
 
+      <li class="nav-item">
+            <a class="nav-link " href="<?= base_url('unitkerja') ?>">
+                  <i class="material-icons">work</i>
+                  <span>Unit Kerja</span>
+            </a>
+      </li>
+
       <!-- <h6 class="main-sidebar__nav-title">Report</h6> -->
 
       <!--  <li class="nav-item">

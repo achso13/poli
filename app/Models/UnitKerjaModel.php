@@ -9,10 +9,8 @@ class UnitKerjaModel extends Model
     protected $table            = 'tb_unitkerja';
     protected $primaryKey       = 'id_unitkerja';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'id_unitkerja',
         'nama_bagian',
         'id_biro',
     ];
@@ -28,8 +26,12 @@ class UnitKerjaModel extends Model
         $builder = $this->db->table($this->table);
         $builder->select('tb_unitkerja.*, tb_biro.nama_biro');
         $builder->join('tb_biro', 'tb_biro.id_biro = tb_unitkerja.id_biro', 'left');
-        $builder->where('tb_unitkerja.id_unitkerja', $id);
-        $query = $builder->get();
-        return $query->getRowArray();
+        if ($id != NULL) {
+            $builder->where('tb_unitkerja.id_unitkerja', $id);
+            return $builder->get()->getRowArray();
+        } else {
+            $query = $builder->get();
+            return $query->getResultArray();
+        }
     }
 }

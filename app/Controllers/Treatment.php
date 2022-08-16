@@ -4,12 +4,14 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\TreatmentModel;
+use App\Models\UserModel;
 
 class Treatment extends BaseController
 {
     public function __construct()
     {
         $this->treatmentModel = new TreatmentModel();
+        $this->userModel = new UserModel();
     }
 
     public function index()
@@ -40,6 +42,10 @@ class Treatment extends BaseController
                 'jam_buka' => $this->request->getPost('f_jam_buka'),
                 'jam_tutup' => $this->request->getPost('f_jam_tutup'),
             ];
+
+            if (session()->get('log_role') === 'KLINIK') {
+                $data['id_klinik'] = $this->userModel->where('id_user', session()->get('log_id'))->first()['id_klinik'];
+            }
 
             $validation->setRules([
                 'id_klinik' => ['label' => 'Klinik', 'rules' => 'required'],

@@ -10,6 +10,11 @@ class BatchSeeder extends Seeder
 	{
 		$this->call('BiroSeeder');
 		$this->call('BagianSeeder');
+		$this->call('KlinikSeeder');
+		$this->call('TreatmentSeeder');
 		$this->call('UserSeeder');
+		$this->call('DokterSeeder');
+		$this->call('PasienSeeder');
+		$this->call('JadwalDokterSeeder');
 	}
 }

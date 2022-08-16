@@ -40,7 +40,7 @@ class Clinic extends BaseController
                 'nama_klinik' => [
                     'label' => 'Nama Klinik',
                     'rules' => 'required|min_length[3]|max_length[100]',
-                    'error' => [
+                    'errors' => [
                         'required' => 'Nama Klinik tidak boleh kosong',
                         'min_length' => 'Nama Klinik minimal 3 karakter',
                         'max_length' => 'Nama Klinik maksimal 100 karakter',
@@ -89,7 +89,7 @@ class Clinic extends BaseController
                 'nama_klinik' => [
                     'label' => 'Nama Klinik',
                     'rules' => 'required|min_length[3]|max_length[100]',
-                    'error' => [
+                    'errors' => [
                         'required' => 'Nama Klinik tidak boleh kosong',
                         'min_length' => 'Nama Klinik minimal 3 karakter',
                         'max_length' => 'Nama Klinik maksimal 100 karakter',

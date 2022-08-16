@@ -11,7 +11,7 @@ class Kunjungan extends Migration
         $this->forge->addField([
             'id_kunjungan' => [
                 'type' => 'VARCHAR',
-                'constraint' => '10',
+                'constraint' => '12',
                 'unique' => true
             ],
             'id_pasien' => [
@@ -26,6 +26,9 @@ class Kunjungan extends Migration
                 'type' => 'int',
                 'constraint' => '11',
                 'unsigned' => true,
+            ],
+            'tanggal_kunjungan' => [
+                'type' => 'DATE',
             ],
             'keluhan' => [
                 'type' => 'text',

@@ -31,11 +31,7 @@ class RekamMedis extends Migration
             ],
             'id_kunjungan' => [
                 'type' => 'VARCHAR',
-                'constraint' => '10',
-            ],
-            'tanggal' => [
-                'type' => 'DATE',
-                'null' => true,
+                'constraint' => '12',
             ],
             'diagnosa' => [
                 'type' => 'text',
@@ -46,12 +42,12 @@ class RekamMedis extends Migration
             'tindakan' => [
                 'type' => 'text',
             ],
-            'resep_dokter' => [
-                'type' => 'text',
-            ],
             'jadwal_treatment' => [
                 'type' => 'datetime',
                 'null' => true,
+            ],
+            'notes_klinik' => [
+                'type' => 'text',
             ],
             'created_at' => [
                 'type' => 'datetime',

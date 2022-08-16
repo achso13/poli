@@ -32,15 +32,17 @@
                             <?php endif; ?>
                         </td>
                         <td>
-                            <a href="<?= base_url('patient/record_medical/' . $row['id_pasien']) ?>" class="btn btn-warning btn-sm btn-edit text-white">
+                            <a href="<?= base_url('patient/rekam_medis/' . $row['id_pasien']) ?>" class="btn btn-warning btn-sm btn-edit text-white">
                                 <i class="mr-1 fa fa-history"></i> Rekam Medis
                             </a>
-                            <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_pasien'] ?>" data-toggle="modal" data-target="#form-modals">
-                                <i class="mr-1 fa fa-pen-square"></i> Edit
-                            </button>
-                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?= $row['id_pasien'] ?>">
-                                <i class="mr-1 fa fa-trash-alt"></i> Delete
-                            </button>
+                            <?php if (session()->get('log_role') === "ADMIN") : ?>
+                                <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_pasien'] ?>" data-toggle="modal" data-target="#form-modals">
+                                    <i class="mr-1 fa fa-pen-square"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?= $row['id_pasien'] ?>">
+                                    <i class="mr-1 fa fa-trash-alt"></i> Delete
+                                </button>
+                            <?php endif; ?>
                             <div class="modal fade" id="modals-delete-<?= $row['id_pasien'] ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog " role="document">
                                     <div class="modal-content">

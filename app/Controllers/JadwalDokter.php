@@ -172,4 +172,13 @@ class JadwalDokter extends BaseController
             return redirect()->to(base_url('doctor/jadwal'));
         }
     }
+
+    public function ajaxJadwalDokter($idDokter)
+    {
+        if ($this->request->isAJAX()) {
+            $data = $this->jadwalDokterModel->where('id_dokter', $idDokter)->findAll();
+
+            return $this->response->setJSON($data);
+        }
+    }
 }

@@ -21,16 +21,12 @@ class Resep extends Migration
                 'constraint' => '11',
                 'unsigned' => true,
             ],
-            'id_obat' => [
-                'type' => 'VARCHAR',
-                'constraint' => '10',
-            ],
-            'jumlah' => [
-                'type' => 'INT',
-                'constraint' => '11',
-            ],
-            'keterangan' => [
+            'resep_dokter' => [
                 'type' => 'text',
+            ],
+            'status' => [
+                'type' => 'ENUM',
+                'constraint' => '"Belum Selesai","Sedang Disiapkan","Sudah Selesai"',
             ],
             'created_at' => [
                 'type' => 'datetime',
@@ -44,7 +40,6 @@ class Resep extends Migration
 
         $this->forge->addKey('id_resep', true);
         $this->forge->addForeignKey('id_rekam_medis', 'tb_rekam_medis', 'id_rekam_medis', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('id_obat', 'tb_obat', 'id_obat', 'CASCADE', 'CASCADE');
         $this->forge->createTable('tb_resep');
     }
 

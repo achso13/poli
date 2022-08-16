@@ -9,24 +9,26 @@
         <input type="text" class="form-control" name="f_nama_treatment" placeholder="Nama treatment yang diadakan">
         <div class="invalid-feedback"></div>
     </div>
-    <div class="form-group">
-        <label>Poliklinik<span class="text-danger">*</span></label>
-        <select name="f_id_klinik" class="form-control">
-            <option value="">---Choose---</option>
-            <?php
-            $dep = listClinic();
+    <?php if (session()->get('log_role') !== "KLINIK") : ?>
+        <div class="form-group">
+            <label>Poliklinik<span class="text-danger">*</span></label>
+            <select name="f_id_klinik" class="form-control">
+                <option value="">---Choose---</option>
+                <?php
+                $dep = listClinic();
 
-            if (isset($dep)) :
-                foreach ($dep as $de) :
-            ?>
-                    <option value="<?= $de['id_klinik'] ?>"><?= $de['nama_klinik'] ?></option>
-            <?php
-                endforeach;
-            endif;
-            ?>
-        </select>
-        <div class="invalid-feedback"></div>
-    </div>
+                if (isset($dep)) :
+                    foreach ($dep as $de) :
+                ?>
+                        <option value="<?= $de['id_klinik'] ?>"><?= $de['nama_klinik'] ?></option>
+                <?php
+                    endforeach;
+                endif;
+                ?>
+            </select>
+            <div class="invalid-feedback"></div>
+        </div>
+    <?php endif; ?>
     <div class="form-group">
         <label>Deskripsi</label>
         <textarea name="f_deskripsi" class="form-control" placeholder="Deskripsi treatment yang diadakan"></textarea>

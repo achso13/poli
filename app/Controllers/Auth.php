@@ -19,6 +19,9 @@ class Auth extends BaseController
 
     public function login()
     {
+        if (session()->get('log_id')) {
+            return redirect()->to('/');
+        }
         $data['title'] = 'Login';
         return view('auth/login', $data);
     }
