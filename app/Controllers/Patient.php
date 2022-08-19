@@ -62,19 +62,113 @@ class Patient extends BaseController
             ];
 
             $validation->setRules([
-                'id_biro' => ['label' => 'Biro', 'rules' => 'required'],
-                'id_unitkerja' => ['label' => 'Bagian', 'rules' => 'required'],
-                "nip" => ['label' => 'NIP', 'rules' => "required|min_length[16]|max_length[16]|is_unique[tb_user.username]"],
-                "nama" => ['label' => 'Nama', 'rules' => "required|min_length[3]|max_length[255]"],
-                "alamat_rumah" => ['label' => 'Alamat Rumah', 'rules' => "required|min_length[3]|max_length[255]"],
-                "telepon" => ['label' => 'Telepon', 'rules' => "required|numeric|min_length[10]|max_length[20]"],
-                "jenis_kelamin" => ['label' => 'Jenis Kelamin', 'rules' => "required|in_list[Laki-laki,Perempuan]"],
-                "tempat_lahir" => ['label' => 'Tempat Lahir', 'rules' => "required|min_length[3]|max_length[255]"],
-                "tanggal_lahir" => ['label' => 'Tanggal Lahir', 'rules' => "required|valid_date"],
+                'id_biro' => [
+                    'label' => 'Biro',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                    ],
+                ],
+                'id_unitkerja' => [
+                    'label' => 'Bagian',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                    ],
+                ],
+                "nip" => [
+                    'label' => 'NIP',
+                    'rules' => "required|min_length[16]|max_length[16]|is_unique[tb_user.username]",
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'min_length' => '{field} harus berisi 16 karakter',
+                        'max_length' => '{field} harus berisi 16 karakter',
+                        'is_unique' => '{field} sudah terdaftar',
+                    ],
+                ],
+                "nama" => [
+                    'label' => 'Nama',
+                    'rules' => "required|min_length[3]|max_length[100]",
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'min_length' => '{field} harus berisi {param} karakter',
+                        'max_length' => '{field} harus berisi {param} karakter',
+                    ],
+                ],
+                "alamat_rumah" => [
+                    'label' => 'Alamat Rumah',
+                    'rules' => "required|min_length[3]|max_length[255]",
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'min_length' => '{field} harus berisi {param} karakter',
+                        'max_length' => '{field} harus berisi {param} karakter',
+                    ],
+                ],
+                "telepon" => [
+                    'label' => 'Telepon',
+                    'rules' => "required|numeric|min_length[10]|max_length[20]",
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'numeric' => '{field} harus berisi angka',
+                        'min_length' => '{field} harus berisi {param} karakter',
+                        'max_length' => '{field} harus berisi {param} karakter',
+                    ],
+                ],
+                "jenis_kelamin" => [
+                    'label' => 'Jenis Kelamin',
+                    'rules' => "required|in_list[Laki-laki,Perempuan]",
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'in_list' => '{field} harus diisi dengan format {param}',
+                    ],
+                ],
+                "tempat_lahir" => [
+                    'label' => 'Tempat Lahir',
+                    'rules' => "required|min_length[3]|max_length[255]",
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'min_length' => '{field} harus berisi {param} karakter',
+                        'max_length' => '{field} harus berisi {param} karakter',
+                    ],
+                ],
+                "tanggal_lahir" => [
+                    'label' => 'Tanggal Lahir',
+                    'rules' => "required|valid_date",
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'valid_date' => '{field} harus diisi dengan format {param}',
+                    ],
+                ],
                 // "username" => ['label' => 'Username', 'rules' => "required|min_length[3]|max_length[255]|is_unique[tb_user.username]"],
-                "password" => ['label' => 'Password', 'rules' => "required|min_length[3]|max_length[255]"],
-                "email" => ['label' => 'Email', 'rules' => "required|valid_email|min_length[3]|max_length[255]"],
-                "photo" => ['label' => 'Photo', 'rules' => "permit_empty|is_image[f_photo]|mime_in[f_photo,image/jpg,image/jpeg,image/gif,image/png]|max_size[f_photo,foto,2048]"],
+                "password" => [
+                    'label' => 'Password',
+                    'rules' => "required|min_length[3]|max_length[255]",
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'min_length' => '{field} harus berisi {param} karakter',
+                        'max_length' => '{field} harus berisi {param} karakter',
+                    ],
+                ],
+                "email" => [
+                    'label' => 'Email',
+                    'rules' => "required|valid_email|min_length[3]|max_length[255]",
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'valid_email' => '{field} harus diisi dengan format {param}',
+                        'min_length' => '{field} harus berisi {param} karakter',
+                        'max_length' => '{field} harus berisi {param} karakter',
+                    ],
+                ],
+                "photo" => [
+                    'label' => 'Photo',
+                    'rules' => "permit_empty|is_image[f_photo]|mime_in[f_photo,image/jpg,image/jpeg,image/gif,image/png]|max_size[f_photo,foto,2048]",
+                    'errors' => [
+                        'permit_empty' => '{field} harus diisi',
+                        'is_image' => '{field} harus berupa gambar',
+                        'mime_in' => '{field} harus berupa gambar',
+                        'max_size' => '{field} harus berukuran kurang dari {param} kb',
+                    ],
+                ]
             ]);
 
             if ($validation->run($data)) {
@@ -180,19 +274,113 @@ class Patient extends BaseController
             ];
 
             $validation->setRules([
-                "id_biro" => ['label' => 'Biro', 'rules' => "required"],
-                "id_unitkerja" => ['label' => 'Bagian', 'rules' => "required"],
-                "nip" => ['label' => 'NIP', 'rules' => "required|min_length[16]|max_length[16]|is_unique[tb_pasien.nip,nip,$oldUsername]"],
-                "nama" => ['label' => 'Nama', 'rules' => "required|min_length[3]|max_length[255]"],
-                "alamat_rumah" => ['label' => 'Alamat Rumah', 'rules' => "required|min_length[3]|max_length[255]"],
-                "telepon" => ['label' => 'Telepon', 'rules' => "required|min_length[3]|max_length[255]|numeric"],
-                "jenis_kelamin" => ['label' => 'Jenis Kelamin', 'rules' => "required|in_list[Laki-laki,Perempuan]"],
-                "tempat_lahir" => ['label' => 'Tempat Lahir', 'rules' => "required|min_length[3]|max_length[255]"],
-                "tanggal_lahir" => ['label' => 'Tanggal Lahir', 'rules' => "required|valid_date"],
+                "id_biro" => [
+                    'label' => 'Biro',
+                    'rules' => "required",
+                    'errors' => [
+                        'required' => '{field} harus diisi'
+                    ]
+                ],
+                "id_unitkerja" => [
+                    'label' => 'Bagian',
+                    'rules' => "required",
+                    'errors' => [
+                        'required' => '{field} harus diisi'
+                    ]
+                ],
+                "nip" => [
+                    'label' => 'NIP',
+                    'rules' => "required|min_length[16]|max_length[16]|is_unique[tb_pasien.nip,nip,$oldUsername]",
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'min_length' => '{field} harus berukuran 16 karakter',
+                        'max_length' => '{field} harus berukuran 16 karakter',
+                        'is_unique' => '{field} sudah terdaftar'
+                    ]
+                ],
+                "nama" => [
+                    'label' => 'Nama',
+                    'rules' => "required|min_length[3]|max_length[255]",
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'min_length' => '{field} harus berukuran 3 karakter',
+                        'max_length' => '{field} harus berukuran 255 karakter'
+                    ]
+                ],
+                "alamat_rumah" => [
+                    'label' => 'Alamat Rumah',
+                    'rules' => "required|min_length[3]|max_length[255]",
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'min_length' => '{field} harus berukuran 3 karakter',
+                        'max_length' => '{field} harus berukuran 255 karakter'
+                    ]
+                ],
+                "telepon" => [
+                    'label' => 'Telepon',
+                    'rules' => "required|min_length[3]|max_length[255]|numeric",
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'min_length' => '{field} harus berukuran 3 karakter',
+                        'max_length' => '{field} harus berukuran 255 karakter',
+                        'numeric' => '{field} harus berupa angka'
+                    ]
+                ],
+                "jenis_kelamin" => [
+                    'label' => 'Jenis Kelamin',
+                    'rules' => "required|in_list[Laki-laki,Perempuan]",
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'in_list' => '{field} harus diisi dengan benar'
+                    ]
+                ],
+                "tempat_lahir" => [
+                    'label' => 'Tempat Lahir',
+                    'rules' => "required|min_length[3]|max_length[255]",
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'min_length' => '{field} harus berukuran 3 karakter',
+                        'max_length' => '{field} harus berukuran 255 karakter'
+                    ]
+                ],
+                "tanggal_lahir" => [
+                    'label' => 'Tanggal Lahir',
+                    'rules' => "required|valid_date",
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'valid_date' => '{field} harus berupa tanggal'
+                    ]
+                ],
                 // "username" => ['label' => 'Username', 'rules' => "required|min_length[3]|max_length[255]"],
-                "password" => ['label' => 'Password', 'rules' => "permit_empty|min_length[3]|max_length[255]"],
-                "email" => ['label' => 'Email', 'rules' => "required|valid_email|min_length[3]|max_length[255]"],
-                "photo" => ['label' => 'Photo', 'rules' => "permit_empty|is_image[f_photo]|mime_in[f_photo,image/jpg,image/jpeg,image/gif,image/png]|max_size[f_photo,foto,2048]"],
+                "password" => [
+                    'label' => 'Password',
+                    'rules' => "permit_empty|min_length[3]|max_length[255]",
+                    'errors' => [
+                        'permit_empty' => '{field} tidak boleh kosong',
+                        'min_length' => '{field} harus berukuran 3 karakter',
+                        'max_length' => '{field} harus berukuran 255 karakter'
+                    ]
+                ],
+                "email" => [
+                    'label' => 'Email',
+                    'rules' => "required|valid_email|min_length[3]|max_length[255]",
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'valid_email' => '{field} harus berupa email',
+                        'min_length' => '{field} harus berukuran 3 karakter',
+                        'max_length' => '{field} harus berukuran 255 karakter'
+                    ]
+                ],
+                "photo" => [
+                    'label' => 'Photo',
+                    'rules' => "permit_empty|is_image[f_photo]|mime_in[f_photo,image/jpg,image/jpeg,image/gif,image/png]|max_size[f_photo,foto,2048]",
+                    'errors' => [
+                        'permit_empty' => '{field} tidak boleh kosong',
+                        'is_image' => '{field} harus berupa gambar',
+                        'mime_in' => '{field} harus berupa gambar',
+                        'max_size' => '{field} harus berukuran maksimal 2MB'
+                    ]
+                ],
             ]);
 
 

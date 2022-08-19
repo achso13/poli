@@ -156,6 +156,19 @@ $routes->match(['get', 'post'], '/resep/status', 'Resep::statusForm');
 $routes->post('/resep/status/store', 'Resep::statusStore');
 $routes->post('/resep/get_obat', 'Resep::ajaxObat');
 
+// Routes Tiket
+$routes->get('/tiket', 'Tiket::index');
+$routes->match(['get', 'post'], '/tiket/form', 'Tiket::form');
+$routes->post('/tiket/store', 'Tiket::store');
+$routes->get('/tiket/view/(:segment)', 'Tiket::view/$1');
+$routes->post('/tiket/form_comment', 'Tiket::form_comment');
+$routes->post('/tiket/store_comment', 'Tiket::store_comment');
+$routes->get('/tiket/status/(:segment)/(:segment)', 'Tiket::status/$1/$2');
+
+// Routes Profile
+$routes->get('/profile', 'Profile::index');
+$routes->match(['get', 'post'], '/profile/edit', 'Profile::edit');
+
 
 
 

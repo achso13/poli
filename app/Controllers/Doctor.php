@@ -210,6 +210,7 @@ class Doctor extends BaseController
         $data = [
             'result' => $this->doctorModel->getDoctors($id),
         ];
+
         return view('doctor/edit', $data);
     }
 

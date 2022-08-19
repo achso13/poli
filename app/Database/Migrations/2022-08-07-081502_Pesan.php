@@ -16,17 +16,14 @@ class Pesan extends Migration
                 'unsigned' => true,
                 'unique' => true
             ],
-            'id_dokter' => [
-                'type' => 'VARCHAR',
-                'constraint' => '10',
-            ],
-            'id_pasien' => [
-                'type' => 'VARCHAR',
-                'constraint' => '10',
+            'id_user' => [
+                'type' => 'INT',
+                'constraint' => '11',
+                'unsigned' => true,
             ],
             'id_kunjungan' => [
                 'type' => 'VARCHAR',
-                'constraint' => '10',
+                'constraint' => '12',
             ],
             'pesan' => [
                 'type' => 'text',
@@ -41,8 +38,7 @@ class Pesan extends Migration
             ],
         ]);
         $this->forge->addKey('id_pesan', true);
-        $this->forge->addForeignKey('id_dokter', 'tb_dokter', 'id_dokter', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('id_pasien', 'tb_pasien', 'id_pasien', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('id_user', 'tb_user', 'id_user', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('id_kunjungan', 'tb_kunjungan', 'id_kunjungan', 'CASCADE', 'CASCADE');
         $this->forge->createTable('tb_pesan');
     }

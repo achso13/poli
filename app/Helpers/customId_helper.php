@@ -14,9 +14,10 @@ function generateId($model, $field, $prefix, $length)
     $lastId = $model->selectMax($field)->get()->getRowArray();
     $lastId = $lastId[$field];
     if ($lastId) {
-        $lastId = substr($lastId, strlen($prefix));
+        $lastId = substr($lastId, strlen($prefix) + 1);
         $lastId = (int) $lastId;
         $lastId++;
+        // dd($lastId);
     } else {
         $lastId = 1;
     }

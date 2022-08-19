@@ -37,7 +37,7 @@
 						<tr>
 							<td>Tempat Lahir</td>
 							<td>:</td>
-							<td><?= time_format($pasien['tempat_lahir'], 'd M Y') ?></td>
+							<td><?= $pasien['tempat_lahir'] ?></td>
 							<td>Tanggal Lahir</td>
 							<td>:</td>
 							<td><?= time_format($pasien['tanggal_lahir'], 'd M Y') ?></td>

@@ -20,13 +20,16 @@ class RekamMedis extends BaseController
 
     public function index($id)
     {
-
         $data = [
             'pasien' => $this->patientModel->getPatients($id),
             'result' => $this->rekamMedisModel->getRekamMedisByPatient($id)
         ];
 
-        return view('rekam_medis/index', $data);
+        if ($data['pasien'] != null) {
+            return view('rekam_medis/index', $data);
+        } else {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Halaman tidak ditemukan', 404);
+        }
     }
 
     public function rekamMedisPasien()
@@ -295,6 +298,12 @@ class RekamMedis extends BaseController
         $data = [
             'result' => $this->rekamMedisModel->getTreatmentSchedule($id),
         ];
+
+        if ($data['result']) {
+            return view('treatment_schedule/view', $data);
+        } else {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Halaman tidak ditemukan', 404);
+        }
 
         return view('treatment_schedule/view', $data);
     }

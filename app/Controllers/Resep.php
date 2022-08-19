@@ -41,7 +41,12 @@ class Resep extends BaseController
             'result' => $this->resepModel->getResep($id),
             'obat' => $this->resepDetailModel->getResepDetail($id),
         ];
-        return view('resep/view', $data);
+
+        if ($data['result'] != Null) {
+            return view('resep/view', $data);
+        } else {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Halaman tidak ditemukan', 404);
+        }
     }
 
     public function add()

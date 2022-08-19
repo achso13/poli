@@ -25,7 +25,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <img class="auth-form__logo d-table mx-auto mb-3" src="<?= base_url('assets/images/shards-dashboards-logo.svg') ?>" alt="Shards Dashboards - Register Template">
-                                    <h5 class="auth-form__title text-center mb-4">Access Your Account</h5>
+                                    <h5 class="auth-form__title text-center mb-4">Silahkan masuk untuk mendapatkan layanan Poliklinik DPD RI</h5>
 
                                     <?php if (session()->get('info')) : ?>
                                         <?php $warning = session()->getFlashdata('info') ?>
@@ -50,7 +50,7 @@
                                         <label>Password</label>
                                         <input type="password" name="f_password" class="form-control" placeholder="Input Your Password ...">
                                     </div>
-                                    <input type="submit" name="f_submit" value="Access Account" class="btn btn-pill btn-accent d-table mx-auto">
+                                    <input type="submit" name="f_submit" value="Akses Akun" class="btn btn-pill btn-accent d-table mx-auto">
                                     <?= form_close() ?>
 
                                 </div>

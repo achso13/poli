@@ -48,11 +48,43 @@ class Treatment extends BaseController
             }
 
             $validation->setRules([
-                'id_klinik' => ['label' => 'Klinik', 'rules' => 'required'],
-                'nama_treatment' => ['label' => 'Nama Treatment', 'rules' => 'required|min_length[3]|max_length[100]'],
-                'deskripsi' => ['label' => 'Deskripsi', 'rules' => 'permit_empty|max_length[225]'],
-                'jam_buka' => ['label' => 'Jam Buka', 'rules' => 'required|min_length[3]|max_length[20]'],
-                'jam_tutup' => ['label' => 'Jam Tutup', 'rules' => 'required|min_length[3]|max_length[20]'],
+                'id_klinik' => [
+                    'label' => 'Klinik',
+                    'rules' => 'required',
+                    'errors' => ['required' => 'Klinik harus diisi']
+                ],
+                'nama_treatment' => [
+                    'label' => 'Nama Treatment',
+                    'rules' => 'required|min_length[3]|max_length[100]',
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 100 karakter'
+                    ]
+                ],
+                'deskripsi' => [
+                    'label' => 'Deskripsi',
+                    'rules' => 'permit_empty|max_length[225]',
+                    'errors' => ['max_length' => '{field} maksimal 225 karakter']
+                ],
+                'jam_buka' => [
+                    'label' => 'Jam Buka',
+                    'rules' => 'required|min_length[3]|max_length[20]',
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 20 karakter'
+                    ]
+                ],
+                'jam_tutup' => [
+                    'label' => 'Jam Tutup',
+                    'rules' => 'required|min_length[3]|max_length[20]',
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 20 karakter'
+                    ]
+                ],
             ]);
 
             if ($validation->run($data)) {
@@ -98,11 +130,43 @@ class Treatment extends BaseController
             ];
 
             $validation->setRules([
-                'id_klinik' => ['label' => 'Klinik', 'rules' => 'required'],
-                'nama_treatment' => ['label' => 'Nama Treatment', 'rules' => 'required|min_length[3]|max_length[100]'],
-                'deskripsi' => ['label' => 'Deskripsi', 'rules' => 'permit_empty|max_length[225]'],
-                'jam_buka' => ['label' => 'Jam Buka', 'rules' => 'required|min_length[3]|max_length[20]'],
-                'jam_tutup' => ['label' => 'Jam Tutup', 'rules' => 'required|min_length[3]|max_length[20]'],
+                'id_klinik' => [
+                    'label' => 'Klinik',
+                    'rules' => 'required',
+                    'errors' => ['required' => 'Klinik harus diisi']
+                ],
+                'nama_treatment' => [
+                    'label' => 'Nama Treatment',
+                    'rules' => 'required|min_length[3]|max_length[100]',
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 100 karakter'
+                    ]
+                ],
+                'deskripsi' => [
+                    'label' => 'Deskripsi',
+                    'rules' => 'permit_empty|max_length[225]',
+                    'errors' => ['max_length' => '{field} maksimal 225 karakter']
+                ],
+                'jam_buka' => [
+                    'label' => 'Jam Buka',
+                    'rules' => 'required|min_length[3]|max_length[20]',
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 20 karakter'
+                    ]
+                ],
+                'jam_tutup' => [
+                    'label' => 'Jam Tutup',
+                    'rules' => 'required|min_length[3]|max_length[20]',
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 20 karakter'
+                    ]
+                ],
             ]);
 
             if ($validation->run($data)) {

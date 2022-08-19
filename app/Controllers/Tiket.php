@@ -6,33 +6,32 @@ use App\Controllers\BaseController;
 use App\Models\AppointmentModel;
 use App\Models\DoctorModel;
 use App\Models\PatientModel;
-use App\Models\RekamMedisModel;
-use App\Models\TreatmentModel;
+use App\Models\PesanModel;
 
-class Appointment extends BaseController
+class Tiket extends BaseController
 {
     public function __construct()
     {
-        $this->appointmentModel = new AppointmentModel;
+        $this->appointmentModel = new AppointmentModel();
         $this->doctorModel = new DoctorModel();
         $this->patientModel = new PatientModel();
-        $this->rekamMedisModel = new RekamMedisModel();
-        $this->treatmentModel = new TreatmentModel();
+        $this->pesanModel = new PesanModel();
     }
 
     public function index()
     {
         $data = [
             'title' => 'Kunjungan',
-            'result' => $this->appointmentModel->getAppointments(NULL, "Offline"),
+            'result' => $this->appointmentModel->getAppointments(NULL, "Online"),
         ];
-        return view('appointment/index', $data);
+
+        return view('tiket/index', $data);
     }
 
-    public function add()
+    public function form()
     {
         $data = [
-            'title' => 'Appointment',
+            'title' => 'Tiket',
             'dokter' => $this->doctorModel->getDoctors(),
         ];
 
@@ -41,7 +40,8 @@ class Appointment extends BaseController
         } else {
             $data['pasien'] = $this->patientModel->findAll();
         }
-        return view('appointment/form', $data);
+
+        return view('tiket/form', $data);
     }
 
     public function store()
@@ -51,9 +51,9 @@ class Appointment extends BaseController
             $data = [
                 'id_dokter' => $this->request->getPost('f_id_dokter'),
                 'id_pasien' => $this->request->getPost('f_id_pasien'),
-                'id_jadwal_dokter' => $this->request->getPost('f_id_jadwal_dokter'),
-                'tanggal_kunjungan' => $this->request->getPost('f_tanggal_kunjungan'),
+                'tanggal_kunjungan' => date('Y-m-d'),
                 'keluhan' => $this->request->getPost('f_keluhan'),
+                'tipe_kunjungan' => 'Online',
             ];
 
             $validation->setRules([
@@ -71,21 +71,7 @@ class Appointment extends BaseController
                         'required' => '{field} harus diisi',
                     ],
                 ],
-                'tanggal_kunjungan' => [
-                    'label' => 'Tanggal Kunjungan',
-                    'rules' => 'required|valid_date',
-                    'errors' => [
-                        'required' => '{field} harus diisi',
-                        'valid_date' => '{field} harus berupa tanggal yang valid',
-                    ],
-                ],
-                'id_jadwal_dokter' => [
-                    'label' => 'Jadwal Dokter',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} harus diisi',
-                    ],
-                ],
+
                 'keluhan' => [
                     'label' => 'Keluhan',
                     'rules' => 'required',
@@ -119,16 +105,18 @@ class Appointment extends BaseController
     {
         $data = [
             'title' => 'Appointment',
-            'result' => $this->appointmentModel->getAppointments($id, "Offline"),
-            'rekamMedis' => $this->rekamMedisModel->getRekamMedisByKunjungan($id),
-            'treatment' => $this->treatmentModel->getTreatments(),
+            'result' => $this->appointmentModel->getAppointments($id, "Online"),
+            'pesan' => $this->pesanModel->getPesan($id),
         ];
 
         if ($data['result'] == NULL) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Halaman tidak ditemukan', 404);
         }
 
-        return view('appointment/view', $data);
+        $data['pasien'] = $this->patientModel->getPatients($data['result']['id_pasien']);
+
+
+        return view('tiket/view', $data);
     }
 
     public function status($status, $id)
@@ -139,27 +127,66 @@ class Appointment extends BaseController
 
         if ($status !== 'open' && $status !== 'close') {
             session()->setFlashdata('message', 'Status tidak valid');
-            return redirect()->to(base_url('appointment'));
+            return redirect()->to(base_url('tiket'));
         }
 
         $update = $this->appointmentModel->update($id, $data);
         if ($update) {
             session()->setFlashdata('message', 'Status berhasil diubah');
-            return redirect()->to(base_url('appointment'));
+            return redirect()->to(base_url('tiket'));
         } else {
             session()->setFlashdata('message', 'Status gagal diubah');
-            return redirect()->to(base_url('appointment'));
+            return redirect()->to(base_url('tiket'));
         }
     }
 
-    public function delete($id)
+    public function form_comment()
     {
-        $delete = $this->treatmentModel->delete($id);
-        if ($delete) {
-            session()->setFlashdata('message', 'Hapus data berhasil');
-            return redirect()->to(base_url('appointment'));
-        } else {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException;
+        $data = [
+            'title' => 'Komentar',
+            'result' => $this->appointmentModel->getAppointments($this->request->getPost('js_id'), "Online"),
+        ];
+        return view('tiket/form_comment', $data);
+    }
+
+    public function store_comment()
+    {
+        if ($this->request->isAJAX()) {
+            $validation = \Config\Services::validation();
+            $data = [
+                'id_user' => session()->get('log_id'),
+                'id_kunjungan' => $this->request->getPost('f_id_kunjungan'),
+                'pesan' => $this->request->getPost('f_pesan'),
+            ];
+            $validation->setRules([
+                'pesan' => [
+                    'label' => 'Pesan',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                    ],
+                ],
+            ]);
+            if ($validation->run($data)) {
+                $insert = $this->pesanModel->save($data);
+                if ($insert) {
+                    session()->setFlashdata('message', 'Pesan berhasil ditambahkan');
+                    $result['error'] = false;
+                    $result['message'] = 'Pesan berhasil ditambahkan';
+                } else {
+                    $result['error'] = true;
+                    $result['message'] = 'Pesan gagal ditambahkan';
+                }
+            } else {
+                $result['error'] = true;
+                $result['message'] = $validation->getErrors();
+            }
+            return $this->response->setJSON($result);
         }
+    }
+
+    public function load_comment()
+    {
+        return view('tiket/load_comment');
     }
 }
