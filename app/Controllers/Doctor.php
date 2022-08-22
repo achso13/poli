@@ -341,7 +341,9 @@ class Doctor extends BaseController
             ]);
 
             if ($validation->run($data)) {
-                $data['password'] = password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT);
+                if (isset($data['password']) && $data['password'] != "") {
+                    $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+                }
                 if ($photo->getError() !== 4) {
                     $photo->move(ROOTPATH . 'public/uploads/photo/', $photoName);
                     if (!isset($oldPhoto) || $oldPhoto != '') {

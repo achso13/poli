@@ -172,7 +172,7 @@ class Resep extends BaseController
                 ],
                 'status' => [
                     'label' => 'Status',
-                    'rules' => 'required|in_list[Belum Selesai,Sedang Disiapkan,Sudah Selesai]',
+                    'rules' => 'required|in_list[Belum Selesai,Sedang Disiapkan,Sudah Selesai,Telah Diambil]',
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
                         'in_list' => '{field} tidak valid',

@@ -36,6 +36,8 @@
                                     <span class="badge badge-pill badge-warning ml-3 text-white">Sedang Disiapkan</span>
                                 <?php elseif ($row['status'] == "Sudah Selesai") : ?>
                                     <span class="badge badge-pill badge-success ml-3">Sudah Selesai</span>
+                                <?php elseif ($row['status'] == "Telah Diambil") : ?>
+                                    <span class="badge badge-pill badge-dark ml-3">Telah Diambil</span>
                                 <?php endif; ?>
                             </td>
 

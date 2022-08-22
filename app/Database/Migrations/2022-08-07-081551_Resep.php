@@ -26,7 +26,7 @@ class Resep extends Migration
             ],
             'status' => [
                 'type' => 'ENUM',
-                'constraint' => '"Belum Selesai","Sedang Disiapkan","Sudah Selesai"',
+                'constraint' => '"Belum Selesai","Sedang Disiapkan","Sudah Selesai","Telah Diambil"',
             ],
             'created_at' => [
                 'type' => 'datetime',

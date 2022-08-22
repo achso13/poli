@@ -86,4 +86,20 @@
                   <span>Report</span>
             </a>
       </li> -->
+
+      <h6 class="main-sidebar__nav-title">Profile</h6>
+
+      <li class="nav-item">
+            <a class="nav-link " href="<?= base_url('profile') ?>">
+                  <i class="material-icons">person</i>
+                  <span>Profile</span>
+            </a>
+      </li>
+
+      <li class="nav-item">
+            <a class="nav-link " href="<?= base_url('auth/logout') ?>">
+                  <i class="material-icons">logout</i>
+                  <span>Logout</span>
+            </a>
+      </li>
 </ul>

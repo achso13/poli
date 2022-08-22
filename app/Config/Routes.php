@@ -167,7 +167,7 @@ $routes->get('/tiket/status/(:segment)/(:segment)', 'Tiket::status/$1/$2');
 
 // Routes Profile
 $routes->get('/profile', 'Profile::index');
-$routes->match(['get', 'post'], '/profile/edit', 'Profile::edit');
+$routes->match(['get', 'post'], '/profile/update', 'Profile::update');
 
 
 

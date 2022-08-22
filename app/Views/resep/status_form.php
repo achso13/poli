@@ -19,6 +19,10 @@
         <div class="form-check">
             <input class="form-check-input" type="radio" name="f_status" value="Sudah Selesai" <?= $result['status'] === "Sudah Selesai" ? "checked" : "" ?>>
             <label class="form-check-label">Sudah Selesai</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="f_status" value="Telah Diambil" <?= $result['status'] === "Telah Diambil" ? "checked" : "" ?>>
+            <label class="form-check-label">Telah Diambil</label>
             <div class="invalid-feedback"></div>
         </div>
     </div>

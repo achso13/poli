@@ -134,6 +134,10 @@ class RekamMedis extends BaseController
                     'jadwal_treatment' => $data['jadwal_treatment'],
                 ];
 
+                if ($dataRekamMedis['id_treatment'] == NULL) {
+                    unset($dataRekamMedis['id_treatment']);
+                }
+
                 $insertRekamMedis = $this->rekamMedisModel->save($dataRekamMedis);
 
                 $idRekamMedis = $this->rekamMedisModel->insertID();
