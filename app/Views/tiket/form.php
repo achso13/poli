@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
-<script src="<?= base_url('assets/third_party/tinymce/tinymce.min.js') ?>"></script>
-<script type="text/javascript" src="<?= base_url('assets/js/tinymce.js') ?>"></script>
+<!-- <script src="<?= base_url('assets/third_party/tinymce/tinymce.min.js') ?>"></script>
+<script type="text/javascript" src="<?= base_url('assets/js/tinymce.js') ?>"></script> -->
 
 
 <!-- Page Header -->

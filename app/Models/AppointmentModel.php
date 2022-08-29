@@ -25,7 +25,7 @@ class AppointmentModel extends Model
     public function getAppointments($id = null, $type = NULL)
     {
         $builder = $this->db->table($this->table);
-        $builder->select('tb_kunjungan.*, tb_dokter.nama as nama_dokter, tb_pasien.nama as nama_pasien, tb_unitkerja.nama_bagian, tb_biro.nama_biro, tb_jadwal_dokter.jam_mulai, tb_jadwal_dokter.jam_selesai');
+        $builder->select('tb_kunjungan.*, tb_dokter.nama as nama_dokter, tb_pasien.nama as nama_pasien, tb_pasien.jenis_kelamin, tb_pasien.tanggal_lahir, tb_unitkerja.nama_bagian, tb_biro.nama_biro, tb_jadwal_dokter.jam_mulai, tb_jadwal_dokter.jam_selesai');
         $builder->join('tb_dokter', 'tb_dokter.id_dokter = tb_kunjungan.id_dokter', 'left');
         $builder->join('tb_pasien', 'tb_pasien.id_pasien = tb_kunjungan.id_pasien', 'left');
         $builder->join('tb_jadwal_dokter', 'tb_jadwal_dokter.id_jadwal_dokter = tb_kunjungan.id_jadwal_dokter', 'left');

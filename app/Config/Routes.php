@@ -169,6 +169,11 @@ $routes->get('/tiket/status/(:segment)/(:segment)', 'Tiket::status/$1/$2');
 $routes->get('/profile', 'Profile::index');
 $routes->match(['get', 'post'], '/profile/update', 'Profile::update');
 
+// Routes Export
+$routes->get('/export/kunjungan', 'Export::kunjungan');
+$routes->get('/export/tiket', 'Export::tiket');
+$routes->get('/export/resep', 'Export::resep');
+$routes->get('/export/obat', 'Export::obat');
 
 
 

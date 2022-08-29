@@ -7,11 +7,21 @@
 		<span class="text-uppercase page-subtitle">List</span>
 		<h3 class="page-title">Medicine</h3>
 	</div>
-	<div class="col-12 col-sm-6 d-flex align-items-center">
-		<button class="btn-add btn btn-primary d-inline-flex mb-sm-0 mx-auto ml-sm-auto mr-sm-0" data-toggle="modal" data-target="#form-modals">
-			<i class="material-icons">add</i> Add Medicine </a>
-		</button>
+
+	<div class="col-12 col-sm-6 d-flex align-items-center justify-content-end">
+		<div class="float-right">
+			<?php if (session()->get('log_role') === "ADMIN") : ?>
+				<a href="<?= base_url('export/tiket') ?>" class="btn btn-success  mb-sm-0 mx-auto ml-sm-auto mr-sm-0">
+					<i class="material-icons">add</i> Export Excel
+				</a>
+			<?php endif; ?>
+
+			<button class="btn-add btn btn-primary d-inline-flex mb-sm-0 mx-auto ml-sm-auto mr-sm-0" data-toggle="modal" data-target="#form-modals">
+				<i class="material-icons">add</i> Add Medicine </a>
+			</button>
+		</div>
 	</div>
+
 </div>
 <!-- End Page Header -->
 

@@ -22,3 +22,11 @@ function listDoctor($filter = NULL)
     }
     return $doctor;
 }
+
+function countAge($birthdate)
+{
+    $birthdate = new DateTime($birthdate);
+    $today = new DateTime('today');
+    $age = $today->diff($birthdate);
+    return $age->y;
+}
