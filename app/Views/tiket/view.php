@@ -35,8 +35,8 @@
 						<span class="ml-3">Status : </span><br />
 						<?php if ($result['status'] == "Open") : ?>
 							<span class="badge badge-pill badge-success text-white ml-3">Open</span>
-						<?php elseif ($result['status'] == "Closed") : ?>
-							<span class="badge badge-pill badge-danger ml-3">Closed</span>
+						<?php elseif ($result['status'] == "Close") : ?>
+							<span class="badge badge-pill badge-danger ml-3">Close</span>
 						<?php endif; ?>
 					</li>
 				</ul>
@@ -76,9 +76,15 @@
 		<div class="row mt-3">
 			<div class="col-md-12 text-right">
 				<?php if (session()->get('log_role') === "PASIEN" || session()->get('log_role') === "DOKTER") : ?>
-					<button uc="<?= $result['id_kunjungan'] ?>" class="btn btn-primary btn-reply  ml-auto" data-toggle="modal" data-target="#form-modals">
-						<i class="material-icons">reply</i> Reply
-					</button>
+					<?php if ($result['status'] == "Open") :  ?>
+						<button uc="<?= $result['id_kunjungan'] ?>" class="btn btn-primary btn-reply  ml-auto" data-toggle="modal" data-target="#form-modals">
+							<i class="material-icons">reply</i> Reply
+						</button>
+					<?php else : ?>
+						<button class="btn btn-primary btn-reply  ml-auto" disabled>
+							<i class="material-icons">reply</i> Reply
+						</button>
+					<?php endif; ?>
 				<?php endif; ?>
 			</div>
 		</div>
@@ -95,15 +101,25 @@
 				</div>
 			</div>
 		<?php endif; ?>
-		<div class="row mt-3">
-			<div class="col-md-12 text-right">
-				<a href="<?= base_url('tiket/status/close/' . $result['id_kunjungan']) ?>" onclick="return confirm('Hentikan pembicaraan?')" class="btn btn-primary btn-block my-3">
-					<span class="text-danger">
-						<i class="material-icons">clear</i>
-					</span> Hentikan Pembicaraan
-				</a>
+
+		<?php if (session()->get('log_role') === "DOKTER") : ?>
+			<div class="row mt-3">
+				<div class="col-md-12 text-right">
+					<?php if ($result['status'] == "Open") :  ?>
+						<a href="<?= base_url('tiket/status/close/' . $result['id_kunjungan']) ?>" onclick="return confirm('Hentikan pembicaraan?')" class="btn btn-primary btn-block my-3">
+							<span class="text-danger">
+
+							</span> Hentikan Pembicaraan
+						</a>
+					<?php else : ?>
+						<button class="btn btn-primary btn-block my-3" disabled>
+							Hentikan Pembicaraan
+						</button>
+					<?php endif; ?>
+
+				</div>
 			</div>
-		</div>
+		<?php endif; ?>
 
 	</div>
 </div>

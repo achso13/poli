@@ -34,20 +34,24 @@ class RekamMedis extends Migration
                 'constraint' => '12',
             ],
             'diagnosa' => [
-                'type' => 'text',
+                'type' => 'VARCHAR',
+                'constraint' => '255',
             ],
             'anamnesa' => [
-                'type' => 'text',
+                'type' => 'VARCHAR',
+                'constraint' => '255',
             ],
             'tindakan' => [
-                'type' => 'text',
+                'type' => 'VARCHAR',
+                'constraint' => '255',
             ],
             'jadwal_treatment' => [
                 'type' => 'datetime',
                 'null' => true,
             ],
             'notes_klinik' => [
-                'type' => 'text',
+                'type' => 'VARCHAR',
+                'constraint' => '255',
             ],
             'created_at' => [
                 'type' => 'datetime',

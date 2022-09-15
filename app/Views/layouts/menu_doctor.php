@@ -1,6 +1,6 @@
 <ul class="nav flex-column">
       <li class="nav-item">
-            <a class="nav-link " href="<?= base_url('dashboard') ?>">
+            <a class="nav-link " href="<?= base_url('/') ?>">
                   <i class="material-icons">dashboard</i>
                   <span>Dashboard</span>
             </a>

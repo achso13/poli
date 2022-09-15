@@ -25,34 +25,10 @@ class Role implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if ($arguments === 'ADMIN') {
-            if (session()->get('role') !== 'ADMIN') {
-                return redirect()->to('/');
-            }
-        }
+        $userRole = session()->get('log_role');
 
-        if ($arguments === 'PASIEN') {
-            if (session()->get('role') !== 'PASIEN') {
-                return redirect()->to('/');
-            }
-        }
-
-        if ($arguments === 'DOKTER') {
-            if (session()->get('role') !== 'DOKTER') {
-                return redirect()->to('/');
-            }
-        }
-
-        if ($arguments === 'APOTEKER') {
-            if (session()->get('role') !== 'APOTEKER') {
-                return redirect()->to('/');
-            }
-        }
-
-        if ($arguments === 'KLINIK') {
-            if (session()->get('role') !== 'KLINIK') {
-                return redirect()->to('/');
-            }
+        if (!in_array($userRole, $arguments)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException();
         }
     }
 

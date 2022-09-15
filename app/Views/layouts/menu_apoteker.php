@@ -1,6 +1,6 @@
 <ul class="nav flex-column">
       <li class="nav-item">
-            <a class="nav-link " href="<?= base_url('dashboard') ?>">
+            <a class="nav-link " href="<?= base_url('/') ?>">
                   <i class="material-icons">dashboard</i>
                   <span>Dashboard</span>
             </a>
@@ -20,14 +20,7 @@
             </a>
       </li>
 
-      <li class="nav-item">
-            <a class="nav-link " href="<?= base_url('report/doctor') ?>">
-                  <i class="material-icons">summarize</i>
-                  <span>Report</span>
-            </a>
-      </li>
-
-      <!--  <li class="nav-item">
+      <!-- <li class="nav-item">
             <a class="nav-link " href="<?= base_url('appointment') ?>">
                   <i class="material-icons">medication</i>
                   <span>Pemeriksaan Offline</span>
@@ -53,7 +46,7 @@
                   <i class="material-icons">summarize</i>
                   <span>Report</span>
             </a>
-      </li> -->
+      </li>  -->
 
       <h6 class="main-sidebar__nav-title">Profile</h6>
 

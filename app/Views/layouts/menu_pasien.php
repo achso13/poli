@@ -1,6 +1,6 @@
 <ul class="nav flex-column">
 	<li class="nav-item">
-		<a class="nav-link " href="<?= base_url('dashboard') ?>">
+		<a class="nav-link " href="<?= base_url() ?>">
 			<i class="material-icons">dashboard</i>
 			<span>Dashboard</span>
 		</a>
@@ -13,7 +13,7 @@
 			<span class="ml-4">&nbsp;Periksa Offline</span>
 		</a>
 		<div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
-			<a class="dropdown-item " href="<?= base_url('appointment/form') ?>">Tambah Periksa Offline</a>
+			<a class="dropdown-item " href="<?= base_url('appointment/add') ?>">Tambah Periksa Offline</a>
 			<a class="dropdown-item " href="<?= base_url('appointment') ?>">Daftar Periksa Offline</a>
 		</div>
 	</li>
@@ -25,13 +25,13 @@
 			<span class="ml-4">&nbsp;Konsultasi Online</span>
 		</a>
 		<div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
-			<a class="dropdown-item " href="<?= base_url('tiket/form') ?>">Tambah Tiket</a>
+			<a class="dropdown-item " href="<?= base_url('tiket/add') ?>">Tambah Tiket</a>
 			<a class="dropdown-item " href="<?= base_url('tiket') ?>">Daftar Tiket</a>
 		</div>
 	</li>
 
 	<li class="nav-item">
-		<a class="nav-link " href="<?= base_url('patient/rekam_medis') ?>">
+		<a class="nav-link " href="<?= base_url('rekam_medis') ?>">
 			<i class="material-icons">summarize</i>
 			<span>Rekam Medis</span>
 		</a>
@@ -47,7 +47,7 @@
 	<li class="nav-item">
 		<a class="nav-link " href="<?= base_url('resep') ?>">
 			<i class="material-icons">today</i>
-			<span>Ambil Obat</span>
+			<span>Status Resep</span>
 		</a>
 	</li>
 

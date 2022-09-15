@@ -32,7 +32,7 @@
                             <?php endif; ?>
                         </td>
                         <td>
-                            <a href="<?= base_url('patient/rekam_medis/' . $row['id_pasien']) ?>" class="btn btn-warning btn-sm btn-edit text-white">
+                            <a href="<?= base_url('rekam_medis/' . $row['id_pasien']) ?>" class="btn btn-warning btn-sm btn-edit text-white">
                                 <i class="mr-1 fa fa-history"></i> Rekam Medis
                             </a>
                             <?php if (session()->get('log_role') === "ADMIN") : ?>

@@ -9,5 +9,9 @@
 </div>
 <!-- End Page Header -->
 
+<!-- Dashboard Content -->
+<div class="row">
+    <?= $this->include("home/$menu") ?>
 </div>
+<!-- End Dashboard Content -->
 <?= $this->endSection(); ?>

@@ -1,6 +1,6 @@
 <ul class="nav flex-column">
       <li class="nav-item">
-            <a class="nav-link " href="<?= base_url('dashboard') ?>">
+            <a class="nav-link " href="<?= base_url('/') ?>">
                   <i class="material-icons">dashboard</i>
                   <span>Dashboard</span>
             </a>
@@ -21,6 +21,13 @@
                   <i class="material-icons">medication</i>
                   <span>Tiket </span><br />
                   <span class="ml-4">&nbsp;Konsultasi Online</span>
+            </a>
+      </li>
+
+      <li class="nav-item">
+            <a class="nav-link " href="<?= base_url('laporan') ?>">
+                  <i class="material-icons">summarize</i>
+                  <span>Laporan</span>
             </a>
       </li>
 

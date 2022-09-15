@@ -14,7 +14,7 @@
 <div class="modal-body">
 	<div class="form-group">
 		<div class="form-group">
-			<label>Massage <span class="text-danger">*</span></label>
+			<label>Message <span class="text-danger">*</span></label>
 			<textarea id="editor" class="form-control " style="height: 230px;" name="f_pesan"></textarea>
 			<div class="invalid-feedback"></div>
 		</div>

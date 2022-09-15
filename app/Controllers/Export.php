@@ -17,9 +17,48 @@ class Export extends BaseController
         $this->medicineModel = new MedicineModel();
     }
 
+    public function laporan()
+    {
+        $data = [
+            'title' => 'Laporan',
+        ];
+
+        return view('report/index', $data);
+    }
+
+    public function export()
+    {
+        $validType = ['kunjungan', 'obat', 'resep'];
+
+        $type = $this->request->getPost('f_type');
+        $tanggal_awal = $this->request->getPost('tanggal_awal');
+        $tanggal_akhir = $this->request->getPost('tanggal_akhir');
+
+        if (!in_array($type, $validType)) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        if (!$this->request->getVar("tanggal_awal") || !$this->request->getVar("tanggal_akhir")) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        return redirect()->to("/export/$type?tanggal_awal=$tanggal_awal&tanggal_akhir=$tanggal_akhir");
+    }
+
     public function kunjungan()
     {
-        $data['result'] =  $this->appointmentModel->getAppointments(NULL, "Offline");
+        if (!$this->request->getVar("tanggal_awal") || !$this->request->getVar("tanggal_akhir")) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $tanggal = [
+            $this->request->getVar('tanggal_awal'),
+            $this->request->getVar('tanggal_akhir')
+        ];
+
+        $data['result'] =  $this->appointmentModel->getAppointments(NULL, "Offline", $tanggal);
+
+
 
         $spreadsheet = new Spreadsheet();
         $spreadsheet->setActiveSheetIndex(0)
@@ -63,7 +102,16 @@ class Export extends BaseController
 
     public function tiket()
     {
-        $data['result'] =  $this->appointmentModel->getAppointments(NULL, "Online");
+        if (!$this->request->getVar("tanggal_awal") || !$this->request->getVar("tanggal_akhir")) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $tanggal = [
+            $this->request->getVar('tanggal_awal'),
+            $this->request->getVar('tanggal_akhir')
+        ];
+
+        $data['result'] =  $this->appointmentModel->getAppointments(NULL, "Online", $tanggal);
 
         $spreadsheet = new Spreadsheet();
         $spreadsheet->setActiveSheetIndex(0)
@@ -137,6 +185,59 @@ class Export extends BaseController
         // tulis dalam format .xlsx
         $writer = new Xlsx($spreadsheet);
         $fileName = 'Data Obat';
+
+        // Redirect hasil generate xlsx ke web client
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename=' . $fileName . '.xlsx');
+        header('Cache-Control: max-age=0');
+
+        $writer->save('php://output');
+    }
+
+    public function resep()
+    {
+        if (!$this->request->getVar("tanggal_awal") || !$this->request->getVar("tanggal_akhir")) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $tanggal = [
+            $this->request->getVar('tanggal_awal'),
+            $this->request->getVar('tanggal_akhir')
+        ];
+
+        $resepDetailModel = new \App\Models\ResepDetailModel();
+
+        $data['result'] =  $resepDetailModel->getReportResep($tanggal);
+
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'No')
+            ->setCellValue('B1', 'Kode Kunjungan')
+            ->setCellValue('C1', 'Nama Pasien')
+            ->setCellValue('D1', 'Jenis Obat')
+            ->setCellValue('E1', 'Jumlah')
+            ->setCellValue('F1', 'Satuan')
+            ->setCellValue('G1', 'Tanggal Pemberian');
+
+        $column = 2;
+
+        if (!empty($data['result'])) {
+            foreach ($data['result'] as $row) {
+                $spreadsheet->setActiveSheetIndex(0)
+                    ->setCellValue('A' . $column, $column - 1)
+                    ->setCellValue('B' . $column, $row['id_kunjungan'])
+                    ->setCellValue('C' . $column, $row['nama_pasien'])
+                    ->setCellValue('D' . $column, $row['nama_obat'])
+                    ->setCellValue('E' . $column, $row['jumlah'])
+                    ->setCellValue('F' . $column, $row['satuan'])
+                    ->setCellValue('G' . $column, $row['created_at']);
+                $column++;
+            }
+        }
+
+        // tulis dalam format .xlsx
+        $writer = new Xlsx($spreadsheet);
+        $fileName = 'Data Resep';
 
         // Redirect hasil generate xlsx ke web client
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

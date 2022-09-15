@@ -45,13 +45,11 @@
                             <?php if (session()->get('log_role') === "APOTEKER") : ?>
                                 <td width="25%" class="text-center">
                                     <div class="btn-group btn-group-sm">
-
                                         <a href="<?= base_url('resep/view/' . $row['id_resep']) ?>" class="btn btn-white">
                                             <span class="text-light">
                                                 <i class="material-icons">visibility</i>
                                             </span> Lihat
                                         </a>
-
                                     </div>
                                 </td>
                             <?php endif; ?>

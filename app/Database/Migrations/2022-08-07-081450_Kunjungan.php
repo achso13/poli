@@ -32,7 +32,8 @@ class Kunjungan extends Migration
                 'type' => 'DATE',
             ],
             'keluhan' => [
-                'type' => 'text',
+                'type' => 'varchar',
+                'constraint' => '255',
             ],
             'tipe_kunjungan' => [
                 'type' => 'ENUM',

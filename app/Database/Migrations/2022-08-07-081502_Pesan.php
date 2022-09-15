@@ -26,7 +26,8 @@ class Pesan extends Migration
                 'constraint' => '12',
             ],
             'pesan' => [
-                'type' => 'text',
+                'type' => 'varchar',
+                'constraint' => '255',
             ],
             'created_at' => [
                 'type' => 'datetime',
