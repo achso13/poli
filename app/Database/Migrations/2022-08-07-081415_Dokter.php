@@ -27,12 +27,12 @@ class Dokter extends Migration
             ],
             'nama' => [
                 'type' => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '70',
                 'null' => true
             ],
             'tempat_lahir' => [
                 'type' => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '50',
                 'null' => true
             ],
             'tanggal_lahir' => [

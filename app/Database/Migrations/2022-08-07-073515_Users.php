@@ -30,23 +30,23 @@ class Users extends Migration
             ],
             'nama' => [
                 'type' => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '70',
             ],
             'username' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '20',
             ],
             'password' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '50',
             ],
             'email' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '50',
             ],
             'photo' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '50',
                 'null'       => true,
             ],
             'created_at' => [

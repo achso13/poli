@@ -35,8 +35,8 @@
 						<span class="ml-3">Status : </span><br />
 						<?php if ($result['status'] == "Open") : ?>
 							<span class="badge badge-pill badge-success text-white ml-3">Open</span>
-						<?php elseif ($result['status'] == "Closed") : ?>
-							<span class="badge badge-pill badge-danger ml-3">Closed</span>
+						<?php elseif ($result['status'] == "Close") : ?>
+							<span class="badge badge-pill badge-danger ml-3">Close</span>
 						<?php endif; ?>
 					</li>
 				</ul>

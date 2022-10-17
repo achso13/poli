@@ -10,16 +10,14 @@
       <li class="nav-item">
             <a class="nav-link " href="<?= base_url('appointment') ?>">
                   <i class="material-icons">medication</i>
-                  <span>Appointment </span><br />
-                  <span class="ml-4">&nbsp;Periksa Offline</span>
+                  <span>&nbsp;Kunjungan</span>
             </a>
       </li>
 
       <li class="nav-item">
             <a class="nav-link " href="<?= base_url('tiket') ?>">
                   <i class="material-icons">medication</i>
-                  <span>Tiket </span><br />
-                  <span class="ml-4">&nbsp;Konsultasi Online</span>
+                  <span>&nbsp;Konsultasi Online</span>
             </a>
       </li>
 

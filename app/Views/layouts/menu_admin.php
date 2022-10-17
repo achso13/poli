@@ -11,16 +11,14 @@
       <li class="nav-item">
             <a class="nav-link " href="<?= base_url('appointment') ?>">
                   <i class="material-icons">medication</i>
-                  <span>Appointment </span><br />
-                  <span class="ml-4">&nbsp;Periksa Offline</span>
+                  <span>&nbsp;Kunjungan</span>
             </a>
       </li>
 
       <li class="nav-item">
             <a class="nav-link " href="<?= base_url('tiket') ?>">
                   <i class="material-icons">medication</i>
-                  <span>Tiket </span><br />
-                  <span class="ml-4">&nbsp;Konsultasi Online</span>
+                  <span>&nbsp;Konsultasi Online</span>
             </a>
       </li>
 
@@ -33,11 +31,19 @@
 
       <h6 class="main-sidebar__nav-title">Data Master</h6>
 
-      <li class="nav-item">
-            <a class="nav-link " href="<?= base_url('doctor') ?>">
+      <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="true">
                   <i class="material-icons">group</i>
                   <span>Dokter</span>
             </a>
+            <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
+                  <a class="dropdown-item " href="<?= base_url('doctor') ?>">Data Dokter</a>
+                  <a class="dropdown-item " href="<?= base_url('doctor/jadwal') ?>">Jadwal Dokter</a>
+            </div>
+      </li>
+
+      <li class="nav-item">
+
       </li>
 
       <li class="nav-item">

@@ -18,7 +18,7 @@ class Biro extends Migration
 			],
 			'nama_biro'      => [
 				'type'       => 'VARCHAR',
-				'constraint' => '100',
+				'constraint' => '70',
 			],
 			'created_at' => [
 				'type'	=> 'datetime',

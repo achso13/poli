@@ -44,13 +44,13 @@
                                     <?= csrf_field() ?>
                                     <div class="form-group">
                                         <label>Username</label>
-                                        <input type="text" name="f_username" class="form-control" placeholder="Input Username ...">
+                                        <input type="text" name="f_username" class="form-control" placeholder="Masukkan username ...">
                                     </div>
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="password" name="f_password" class="form-control" placeholder="Input Your Password ...">
+                                        <input type="password" name="f_password" class="form-control" placeholder="Masukkan password ...">
                                     </div>
-                                    <input type="submit" name="f_submit" value="Akses Akun" class="btn btn-pill btn-accent d-table mx-auto">
+                                    <input type="submit" name="f_submit" value="Login" class="btn btn-pill btn-accent d-table mx-auto">
                                     <?= form_close() ?>
 
                                 </div>

@@ -27,10 +27,11 @@ class ResepDetail extends Migration
             ],
             'jumlah' => [
                 'type' => 'INT',
-                'constraint' => '11',
+                'constraint' => '5',
             ],
             'keterangan' => [
-                'type' => 'text',
+                'type' => 'VARCHAR',
+                'constraint' => '100',
             ],
             'created_at' => [
                 'type' => 'datetime',

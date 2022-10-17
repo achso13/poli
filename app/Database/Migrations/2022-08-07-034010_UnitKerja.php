@@ -18,7 +18,7 @@ class UnitKerja extends Migration
             ],
             'nama_bagian'       => [
                 'type'       => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '70',
             ],
             'id_biro'          => [
                 'type'           => 'INT',

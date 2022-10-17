@@ -33,7 +33,7 @@ class Kunjungan extends Migration
             ],
             'keluhan' => [
                 'type' => 'varchar',
-                'constraint' => '255',
+                'constraint' => '70',
             ],
             'tipe_kunjungan' => [
                 'type' => 'ENUM',

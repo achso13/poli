@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\AppointmentModel;
 use App\Models\RekamMedisModel;
 use App\Models\TreatmentModel;
 use App\Models\PatientModel;
@@ -149,6 +150,9 @@ class RekamMedis extends BaseController
 
                 $insertResep = $this->resepModel->save($dataResep);
 
+                $appointmentModel = new AppointmentModel();
+                $appointmentModel->update($data['id_kunjungan'], ['status' => 'Close']);
+
                 if ($insertRekamMedis && $insertResep) {
                     session()->setFlashdata('message', 'Data berhasil disimpan');
                     $result['error'] = false;
@@ -270,6 +274,9 @@ class RekamMedis extends BaseController
                     ->where('id_rekam_medis', $idRekamMedis)
                     ->set($dataResep)
                     ->update();
+
+                $appointmentModel = new AppointmentModel();
+                $appointmentModel->update($data['id_kunjungan'], ['status' => 'Close']);
 
                 if ($updateRekamMedis && $updateResep) {
                     session()->setFlashdata('message', 'Data berhasil diperbarui');

@@ -22,7 +22,7 @@ class Treatment extends Migration
             ],
             'nama_treatment' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '50',
             ],
             'deskripsi' => [
                 'type'       => 'VARCHAR',

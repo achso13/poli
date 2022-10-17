@@ -53,6 +53,18 @@ class RekamMedis extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'berat_badan' => [
+                'type' => 'VARCHAR',
+                'constraint' => '7',
+            ],
+            'tinggi_badan' => [
+                'type' => 'VARCHAR',
+                'constraint' => '7',
+            ],
+            'alergi_obat' => [
+                'type' => 'VARCHAR',
+                'constraint' => '50',
+            ],
             'created_at' => [
                 'type' => 'datetime',
                 'null' => true,

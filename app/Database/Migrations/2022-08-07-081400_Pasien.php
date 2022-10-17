@@ -31,7 +31,7 @@ class Pasien extends Migration
             ],
             'nama' => [
                 'type'           => 'VARCHAR',
-                'constraint'     => '100',
+                'constraint'     => '70',
                 'null'          => true,
             ],
             'alamat_rumah' => [
@@ -55,7 +55,7 @@ class Pasien extends Migration
             ],
             'tempat_lahir' => [
                 'type'           => 'VARCHAR',
-                'constraint'     => '100',
+                'constraint'     => '50',
                 'null'          => true,
             ],
             'created_at' => [

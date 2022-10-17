@@ -16,7 +16,7 @@ class Obat extends Migration
             ],
             'nama_obat' => [
                 'type' => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '50',
             ],
             'stok' => [
                 'type' => 'INT',
@@ -24,7 +24,7 @@ class Obat extends Migration
             ],
             'satuan' => [
                 'type' => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '30',
             ],
             'created_at' => [
                 'type' => 'datetime',

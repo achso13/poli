@@ -22,7 +22,8 @@ class Resep extends Migration
                 'unsigned' => true,
             ],
             'resep_dokter' => [
-                'type' => 'text',
+                'type' => 'varchar',
+                'constraint' => '200',
             ],
             'status' => [
                 'type' => 'ENUM',

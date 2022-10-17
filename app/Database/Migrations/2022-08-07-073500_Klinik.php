@@ -18,7 +18,7 @@ class Klinik extends Migration
             ],
             'nama_klinik'      => [
                 'type'       => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '50',
             ],
             'created_at' => [
                 'type'    => 'datetime',
