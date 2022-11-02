@@ -24,10 +24,10 @@
                                     <input class="form-check-input" type="radio" name="f_type" value="kunjungan" checked>
                                     <label class="form-check-label">Data Kunjungan</label>
                                 </div>
-                                <!-- <div class="form-check">
+                                <div class="form-check">
                                     <input class="form-check-input" type="radio" name="f_type" value="pasien">
                                     <label class="form-check-label">Data Pasien</label>
-                                </div> -->
+                                </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="f_type" value="obat">
                                     <label class="form-check-label">Data Obat</label>
@@ -39,19 +39,33 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <div class="row">
+                <script>
+                    $(document).ready(function() {
+                        $('input[type=radio][name=f_type]').change(function() {
+                            if (this.value == 'kunjungan' || this.value == 'resep') {
+                                $('#tanggal-laporan').show();
+                                $('#tanggal-awal').attr('required', true);
+                                $('#tanggal-akhir').attr('required', true);
+                            } else if (this.value == 'pasien' || this.value == 'obat') {
+                                $('#tanggal-laporan').hide();
+                                $('#tanggal-awal').removeAttr('required');
+                                $('#tanggal-akhir').removeAttr('required');
+                            }
+                        });
+                    })
+                </script>
+                <div class="row" id="tanggal-laporan">
                     <div class="col-6">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Tanggal Awal <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" name="tanggal_awal" id="tanggal" required>
+                            <input type="date" class="form-control" name="tanggal_awal" id="tanggal-awal" required>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Tanggal Akhir <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" name="tanggal_akhir" id="tanggal" required>
+                            <input type="date" class="form-control" name="tanggal_akhir" id="tanggal-akhir" required>
                         </div>
                     </div>
                 </div>

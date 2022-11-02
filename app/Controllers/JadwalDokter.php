@@ -40,7 +40,7 @@ class JadwalDokter extends BaseController
                 'id_dokter' => $this->request->getVar('f_id_dokter'),
                 'jam_mulai' => $this->request->getVar('f_jam_mulai'),
                 'jam_selesai' => $this->request->getVar('f_jam_selesai'),
-                'keterangan' => $this->request->getVar('f_keterangan'),
+                'hari' => $this->request->getVar('f_hari'),
             ];
 
             $validation->setRules([
@@ -65,11 +65,12 @@ class JadwalDokter extends BaseController
                         'required' => '{field} harus diisi',
                     ],
                 ],
-                'keterangan' => [
-                    'label' => 'Keterangan',
-                    'rules' => 'required',
+                'hari' => [
+                    'label' => 'hari',
+                    'rules' => 'required|in_list[Senin,Selasa,Rabu,Kamis,Jumat]',
                     'errors' => [
                         'required' => '{field} harus diisi',
+                        'in_list' => '{field} harus diisi dengan Senin, Selasa, Rabu, Kamis, Jumat',
                     ],
                 ],
             ]);
@@ -111,7 +112,7 @@ class JadwalDokter extends BaseController
                 'id_dokter' => $this->request->getVar('f_id_dokter'),
                 'jam_mulai' => $this->request->getVar('f_jam_mulai'),
                 'jam_selesai' => $this->request->getVar('f_jam_selesai'),
-                'keterangan' => $this->request->getVar('f_keterangan'),
+                'hari' => $this->request->getVar('f_hari'),
             ];
             $validation->setRules([
                 'id_dokter' => [
@@ -135,11 +136,12 @@ class JadwalDokter extends BaseController
                         'required' => '{field} harus diisi',
                     ],
                 ],
-                'keterangan' => [
-                    'label' => 'Keterangan',
-                    'rules' => 'required',
+                'hari' => [
+                    'label' => 'hari',
+                    'rules' => 'required|in_list[Senin,Selasa,Rabu,Kamis,Jumat]',
                     'errors' => [
                         'required' => '{field} harus diisi',
+                        'in_list' => '{field} harus diisi dengan Senin, Selasa, Rabu, Kamis, Jumat',
                     ],
                 ],
             ]);
@@ -177,6 +179,15 @@ class JadwalDokter extends BaseController
     {
         if ($this->request->isAJAX()) {
             $data = $this->jadwalDokterModel->where('id_dokter', $idDokter)->findAll();
+
+            return $this->response->setJSON($data);
+        }
+    }
+
+    public function ajaxHariDokter($idJadwalDokter)
+    {
+        if ($this->request->isAJAX()) {
+            $data = $this->jadwalDokterModel->where('id_jadwal_dokter', $idJadwalDokter)->first()['hari'];
 
             return $this->response->setJSON($data);
         }

@@ -57,6 +57,9 @@ class RekamMedis extends BaseController
                 'tindakan' => $this->request->getPost('f_tindakan'),
                 'resep_dokter' => $this->request->getPost('f_resep_dokter'),
                 'jadwal_treatment' => $this->request->getPost('f_jadwal_treatment'),
+                'tinggi_badan' => $this->request->getPost('f_tinggi_badan'),
+                'berat_badan' => $this->request->getPost('f_berat_badan'),
+                'alergi_obat' => $this->request->getPost('f_alergi_obat'),
             ];
             $validation->setRules([
                 'id_pasien' => [
@@ -101,13 +104,6 @@ class RekamMedis extends BaseController
                         'required' => '{field} wajib diisi',
                     ],
                 ],
-                'tindakan' => [
-                    'label' => 'Tindakan',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} wajib diisi',
-                    ],
-                ],
                 'resep_dokter' => [
                     'label' => 'Resep',
                     'rules' => 'required',
@@ -122,6 +118,28 @@ class RekamMedis extends BaseController
                         'required' => '{field} wajib diisi',
                     ],
                 ],
+                'tinggi_badan' => [
+                    'label' => 'Tinggi Badan',
+                    'rules' => 'permit_empty|numeric|greater_than[0]|max_length[7]',
+                    'errors' => [
+                        'numeric' => '{field} harus berupa angka',
+                        'greater_than' => '{field} harus lebih besar dari 0',
+                        'max_length' => '{field} maksimal 7 karakter',
+                    ],
+                ],
+                'berat_badan' => [
+                    'label' => 'Berat Badan',
+                    'rules' => 'permit_empty|numeric|greater_than[0]|max_length[7]',
+                    'errors' => [
+                        'numeric' => '{field} harus berupa angka',
+                        'greater_than' => '{field} harus lebih besar dari 0',
+                        'max_length' => '{field} maksimal 7 karakter',
+                    ],
+                ],
+                'alergi_obat' => [
+                    'label' => 'Alergi Obat',
+                    'rules' => 'permit_empty',
+                ],
             ]);
             if ($validation->run($data)) {
                 $dataRekamMedis = [
@@ -131,8 +149,10 @@ class RekamMedis extends BaseController
                     'id_kunjungan' => $data['id_kunjungan'],
                     'diagnosa' => $data['diagnosa'],
                     'anamnesa' => $data['anamnesa'],
-                    'tindakan' => $data['tindakan'],
                     'jadwal_treatment' => $data['jadwal_treatment'],
+                    'tinggi_badan' => $data['tinggi_badan'],
+                    'berat_badan' => $data['berat_badan'],
+                    'alergi_obat' => $data['alergi_obat'],
                 ];
 
                 if ($dataRekamMedis['id_treatment'] == NULL) {
@@ -184,7 +204,11 @@ class RekamMedis extends BaseController
                 'tindakan' => $this->request->getPost('f_tindakan'),
                 'resep_dokter' => $this->request->getPost('f_resep_dokter'),
                 'jadwal_treatment' => $this->request->getPost('f_jadwal_treatment'),
+                'tinggi_badan' => $this->request->getPost('f_tinggi_badan'),
+                'berat_badan' => $this->request->getPost('f_berat_badan'),
+                'alergi_obat' => $this->request->getPost('f_alergi_obat'),
             ];
+
             $validation->setRules([
                 'id_pasien' => [
                     'label' => 'Pasien',
@@ -228,13 +252,6 @@ class RekamMedis extends BaseController
                         'required' => '{field} wajib diisi',
                     ],
                 ],
-                'tindakan' => [
-                    'label' => 'Tindakan',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} wajib diisi',
-                    ],
-                ],
                 'resep_dokter' => [
                     'label' => 'Resep',
                     'rules' => 'required',
@@ -249,6 +266,29 @@ class RekamMedis extends BaseController
                         'required' => '{field} wajib diisi',
                     ],
                 ],
+                'tinggi_badan' => [
+                    'label' => 'Tinggi Badan',
+                    'rules' => 'permit_empty|numeric|greater_than[0]|max_length[7]',
+                    'errors' => [
+                        'numeric' => '{field} harus berupa angka',
+                        'greater_than' => '{field} harus lebih besar dari 0',
+                        'max_length' => '{field} maksimal 7 karakter',
+                    ],
+                ],
+                'berat_badan' => [
+                    'label' => 'Berat Badan',
+                    'rules' => 'permit_empty|numeric|greater_than[0]|max_length[7]',
+                    'errors' => [
+                        'numeric' => '{field} harus berupa angka',
+                        'greater_than' => '{field} harus lebih besar dari 0',
+                        'max_length' => '{field} maksimal 7 karakter',
+                    ],
+                ],
+                'alergi_obat' => [
+                    'label' => 'Alergi Obat',
+                    'rules' => 'permit_empty',
+                ],
+
             ]);
             if ($validation->run($data)) {
                 $idRekamMedis = $this->request->getPost('f_id_rekam_medis');
@@ -260,9 +300,12 @@ class RekamMedis extends BaseController
                     'id_kunjungan' => $data['id_kunjungan'],
                     'diagnosa' => $data['diagnosa'],
                     'anamnesa' => $data['anamnesa'],
-                    'tindakan' => $data['tindakan'],
                     'jadwal_treatment' => $data['jadwal_treatment'],
+                    'tinggi_badan' => $data['tinggi_badan'],
+                    'berat_badan' => $data['berat_badan'],
+                    'alergi_obat' => $data['alergi_obat'],
                 ];
+                var_dump($dataRekamMedis);
 
                 $updateRekamMedis = $this->rekamMedisModel->update($idRekamMedis, $dataRekamMedis);
 
@@ -276,7 +319,7 @@ class RekamMedis extends BaseController
                     ->update();
 
                 $appointmentModel = new AppointmentModel();
-                $appointmentModel->update($data['id_kunjungan'], ['status' => 'Close']);
+                $appointmentModel->update($data['id_kunjungan'], ['status' => 'Selesai']);
 
                 if ($updateRekamMedis && $updateResep) {
                     session()->setFlashdata('message', 'Data berhasil diperbarui');
@@ -325,10 +368,10 @@ class RekamMedis extends BaseController
             $validation = \Config\Services::validation();
             $data = [
                 'id_rekam_medis' => $this->request->getPost('f_id_rekam_medis'),
-                'notes_klinik' => $this->request->getPost('f_notes_klinik'),
+                'hasil_treatment' => $this->request->getPost('f_hasil_treatment'),
             ];
             $validation->setRules([
-                'notes_klinik' => [
+                'hasil_treatment' => [
                     'label' => 'Catatan Klinik',
                     'rules' => 'required',
                     'errors' => [

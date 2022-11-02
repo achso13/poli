@@ -9,7 +9,7 @@
       <li class="nav-item">
             <a class="nav-link " href="<?= base_url('resep') ?>">
                   <i class="material-icons">today</i>
-                  <span>Resep Tersedia</span>
+                  <span>Resep</span>
             </a>
       </li>
 

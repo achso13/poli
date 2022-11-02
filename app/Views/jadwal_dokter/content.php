@@ -8,7 +8,7 @@
                     <td class="text-primary text-center">Nama</td>
                     <td class="text-primary text-center">Tipe</td>
                     <td class="text-primary text-center">Jadwal</td>
-                    <td class="text-primary text-center">Keterangan</td>
+                    <td class="text-primary text-center">Hari</td>
                     <td class="text-primary text-center">Action</td>
                 </tr>
             </thead>
@@ -19,8 +19,8 @@
                         <td><?= $no ?></td>
                         <td><?= $row['nama'] ?></td>
                         <td><?= $row['tipe_dokter'] ?></td>
-                        <td><?= $row['jam_mulai'] ?> - <?= $row['jam_selesai'] ?></td>
-                        <td><?= $row['keterangan'] ?></td>
+                        <td><?= date('H:i', strtotime($row['jam_mulai'])) ?> - <?= date('H:i', strtotime($row['jam_selesai'])) ?></td>
+                        <td><?= $row['hari'] ?></td>
                         <td width="25%">
                             <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_jadwal_dokter'] ?>" data-toggle="modal" data-target="#form-modals">
                                 <i class="mr-1 fa fa-pen-square"></i> Edit

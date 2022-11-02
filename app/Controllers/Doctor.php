@@ -50,6 +50,7 @@ class Doctor extends BaseController
                 'email' => $this->request->getPost('f_email'),
                 'password' => $this->request->getPost('f_password'),
                 'photo' => $photoName,
+                'pengalaman_praktik' => $this->request->getPost('f_pengalaman_praktik'),
             ];
 
             $validation->setRules([
@@ -150,6 +151,15 @@ class Doctor extends BaseController
                         'is_image' => '{field} harus berupa file gambar',
                     ],
                 ],
+                'pengalaman_praktik' => [
+                    'label' => 'Pengalaman Praktik',
+                    'rules' => 'required|min_length[3]|max_length[100]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 100 karakter',
+                    ],
+                ],
             ]);
 
             if ($validation->run($data)) {
@@ -185,6 +195,7 @@ class Doctor extends BaseController
                     'tanggal_lahir' => $this->request->getPost('f_tanggal_lahir'),
                     'jenis_kelamin' => $this->request->getPost('f_jenis_kelamin'),
                     'telepon' => $this->request->getPost('f_telepon'),
+                    'pengalaman_praktik' => $this->request->getPost('f_pengalaman_praktik'),
                 ];
                 $insert = $this->doctorModel->save($dataDoctor);
                 if ($insert) {
@@ -238,6 +249,7 @@ class Doctor extends BaseController
                 'email' => $this->request->getPost('f_email'),
                 'password' => $this->request->getPost('f_password'),
                 'photo' => $photoName,
+                'pengalaman_praktik' => $this->request->getPost('f_pengalaman_praktik'),
             ];
 
             $validation->setRules([
@@ -338,6 +350,15 @@ class Doctor extends BaseController
                         'is_image' => '{field} harus berupa file gambar',
                     ],
                 ],
+                'pengalaman_praktik' => [
+                    'label' => 'Pengalaman Praktik',
+                    'rules' => 'required|min_length[3]|max_length[100]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'min_length' => '{field} minimal 3 karakter',
+                        'max_length' => '{field} maksimal 100 karakter',
+                    ],
+                ],
             ]);
 
             if ($validation->run($data)) {
@@ -379,6 +400,7 @@ class Doctor extends BaseController
                     'tanggal_lahir' => $this->request->getPost('f_tanggal_lahir'),
                     'jenis_kelamin' => $this->request->getPost('f_jenis_kelamin'),
                     'telepon' => $this->request->getPost('f_telepon'),
+                    'pengalaman_praktik' => $this->request->getPost('f_pengalaman_praktik'),
                 ];
 
                 $update = $this->doctorModel->update($this->request->getPost('f_id_dokter'), $dataDoctor);

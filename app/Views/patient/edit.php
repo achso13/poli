@@ -139,7 +139,7 @@
     </div>
 </div>
 <div class="modal-footer">
-    <input type="submit" name="f_store" class="btn btn-primary" value="Save">
+    <input type="submit" name="f_store" class="btn btn-primary" value="Simpan">
 </div>
 
 <?= form_close(); ?>

@@ -7,7 +7,7 @@
 <!-- Page Header -->
 <div class="page-header row no-gutters py-4">
 	<div class="col-12 col-sm-6 text-center text-sm-left mb-4 mb-sm-0">
-		<span class="text-uppercase page-subtitle">Pemeriksaan Offline</span>
+		<span class="text-uppercase page-subtitle">Resep</span>
 		<h3 class="page-title">Kode Kunjungan : <?= $result['id_kunjungan'] ?></h3>
 	</div>
 </div>

@@ -10,18 +10,34 @@ class JadwalDokterSeeder extends Seeder
     {
         $data = [
             [
-                'id_dokter' => 'DR-0000001
-',
+                'id_dokter' => 'DR-0000001',
                 'jam_mulai' => '09:00:00',
-                'jam_selesai' => '12:00:00',
-                'keterangan' => 'Senin - Jumat',
+                'jam_selesai' => '15:30:00',
+                'hari' => 'Senin',
             ],
             [
-                'id_dokter' => 'DR-0000001
-',
-                'jam_mulai' => '13:00:00',
+                'id_dokter' => 'DR-0000001',
+                'jam_mulai' => '09:00:00',
                 'jam_selesai' => '15:30:00',
-                'keterangan' => 'Senin - Jumat',
+                'hari' => 'Selasa',
+            ],
+            [
+                'id_dokter' => 'DR-0000001',
+                'jam_mulai' => '09:00:00',
+                'jam_selesai' => '15:30:00',
+                'hari' => 'Rabu',
+            ],
+            [
+                'id_dokter' => 'DR-0000001',
+                'jam_mulai' => '09:00:00',
+                'jam_selesai' => '15:30:00',
+                'hari' => 'Kamis',
+            ],
+            [
+                'id_dokter' => 'DR-0000001',
+                'jam_mulai' => '09:00:00',
+                'jam_selesai' => '15:30:00',
+                'hari' => 'Jumat',
             ],
         ];
 

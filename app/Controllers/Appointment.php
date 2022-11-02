@@ -9,6 +9,7 @@ use App\Models\PatientModel;
 use App\Models\RekamMedisModel;
 use App\Models\TreatmentModel;
 
+
 class Appointment extends BaseController
 {
     public function __construct()
@@ -73,7 +74,7 @@ class Appointment extends BaseController
                 ],
                 'tanggal_kunjungan' => [
                     'label' => 'Tanggal Kunjungan',
-                    'rules' => 'required|valid_date',
+                    'rules' => 'required|valid_date|same_days[' . $data['id_jadwal_dokter'] . ']',
                     'errors' => [
                         'required' => '{field} harus diisi',
                         'valid_date' => '{field} harus berupa tanggal yang valid',
@@ -97,9 +98,24 @@ class Appointment extends BaseController
 
 
             if ($validation->run($data)) {
-                $data['id_kunjungan'] = generateAppointmentId($this->appointmentModel, 'id_kunjungan', 'K', 12, $data['tanggal_kunjungan']);
+                $data['id_kunjungan'] = generateAppointmentId($this->appointmentModel, 'id_kunjungan', 'K', 14, $data['tanggal_kunjungan']);
                 $insert = $this->appointmentModel->save($data);
+
+                // Get id user doctor
+                $doctor = $this->doctorModel->getDoctors($data['id_dokter']);
+
                 if ($insert) {
+                    // INSERT NOTIFICATION TABLE
+                    $notificationModel = new \App\Models\NotificationModel();
+                    $notificationModel->insert([
+                        'id_user' => $doctor['id_user'],
+                        'judul' => 'Kunjungan',
+                        'pesan' => 'Ada Kunjungan baru dengan id <b>#' . $data['id_kunjungan'] . '</b> dari pasien <b>#' . $data['id_pasien'] . '</b>',
+                        'link' => '/appointment/view/' . $data['id_kunjungan'],
+                        'is_read' => 0,
+                    ]);
+                    // END INSERT NOTIFICATION TABLE
+
                     session()->setFlashdata('message', 'Data berhasil disimpan');
                     $result['error'] = false;
                     $result['message'] = 'Data berhasil disimpan';
@@ -137,7 +153,7 @@ class Appointment extends BaseController
             'status' => ucfirst($status),
         ];
 
-        if ($status !== 'open' && $status !== 'close') {
+        if ($status !== 'menunggu' && $status !== 'selesai') {
             session()->setFlashdata('message', 'Status tidak valid');
             return redirect()->to(base_url('appointment'));
         }

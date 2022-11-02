@@ -11,7 +11,7 @@ class Kunjungan extends Migration
         $this->forge->addField([
             'id_kunjungan' => [
                 'type' => 'VARCHAR',
-                'constraint' => '12',
+                'constraint' => '14',
                 'unique' => true
             ],
             'id_pasien' => [
@@ -41,7 +41,7 @@ class Kunjungan extends Migration
             ],
             'status' => [
                 'type' => 'ENUM',
-                'constraint' => '"Open","Close"',
+                'constraint' => '"Aktif", "Selesai"',
             ],
             'created_at' => [
                 'type' => 'datetime',

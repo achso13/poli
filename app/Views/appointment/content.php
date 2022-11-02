@@ -6,9 +6,16 @@
                 <thead>
                     <tr class="bg-light">
                         <td class="text-primary text-center" width="5%">No</td>
-                        <td class="text-primary text-center">Subjek</td>
-                        <td class="text-primary text-center" width="15%">Status</td>
-                        <td class="text-primary text-center">Action</td>
+                        <td class="text-primary text-center">ID</td>
+                        <td class="text-primary text-center">Pasien</td>
+                        <td class="text-primary text-center">Dokter</td>
+                        <td class="text-primary text-center">Keluhan</td>
+                        <td class="text-primary text-center">Tanggal Kedatangan</td>
+                        <td class="text-primary text-center">Waktu</td>
+                        <td class="text-primary text-center">Status</td>
+                        <?php if (session()->get('log_role') !== "PASIEN") : ?>
+                            <td class="text-primary text-center">Action</td>
+                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -17,64 +24,45 @@
                         <tr>
                             <td><?= $no ?></td>
                             <td class="text-left">
-                                <a href="#" title="Lihat Tiket"><b>[<?= $row['id_kunjungan'] ?>]</b></a> <br>
-
-                                Nama Pasien : <?= $row['nama_pasien'] ?> <br>
-                                Unit Kerja : <?= $row['nama_biro'] ?> - <?= $row['nama_bagian'] ?><br>
-
-                                Dokter : <?= $row['nama_dokter'] ?><br>
-                                Tgl. Kedatangan : <?= time_format($row['tanggal_kunjungan'], 'd M Y') ?> <br>
-                                Tgl. Pengajuan : <?= time_format($row['created_at'], 'd M Y') ?> <br>
-
+                                <b><?= $row['id_kunjungan'] ?></b>
+                            </td>
+                            <td class="text-left">
+                                Nama: <?= $row['nama_pasien'] ?> <br>
+                                Unit Kerja: <?= $row['nama_biro'] ?> - <?= $row['nama_bagian'] ?><br>
+                            </td>
+                            <td class="text-left">
+                                <b><?= $row['nama_dokter'] ?></b>
                             </td>
                             <td class="text-center">
-                                <?php if ($row['status'] == "Open") : ?>
+                                <b><?= $row['keluhan'] ?></b>
+                            </td>
+                            <td class="text-center">
+                                <b><?= time_format($row['tanggal_kunjungan'], 'd M Y') ?></b>
+                            </td>
+                            <td class="text-center">
+                                <b><?= time_format($row['jam_mulai'], 'H:i') ?> - <?= time_format($row['jam_selesai'], 'H:i') ?></b>
+                            </td>
 
-                                    <span class="badge badge-pill badge-success text-white">Open</span>
-
-                                <?php elseif ($row['status'] == "Close") : ?>
-
-                                    <span class="badge badge-pill badge-danger">Close</span>
-
+                            <td class="text-center">
+                                <?php if ($row['status'] == "Aktif") : ?>
+                                    <span class="badge badge-pill badge-success text-white">Aktif</span>
+                                <?php elseif ($row['status'] == "Selesai") : ?>
+                                    <span class="badge badge-pill badge-dark text-white">Selesai</span>
                                 <?php endif; ?>
                             </td>
-                            <td width="25%" class="text-center">
 
-                                <?php if (session()->get('log_role') === "PASIEN") : ?>
-
-
+                            <?php if (session()->get('log_role') === "ADMIN" || session()->get('log_role') === "DOKTER") : ?>
+                                <td class="text-center">
                                     <div class="btn-group btn-group-sm">
-
-                                        <a href="<?= base_url('appointment/view/' . $row['id_kunjungan']) ?>" class="btn btn-white">
-                                            <span class="text-light">
-                                                <i class="material-icons">visibility</i>
-                                            </span> Lihat
-                                        </a>
-
-                                    </div>
-
-                                <?php elseif (session()->get('log_role') === "ADMIN" || session()->get('log_role') === "DOKTER") : ?>
-
-                                    <div class="btn-group btn-group-sm">
-                                        <a href="<?= base_url('appointment/status/open/' . $row['id_kunjungan']) ?>" onclick="return confirm('Buka status kunjungan?')" class="btn btn-white">
-                                            <span class="text-success">
-                                                <i class="material-icons">check</i>
-                                            </span> Open
-                                        </a>
-                                        <a href="<?= base_url('appointment/status/close/' . $row['id_kunjungan']) ?>" onclick="return confirm('Tutup status kunjungan?')" class="btn btn-white">
-                                            <span class="text-danger">
-                                                <i class="material-icons">clear</i>
-                                            </span> Close
-                                        </a>
-
                                         <a href="<?= base_url('appointment/view/' . $row['id_kunjungan']) ?>" class="btn btn-white">
                                             <span class="text-light">
                                                 <i class="material-icons">visibility</i>
                                             </span> Lihat
                                         </a>
                                     </div>
-                                <?php endif; ?>
-                            </td>
+                                </td>
+                            <?php endif; ?>
+
                         </tr>
                         <?php $no++; ?>
                     <?php endforeach; ?>

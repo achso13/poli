@@ -71,7 +71,6 @@ class Tiket extends BaseController
                         'required' => '{field} harus diisi',
                     ],
                 ],
-
                 'keluhan' => [
                     'label' => 'Keluhan',
                     'rules' => 'required',
@@ -83,12 +82,28 @@ class Tiket extends BaseController
 
 
             if ($validation->run($data)) {
-                $data['id_kunjungan'] = generateAppointmentId($this->appointmentModel, 'id_kunjungan', 'K', 12, $data['tanggal_kunjungan']);
+                $data['id_kunjungan'] = generateAppointmentId($this->appointmentModel, 'id_kunjungan', 'K', 14, $data['tanggal_kunjungan'], "Online");
                 $insert = $this->appointmentModel->save($data);
+
+                // Get id user doctor
+                $doctor = $this->doctorModel->getDoctors($data['id_dokter']);
+
                 if ($insert) {
                     session()->setFlashdata('message', 'Data berhasil disimpan');
                     $result['error'] = false;
                     $result['message'] = 'Data berhasil disimpan';
+
+                    // INSERT NOTIFICATION TABLE
+                    $notificationModel = new \App\Models\NotificationModel();
+                    $notificationModel->insert([
+                        'id_user' => $doctor['id_user'],
+                        'judul' => 'Konsultasi Online',
+                        'pesan' => 'Ada konsultasi online baru dengan id <b>#' . $data['id_kunjungan'] . '</b> dari pasien <b>#' . $data['id_pasien'] . '</b>',
+                        'link' => '/tiket/view/' . $data['id_kunjungan'],
+                        'is_read' => 0,
+                    ]);
+                    // END INSERT NOTIFICATION TABLE
+
                 } else {
                     $result['error'] = true;
                     $result['message'] = 'Data gagal disimpan';
@@ -125,7 +140,7 @@ class Tiket extends BaseController
             'status' => ucfirst($status),
         ];
 
-        if ($status !== 'open' && $status !== 'close') {
+        if ($status !== 'aktif' && $status !== 'selesai') {
             session()->setFlashdata('message', 'Status tidak valid');
             return redirect()->to(base_url('tiket'));
         }
@@ -169,6 +184,11 @@ class Tiket extends BaseController
             ]);
             if ($validation->run($data)) {
                 $insert = $this->pesanModel->save($data);
+
+                if (session()->get("log_role") === "DOKTER") {
+                    $this->appointmentModel->update($data['id_kunjungan'], ['status' => 'Dilayani']);
+                }
+
                 if ($insert) {
                     session()->setFlashdata('message', 'Pesan berhasil ditambahkan');
                     $result['error'] = false;

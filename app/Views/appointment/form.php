@@ -1,116 +1,103 @@
-<?= $this->extend('layouts/main') ?>
-<?= $this->section('content') ?>
 <!-- <script src="<?= base_url('assets/third_party/tinymce/tinymce.min.js') ?>"></script>
 <script type="text/javascript" src="<?= base_url('assets/js/tinymce.js') ?>"></script> -->
-
+<?= form_open('appointment/store') ?>
 <script>
 	$(document).ready(function() {
 		$('select[name=f_id_dokter]').change(function() {
 			var val = $(this).val();
 
 			$.ajax({
-				url: '<?= base_url('doctor/jadwal/get_jadwal') ?>' + "/" + val,
+				url: '<?= base_url('doctor/jadwal/get_jadwal') ?>' + `/${val}`,
 				type: 'GET',
 				dataType: 'JSON',
 				success: function(response) {
 					$('select[name=f_id_jadwal_dokter]').empty();
-					$('select[name=f_id_jadwal_dokter]').append('<option value="">---Pilih Jadwal---</option>');
-
-
-					$.each(response, function(key, value) {
-						console.log("value", value);
-						$('select[name=f_id_jadwal_dokter]').append('<option value="' + value.id_jadwal_dokter + '">' + value.jam_mulai + " - " + value.jam_selesai + '</option>');
-					});
-				}
+					if (response.length > 0) {
+						$('select[name=f_id_jadwal_dokter]').append(`<option value="">-- Pilih Jadwal Dokter --</option>`);
+						$.each(response, function(index, value) {
+							$('select[name=f_id_jadwal_dokter]').append(`<option value="${value.id_jadwal_dokter}">${value.hari} - ${value.jam_mulai} - ${value.jam_selesai}</option>`);
+						});
+					} else {
+						$('select[name=f_id_jadwal_dokter]').empty();
+						$('select[name=f_id_jadwal_dokter]').append('<option value="">--Pilih Dokter Terlebih Dahulu--</option>');
+					}
+				},
 			});
-		})
-		$('.select2').select2({
-			theme: 'bootstrap4',
+		});
+
+		$(".select2").select2({
+			theme: "bootstrap4",
 		});
 	});
 </script>
 
 
-<!-- Page Header -->
-<div class="page-header row no-gutters py-4">
-	<div class="col-12 col-sm-6 text-center text-sm-left mb-4 mb-sm-0">
-		<span class="text-uppercase page-subtitle">Form Add</span>
-		<h3 class="page-title">Appointment / Kunjungan </h3>
-	</div>
+
+<div class="modal-header">
+	<h5 class="modal-title" id="exampleModalLabel">Kunjungan</h5>
+	<button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
-<!-- End Page Header -->
-<?= form_open('appointment/store') ?>
-<div class="row">
-	<div class="col-lg-7 col-md-12">
-		<div class="card card-small mb-3">
-			<div class="card-body">
-				<?php if (session()->get('log_role') === "ADMIN") : ?>
-					<div class="form-group">
-						<label>Nama Pasien <span class="text-danger">*</span></label>
+<div class="modal-body">
+	<?php if (session()->get('log_role') === "ADMIN") : ?>
+		<div class="form-group">
+			<label>Nama Pasien <span class="text-danger">*</span></label>
 
-						<!-- select2 for pasien -->
-						<select class="select2 form-control" name="f_id_pasien" id="f_id_pasien">
-							<option value="">---Pilih Pasien---</option>
-							<?php foreach ($pasien as $p) : ?>
-								<option value="<?= $p['id_pasien'] ?>"><?= $p['id_pasien'] ?> - <?= $p['nama'] ?> - <?= $p['nip'] ?></option>
-							<?php endforeach; ?>
-						</select>
-						<div class="invalid-feedback"></div>
-					</div>
-				<?php endif; ?>
-				<?php if (session()->get('log_role') === "PASIEN") : ?>
-					<input type="hidden" name="f_id_pasien" value="<?= $pasien['id_pasien'] ?>">
-				<?php endif; ?>
-
-				<div class="form-group">
-					<label>Keluhan <span class="text-danger">*</span></label>
-					<textarea id="editor" class="form-control" style="height: 230px;" name="f_keluhan"></textarea>
-					<div class="invalid-feedback"></div>
-				</div>
-
-			</div>
-			<div class="card-footer">
-				<input type="submit" name="f_store" class="btn btn-primary btn-simpan" value="Kirim">
-			</div>
+			<!-- select2 for pasien -->
+			<select class="form-control select2" name="f_id_pasien" id="f_id_pasien" id="select-beast">
+				<option value="">---Pilih Pasien---</option>
+				<?php foreach ($pasien as $p) : ?>
+					<option value="<?= $p['id_pasien'] ?>"><?= $p['id_pasien'] ?> - <?= $p['nama'] ?> - <?= $p['nip'] ?></option>
+				<?php endforeach; ?>
+			</select>
+			<div class="invalid-feedback"></div>
 		</div>
+	<?php endif; ?>
+	<div class="form-group">
+		<label>Nama Dokter <span class="text-danger">*</span></label>
+		<select name="f_id_dokter" class="form-control">
+			<option value="">--Pilih Dokter--</option>
+			<?php
+			if (isset($dokter)) :
+				foreach ($dokter as $d) :
+			?>
+					<option value="<?= $d['id_dokter'] ?>"><?= $d['tipe_dokter'] ?> - <?= $d['nama'] ?></option>
+			<?php
+				endforeach;
+			endif;
+			?>
+		</select>
+		<div class="invalid-feedback"></div>
 	</div>
-	<div class="col-lg-4 col-md-12">
-		<div class="card card-small mb-3">
-			<div class="card-body">
-				<div class="form-group">
-					<label>Nama Dokter <span class="text-danger">*</span></label>
-					<select name="f_id_dokter" class="form-control">
-						<option value="">--Pilih Dokter--</option>
-						<?php
-						if (isset($dokter)) :
-							foreach ($dokter as $d) :
-						?>
-								<option value="<?= $d['id_dokter'] ?>"><?= $d['tipe_dokter'] ?> - <?= $d['nama'] ?></option>
-						<?php
-							endforeach;
-						endif;
-						?>
-					</select>
-					<div class="invalid-feedback"></div>
-				</div>
-				<div class="form-group">
-					<label>Jadwal Dokter <span class="text-danger">*</span></label>
-					<select name="f_id_jadwal_dokter" class="form-control">
-						<option value="">--Pilih Jadwal--</option>
-					</select>
-					<div class="invalid-feedback"></div>
-				</div>
-				<div class="form-group">
-					<label>Tanggal Kunjungan <span class="text-danger">*</span></label>
-					<input type="date" class="form-control" name="f_tanggal_kunjungan" id="date1">
-					<div class="invalid-feedback"></div>
-				</div>
-			</div>
-		</div>
+	<div class="form-group">
+		<label>Jadwal Dokter <span class="text-danger">*</span></label>
+		<select name="f_id_jadwal_dokter" class="form-control">
+			<option value="">--Pilih Dokter Terlebih Dahulu--</option>
+		</select>
+		<div class="invalid-feedback"></div>
+	</div>
+	<div class="form-group">
+		<label>Tanggal Kunjungan <span class="text-danger">*</span></label>
+		<input type="date" class="form-control" name="f_tanggal_kunjungan" id="date1">
+		<div class="invalid-feedback"></div>
+	</div>
+
+	<?php if (session()->get('log_role') === "PASIEN") : ?>
+		<input type="hidden" name="f_id_pasien" value="<?= $pasien['id_pasien'] ?>">
+	<?php endif; ?>
+
+	<div class="form-group">
+		<label>Keluhan <span class="text-danger">*</span></label>
+		<textarea id="editor" class="form-control" style="height: 230px;" name="f_keluhan"></textarea>
+		<div class="invalid-feedback"></div>
 	</div>
 
 </div>
-<?= form_close() ?>
+<div class="modal-footer">
+	<input type="submit" name="f_store" class="btn btn-primary btn-simpan" value="Simpan">
+</div>
+
+<?= form_close(); ?>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		const base_url = $("#base-url").html();
@@ -156,4 +143,3 @@
 		});
 	});
 </script>
-<?= $this->endSection() ?>

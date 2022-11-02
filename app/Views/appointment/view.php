@@ -16,7 +16,7 @@
 <div class="row">
 	<div class="col-md-4 mb-3">
 		<div class="card ">
-			<div class="card-body p-0">
+			<div class="card-body py-0 p-0">
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item p-2">
 						<span class="ml-3">Nama Pasien : </span><br />
@@ -27,18 +27,27 @@
 						<span class="ml-3 text-semibold text-fiord-blue"><?= $result['id_dokter'] . ' - ' . $result['nama_dokter'] ?></span>
 					</li>
 					<li class="list-group-item p-2">
-						<span class="ml-3">Tgl. Pengajuan : </span><br />
-						<span class="ml-3 text-semibold text-fiord-blue"><?= time_format($result['created_at'], 'd M Y H:i') ?></span>
+						<span class="ml-3">Tgl. Kunjungan : </span><br />
+						<span class="ml-3 text-semibold text-fiord-blue"><?= time_format($result['tanggal_kunjungan'], 'd M Y') ?></span>
 					</li>
 
 					<li class="list-group-item p-2">
 						<span class="ml-3">Status : </span><br />
-						<?php if ($result['status'] == "Open") : ?>
-							<span class="badge badge-pill badge-success text-white ml-3">Open</span>
-						<?php elseif ($result['status'] == "Close") : ?>
-							<span class="badge badge-pill badge-danger ml-3">Close</span>
+						<?php if ($result['status'] == "Aktif") : ?>
+							<span class="badge badge-pill badge-success text-white ml-3">Aktif</span>
+						<?php elseif ($result['status'] == "Selesai") : ?>
+							<span class="badge badge-pill badge-dark text-white ml-3">Selesai</span>
 						<?php endif; ?>
 					</li>
+					<?php if (session()->get('log_role') !== "PASIEN") : ?>
+						<li class="list-group-item p-2">
+							<span class="ml-3">Rekam Medis Pasien : </span><br />
+							<span class="ml-3 text-semibold text-fiord-blue"> <a href="<?= base_url('rekam_medis/' . $result['id_pasien']) ?>" class="btn btn-primary btn-sm btn-edit text-white">
+									<i class="mr-1 fa fa-history"></i> Rekam Medis
+								</a></span>
+
+						</li>
+					<?php endif; ?>
 				</ul>
 			</div>
 		</div>
@@ -47,11 +56,11 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="card">
-					<div class="card-body">
+					<div class="card-header">
 						<h5>Keluhan</h5>
-
-						<div class="blog-comments__item d-flex p-3">
-
+					</div>
+					<div class="card-body pt-0">
+						<div class="blog-comments__item d-flex">
 							<div class="blog-comments__content">
 								<p class="m-0 my-1 mb-2 text-muted">
 									<?= $result['keluhan'] ?>
@@ -66,6 +75,7 @@
 		</div>
 
 		<div class="row mt-3">
+
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
@@ -83,10 +93,20 @@
 						<input type="hidden" name="f_id_dokter" value="<?= $result['id_dokter'] ?>">
 						<input type="hidden" value="<?= isset($rekamMedis['id_rekam_medis']) ? $rekamMedis['id_rekam_medis'] : "" ?>" name="f_id_rekam_medis">
 
-						<div class="card-body">
+						<div class="card-body py-0">
 							<div class="form-group">
-								<label>Diagnosa <span class="text-danger">*</span></label>
-								<textarea class="form-control" style="height: 120px;" name="f_diagnosa" placeholder="Diagnosa pasien"><?= isset($rekamMedis['diagnosa']) ? $rekamMedis['diagnosa'] : "" ?></textarea>
+								<label>Tinggi Badan</label>
+								<input type="number" class="form-control" name="f_tinggi_badan" placeholder="Tinggi badan pasien (cm)" value="<?= isset($rekamMedis['tinggi_badan']) ? $rekamMedis['tinggi_badan'] : "" ?>">
+								<div class="invalid-feedback"></div>
+							</div>
+							<div class="form-group">
+								<label>Berat Badan</label>
+								<input type="number" class="form-control" name="f_berat_badan" placeholder="Berat badan pasien (kg)" value="<?= isset($rekamMedis['berat_badan']) ? $rekamMedis['berat_badan'] : "" ?>">
+								<div class="invalid-feedback"></div>
+							</div>
+							<div class="form-group">
+								<label>Alergi Obat</label>
+								<input type="text" class="form-control" name="f_alergi_obat" placeholder="Alergi obat pasien" value="<?= isset($rekamMedis['alergi_obat']) ? $rekamMedis['alergi_obat'] : "" ?>">
 								<div class="invalid-feedback"></div>
 							</div>
 							<div class="form-group">
@@ -95,23 +115,17 @@
 								<div class="invalid-feedback"></div>
 							</div>
 							<div class="form-group">
-								<label>Tindakan yang dilakukan <span class="text-danger">*</span></label>
-								<textarea class="form-control" style="height: 120px;" name="f_tindakan" placeholder="Tindakan yang akan dilakukan"><?= isset($rekamMedis['tindakan']) ? $rekamMedis['tindakan'] : "" ?></textarea>
+								<label>Diagnosa <span class="text-danger">*</span></label>
+								<textarea class="form-control" style="height: 120px;" name="f_diagnosa" placeholder="Diagnosa pasien"><?= isset($rekamMedis['diagnosa']) ? $rekamMedis['diagnosa'] : "" ?></textarea>
 								<div class="invalid-feedback"></div>
 							</div>
 
-							<hr />
+							<hr>
+							<h5><strong>Tindakan/Terapi</strong></h5>
+							<hr>
 
 							<div class="form-group">
-								<label>Resep Dokter <span class="text-danger">*</span></label>
-								<textarea class="form-control" style="height: 120px;" name="f_resep_dokter" placeholder="Resep obat untuk pasien"><?= isset($rekamMedis['resep_dokter']) ? $rekamMedis['resep_dokter'] : "" ?></textarea>
-								<div class="invalid-feedback"></div>
-							</div>
-
-							<hr />
-
-							<div class="form-group">
-								<label>Pilih treatment yang dilakukan</label>
+								<label>Treatment</label>
 								<select name="f_id_treatment" class="form-control">
 									<option value=""> --- Select one ---</option>
 									<?php foreach ($treatment as $row) : ?>
@@ -129,15 +143,38 @@
 								<div class="invalid-feedback"></div>
 							</div>
 
+							<hr>
+							<h5><strong>Resep Dokter</strong></h5>
+							<hr>
+
+							<div class="form-group">
+								<label>Resep Dokter <span class="text-danger">*</span></label>
+								<textarea class="form-control" style="height: 120px;" name="f_resep_dokter" placeholder="Resep obat untuk pasien"><?= isset($rekamMedis['resep_dokter']) ? $rekamMedis['resep_dokter'] : "" ?></textarea>
+								<div class="invalid-feedback"></div>
+							</div>
+
+
 						</div>
 						<div class="card-footer">
 							<div class="d-table mx-auto">
-								<input type="submit" name="f_store" class="btn btn-warning text-white btn-simpan" value="Save">
+								<input type="submit" name="f_store" class="btn btn-primary text-white btn-simpan" value="Simpan">
 							</div>
 						</div>
 						<?= form_close() ?>
 					<?php else : ?>
-						<div class="card-body">
+						<div class="card-body py-0">
+							<div class="form-group">
+								<label>Tinggi Badan</label>
+								<p><?= isset($rekamMedis['tinggi_badan']) ? $rekamMedis['tinggi_badan'] : "" ?></p>
+							</div>
+							<div class="form-group">
+								<label>Berat Badan</label>
+								<p><?= isset($rekamMedis['berat_badan']) ? $rekamMedis['berat_badan'] : "" ?></p>
+							</div>
+							<div class="form-group">
+								<label>Alergi Obat</label>
+								<p><?= isset($rekamMedis['alergi_obat']) ? $rekamMedis['alergi_obat'] : "" ?></p>
+							</div>
 							<div class="form-group">
 								<h6>Diagnosa :</h6>
 								<p><?= isset($rekamMedis['diagnosa']) ? $rekamMedis['diagnosa'] : "" ?></p>
@@ -149,7 +186,7 @@
 							</div>
 							<hr>
 							<div class="form-group">
-								<h6>Tindakan yang dilakukan :</h6>
+								<h6>Tindakan/Terapi :</h6>
 								<p><?= isset($rekamMedis['tindakan']) ? $rekamMedis['tindakan'] : "" ?></p>
 							</div>
 							<hr>
@@ -159,9 +196,7 @@
 							</div>
 						</div>
 					<?php endif; ?>
-
 				</div>
-
 			</div>
 		</div>
 

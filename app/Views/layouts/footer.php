@@ -7,13 +7,13 @@
  			</div>
  			</div>
 
- 			<div class="modal fade" id="form-modals" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ 			<!-- <div class="modal fade" id="form-modals" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
  				<div class="modal-dialog" role="document">
  					<div class="modal-content load-form">
 
  					</div>
  				</div>
- 			</div>
+ 			</div> -->
 
 
  			<script type="text/javascript">
@@ -53,7 +53,8 @@
  			<script src="<?= base_url('assets/scripts/shards-dashboards.1.1.0.min.js') ?>"></script>
  			<script src="<?= base_url('assets/third_party/datatables/jquery.dataTables.js') ?>"></script>
  			<script src="<?= base_url('assets/third_party/datatables/dataTables.bootstrap4.js') ?>"></script>
-
+ 			<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+ 			<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
  			</body>
 
  			</html>

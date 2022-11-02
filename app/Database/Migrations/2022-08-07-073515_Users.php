@@ -38,7 +38,7 @@ class Users extends Migration
             ],
             'password' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '50',
+                'constraint' => '255',
             ],
             'email' => [
                 'type'       => 'VARCHAR',

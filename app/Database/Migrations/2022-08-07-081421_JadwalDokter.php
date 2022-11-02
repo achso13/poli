@@ -28,9 +28,16 @@ class JadwalDokter extends Migration
                 'type' => 'TIME',
                 'null' => true,
             ],
-            'keterangan' => [
-                'type' => 'VARCHAR',
-                'constraint' => '100',
+            'hari' => [
+                'type' => 'ENUM',
+                'constraint' => '"Senin","Selasa","Rabu","Kamis","Jumat"',
+            ],
+            'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
                 'null' => true,
             ],
         ]);

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Sistem Informasi Poliklinik</title>
+    <title>Sistem Informasi Klinik</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="<?= base_url('assets/css/all.css') ?>" rel="stylesheet">
@@ -18,7 +18,12 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/jquery-ui.css') ?>">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <style>
+        .select2 {
+            font-weight: 400;
+        }
+    </style>
+
 </head>
 
 <body class="h-100">
@@ -31,7 +36,7 @@
                         <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
                             <div class="d-table m-auto">
                                 <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="<?= base_url('assets/images/shards-dashboards-logo.svg') ?>" alt="Shards Dashboard">
-                                <span class="d-none d-md-inline ml-1">Sistem Informasi Poliklinik</span>
+                                <span class="d-none d-md-inline">Sistem Informasi Klinik</span>
                             </div>
                         </a>
                         <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
@@ -79,10 +84,66 @@
                                 <input class="navbar-search form-control" type="hidden" placeholder="Search for something..." aria-label="Search">
                             </div>
                         </form>
-                        <ul class="navbar-nav border-left flex-row ">
+                        <?php if (session()->get('log_role') === "DOKTER") : ?>
+                            <ul class="navbar-nav border-left flex-row ">
+                                <li class="nav-item border-right dropdown notifications">
+                                    <a class="nav-link nav-link-icon text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div class="nav-link-icon__wrapper">
+                                            <i class="material-icons"></i>
+                                            <span class="badge badge-pill badge-danger notification-count"></span>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-small notification-dropdown" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="#">
+                                            <div class="notification__content">
+                                                <p>Tidak Ada Notifikasi</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </li>
+                                <script>
+                                    $(document).ready(function() {
+                                        $.ajax({
+                                            url: "<?= base_url('/notifications') ?>",
+                                            type: "GET",
+                                            dataType: "json",
+                                            success: function(data) {
+                                                console.log(data);
+                                                $('.notification-count').html(data.count);
+                                                $('.notification-dropdown').html('');
+                                                if (data.count === 0) {
+                                                    $('.notification-dropdown').append(`
+                                                        <a class="dropdown-item" href="#">
+                                                            <div class="notification__content">
+                                                                <p>Tidak Ada Notifikasi</p>
+                                                            </div>
+                                                        </a>
+                                                    `);
+                                                } else {
+                                                    data.notification.forEach(element => {
+                                                        $('.notification-dropdown').append(`
+                                                    <a class="dropdown-item" href="<?= base_url() ?>${element.link}">
+                                                        <div class="notification__content">
+                                                            <span class="notification__category">` + element.judul + `</span>
+                                                            <p>` + element.pesan + `</p>
+                                                            <p class="text-right text-light text-muted">` + element.created_at + `</p>
+                                                        </div>
+                                                    </a>
+                                                `);
+                                                    });
+                                                    $('.notification-dropdown').append(`
+                                                <a class="dropdown-item notification__all text-center" href="<?= base_url("notifications/read") ?>"> Tandai Telah Dibaca </a>
+                                            `);
+                                                }
+
+                                            }
+                                        });
+                                    });
+                                </script>
+                            <?php endif; ?>
                             <li class="nav-item dropdown">
                                 <?php getLoggedInUser(); ?>
-                                <a class="nav-link  text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                                     <?php if (session()->get('log_photo') == NULL) : ?>
                                         <img src="<?= base_url('assets/images/no-user-image.png') ?>" class="img-responsive user-avatar rounded-circle mr-2">
                                     <?php else : ?>
@@ -98,12 +159,12 @@
                                         <i class="material-icons text-danger">logout</i> Logout </a>
                                 </div>
                             </li>
-                        </ul>
-                        <nav class="nav">
-                            <a href="#" class="nav-link nav-link-icon toggle-sidebar d-md-inline d-lg-none text-center border-left" data-toggle="collapse" data-target=".header-navbar" aria-expanded="false" aria-controls="header-navbar">
-                                <i class="material-icons">&#xE5D2;</i>
-                            </a>
-                        </nav>
+                            </ul>
+                            <nav class="nav">
+                                <a href="#" class="nav-link nav-link-icon toggle-sidebar d-md-inline d-lg-none text-center border-left" data-toggle="collapse" data-target=".header-navbar" aria-expanded="false" aria-controls="header-navbar">
+                                    <i class="material-icons">&#xE5D2;</i>
+                                </a>
+                            </nav>
                     </nav>
                 </div>
 

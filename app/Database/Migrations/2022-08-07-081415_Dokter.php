@@ -54,6 +54,11 @@ class Dokter extends Migration
                 'constraint' => '"Gigi","Umum"',
                 'null' => true
             ],
+            'pengalaman_praktik' => [
+                'type' => 'varchar',
+                'constraint' => '100',
+                'null' => true
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true

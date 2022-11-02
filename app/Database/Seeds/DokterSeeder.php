@@ -18,6 +18,7 @@ class DokterSeeder extends Seeder
             'tanggal_lahir' => '1990-12-12',
             'jenis_kelamin' => 'Laki-laki',
             'tipe_dokter' => 'Umum',
+            'pengalaman_praktik' => 'RSUD Bandung',
         ];
         $this->db->table('tb_dokter')->insert($data);
     }

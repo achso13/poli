@@ -19,6 +19,20 @@ class Profile extends BaseController
             'title' => 'Profile',
             'user' => $this->userModel->find(session()->get("log_id"))
         ];
+
+        // $role = session()->get('log_role');
+        // if ($role === 'PASIEN') {
+        //     $pasienModel = new \App\Models\PatientModel();
+        //     $data['pasien'] = $pasienModel
+        //         ->where('id_user', session()->get('log_id'))
+        //         ->first();
+        // } else if ($role === 'DOKTER') {
+        //     $doctorModel = new \App\Models\DoctorModel();
+        //     $data['dokter'] = $doctorModel
+        //         ->where('id_user', session()->get('log_id'))
+        //         ->first();
+        // }
+
         return view('profile/index', $data);
     }
 

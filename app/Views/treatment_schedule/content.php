@@ -10,7 +10,9 @@
                         <td class="text-primary text-center">Jadwal Treatment</td>
                         <td class="text-primary text-center" width="15%">Dokter</td>
                         <td class="text-primary text-center" width="15%">Pasien</td>
-                        <td class="text-primary text-center">Action</td>
+                        <?php if (session()->get('log_role') !== "PASIEN") : ?>
+                            <td class="text-primary text-center">Action</td>
+                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,19 +25,17 @@
                             <td><?= $row['jadwal_treatment'] ?></td>
                             <td><?= $row['nama_dokter'] ?></td>
                             <td><?= $row['nama_pasien'] ?></td>
-
-                            <td width="17%">
-
-                                <div class="btn-group btn-group-sm">
-
-                                    <a href="<?= base_url('treatment_schedule/' . $row['id_rekam_medis']) ?>" class="btn btn-white">
-                                        <span class="text-light">
-                                            <i class="material-icons">visibility</i>
-                                        </span> Lihat
-                                    </a>
-
-                                </div>
-                            </td>
+                            <?php if (session()->get('log_role') !== "PASIEN") : ?>
+                                <td width="17%">
+                                    <div class="btn-group btn-group-sm">
+                                        <a href="<?= base_url('treatment_schedule/' . $row['id_rekam_medis']) ?>" class="btn btn-white">
+                                            <span class="text-light">
+                                                <i class="material-icons">visibility</i>
+                                            </span> Lihat
+                                        </a>
+                                    </div>
+                                </td>
+                            <?php endif; ?>
                         </tr>
                         <?php $no++; ?>
                     <?php endforeach; ?>

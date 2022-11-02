@@ -23,7 +23,7 @@ class Pesan extends Migration
             ],
             'id_kunjungan' => [
                 'type' => 'VARCHAR',
-                'constraint' => '12',
+                'constraint' => '14',
             ],
             'pesan' => [
                 'type' => 'varchar',

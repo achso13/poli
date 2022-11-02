@@ -17,7 +17,10 @@ class RekamMedisModel extends Model
         'anamnesa',
         'tindakan',
         'jadwal_treatment',
-        'notes_klinik'
+        'hasil_treatment',
+        'berat_badan',
+        'tinggi_badan',
+        'alergi_obat'
     ];
 
     protected $useTimestamps    = true;
@@ -26,11 +29,12 @@ class RekamMedisModel extends Model
     {
         // join table tb_pasien, tb_dokter, tb_kunjungan
         $builder = $this->db->table($this->table);
-        $builder->select('tb_rekam_medis.*, tb_pasien.nama as nama_pasien, tb_dokter.nama as nama_dokter, tb_kunjungan.tanggal_kunjungan, tb_kunjungan.keluhan, tb_resep.resep_dokter');
+        $builder->select('tb_rekam_medis.*, tb_pasien.nama as nama_pasien, tb_dokter.nama as nama_dokter, tb_kunjungan.tanggal_kunjungan, tb_kunjungan.keluhan, tb_resep.resep_dokter, tb_treatment.nama_treatment');
         $builder->join('tb_pasien', 'tb_pasien.id_pasien = tb_rekam_medis.id_pasien');
         $builder->join('tb_dokter', 'tb_dokter.id_dokter = tb_rekam_medis.id_dokter');
         $builder->join('tb_kunjungan', 'tb_kunjungan.id_kunjungan = tb_rekam_medis.id_kunjungan');
         $builder->join('tb_resep', 'tb_resep.id_rekam_medis = tb_rekam_medis.id_rekam_medis');
+        $builder->join('tb_treatment', 'tb_treatment.id_treatment = tb_rekam_medis.id_treatment');
         $builder->where('tb_rekam_medis.id_pasien', $id);
         $builder->where('tb_kunjungan.tipe_kunjungan', 'Offline');
         $builder->orderBy('id_rekam_medis', 'DESC');

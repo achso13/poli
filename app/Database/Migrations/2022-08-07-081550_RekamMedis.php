@@ -31,7 +31,7 @@ class RekamMedis extends Migration
             ],
             'id_kunjungan' => [
                 'type' => 'VARCHAR',
-                'constraint' => '12',
+                'constraint' => '14',
             ],
             'diagnosa' => [
                 'type' => 'VARCHAR',
@@ -41,29 +41,28 @@ class RekamMedis extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ],
-            'tindakan' => [
-                'type' => 'VARCHAR',
-                'constraint' => '255',
-            ],
             'jadwal_treatment' => [
                 'type' => 'datetime',
                 'null' => true,
             ],
-            'notes_klinik' => [
+            'hasil_treatment' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ],
             'berat_badan' => [
                 'type' => 'VARCHAR',
                 'constraint' => '7',
+                'null' => true,
             ],
             'tinggi_badan' => [
                 'type' => 'VARCHAR',
                 'constraint' => '7',
+                'null' => true,
             ],
             'alergi_obat' => [
                 'type' => 'VARCHAR',
                 'constraint' => '50',
+                'null' => true,
             ],
             'created_at' => [
                 'type' => 'datetime',

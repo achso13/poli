@@ -10,7 +10,7 @@
 	<?php if (session()->get('log_role') === "ADMIN") : ?>
 		<div class="col-12 col-sm-6 d-flex align-items-center">
 			<button class="btn-add btn btn-primary d-inline-flex mb-sm-0 mx-auto ml-sm-auto mr-sm-0" data-toggle="modal" data-target="#form-modals">
-				<i class="material-icons">add</i> Add Pasien </a>
+				<i class="material-icons">add</i> Tambah Pasien </a>
 			</button>
 		</div>
 	<?php endif; ?>

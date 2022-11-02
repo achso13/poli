@@ -47,7 +47,7 @@
                  </div>
                  <div class="form-group">
                      <label>Nama Lengkap <span class="text-danger">*</span></label>
-                     <input type="text" class="form-control" name="f_nama" value="<?= $user['nama'] ?>">
+                     <input type="text" class="form-control" name="f_nama" value="<?= $user['nama'] ?>" disabled>
                  </div>
 
                  <div class="form-group">
@@ -66,10 +66,12 @@
              <div class="card-footer">
                  <input type="submit" name="f_update" value="Simpan Perubahan" class="btn btn-info btn-simpan">
              </div>
+
          </div>
          <?= form_close() ?>
      </div>
  </div>
+
  <script type="text/javascript">
      $(document).ready(function() {
          const base_url = $("#base-url").html();

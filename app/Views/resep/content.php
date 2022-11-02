@@ -5,9 +5,10 @@
                 <thead>
                     <tr class="bg-light">
                         <td class="text-primary text-center" width="5%">No</td>
-                        <td class="text-primary text-center">Subjek</td>
+                        <td class="text-primary text-center">Pasien</td>
+                        <td class="text-primary text-center">Dokter</td>
                         <td class="text-primary text-center">Tanggal Pemeriksaan</td>
-                        <td class="text-primary text-center" width="15%">Status Resep</td>
+                        <td class="text-primary text-center">Status Resep</td>
                         <?php if (session()->get("log_role") === "APOTEKER") : ?>
                             <td class="text-primary text-center">Action</td>
                         <?php endif; ?>
@@ -23,8 +24,9 @@
 
                                 Nama Pasien : <?= $row['nama_pasien'] ?> <br>
                                 Unit Kerja : <?= $row['nama_biro'] ?> - <?= $row['nama_bagian'] ?><br>
-
-                                Dokter : <?= $row['nama_dokter'] ?><br>
+                            </td>
+                            <td class="text-left">
+                                <?= $row['nama_dokter'] ?><br>
                             </td>
                             <td class="text-center">
                                 <?= time_format($row['tanggal_kunjungan'], 'd M Y') ?>

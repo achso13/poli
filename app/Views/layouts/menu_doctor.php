@@ -26,7 +26,7 @@
       <li class="nav-item">
             <a class="nav-link " href="<?= base_url('patient') ?>">
                   <i class="material-icons">group</i>
-                  <span>Pasien</span>
+                  <span>Data Pasien</span>
             </a>
       </li>
 

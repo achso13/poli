@@ -17,7 +17,6 @@ function generateId($model, $field, $prefix, $length)
         $lastId = substr($lastId, strlen($prefix) + 1);
         $lastId = (int) $lastId;
         $lastId++;
-        // dd($lastId);
     } else {
         $lastId = 1;
     }
@@ -26,11 +25,18 @@ function generateId($model, $field, $prefix, $length)
     return $prefix . str_pad($lastId, $zeroLength, '0', STR_PAD_LEFT);
 }
 
-function generateAppointmentId($model, $field, $prefix, $length, $date)
+function generateAppointmentId($model, $field, $prefix, $length, $date, $type = NULL)
 {
     // Look for existing appointment id with date
     $lastId = $model->selectMax($field)->where('tanggal_kunjungan', $date)->get()->getRowArray();
     $lastId = $lastId[$field];
+
+    if ($type === 'Online') {
+        $prefix = $prefix . "02";
+    } else {
+        $prefix = $prefix . "01";
+    }
+
     if ($lastId) {
         $lastId = substr($lastId, strlen($prefix . date('dmY', strtotime($date))));
         $lastId = (int) $lastId;

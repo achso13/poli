@@ -15,7 +15,7 @@
 <?= form_open_multipart('users/store') ?>
 <?= csrf_field() ?>
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">User Add</h5>
+    <h5 class="modal-title" id="exampleModalLabel">User </h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">

@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
                 'nama' => 'dr. Achmad',
                 'username' => 'dokter',
                 'password' => '$2y$10$5GGRjcKHaBJSmIhKI65pzOO7zup.tL0zd1uzRV1gvVxEppO5h6GSm',
-                'email' => 'dokter@email.com',
+                'email' => 'achsozou@gmail.com',
                 'photo' => null,
             ],
             [

@@ -8,7 +8,7 @@
 <div class="page-header row no-gutters py-4">
 	<div class="col-12 col-sm-6 text-center text-sm-left mb-4 mb-sm-0">
 		<span class="text-uppercase page-subtitle">Konsultasi Online</span>
-		<h3 class="page-title">Tiket : <?= $result['id_kunjungan'] ?></h3>
+		<h3 class="page-title">Kode Tiket : <?= $result['id_kunjungan'] ?></h3>
 	</div>
 </div>
 <!-- End Page Header -->
@@ -33,12 +33,22 @@
 
 					<li class="list-group-item p-2">
 						<span class="ml-3">Status : </span><br />
-						<?php if ($result['status'] == "Open") : ?>
-							<span class="badge badge-pill badge-success text-white ml-3">Open</span>
-						<?php elseif ($result['status'] == "Close") : ?>
-							<span class="badge badge-pill badge-danger ml-3">Close</span>
+						<?php if ($result['status'] == "Aktif") : ?>
+							<span class="badge badge-pill badge-success text-white ml-3">Aktif</span>
+						<?php elseif ($result['status'] == "Selesai") : ?>
+							<span class="badge badge-pill badge-dark text-white ml-3">Selesai</span>
 						<?php endif; ?>
 					</li>
+
+					<?php if (session()->get('log_role') !== "PASIEN") : ?>
+						<li class="list-group-item p-2">
+							<span class="ml-3">Rekam Medis Pasien : </span><br />
+							<span class="ml-3 text-semibold text-fiord-blue"> <a href="<?= base_url('rekam_medis/' . $result['id_pasien']) ?>" class="btn btn-primary btn-sm btn-edit text-white">
+									<i class="mr-1 fa fa-history"></i> Rekam Medis
+								</a></span>
+
+						</li>
+					<?php endif; ?>
 				</ul>
 			</div>
 		</div>
@@ -78,11 +88,11 @@
 				<?php if (session()->get('log_role') === "PASIEN" || session()->get('log_role') === "DOKTER") : ?>
 					<?php if ($result['status'] == "Open") :  ?>
 						<button uc="<?= $result['id_kunjungan'] ?>" class="btn btn-primary btn-reply  ml-auto" data-toggle="modal" data-target="#form-modals">
-							<i class="material-icons">reply</i> Reply
+							<i class="material-icons">reply</i> Balas
 						</button>
 					<?php else : ?>
 						<button class="btn btn-primary btn-reply  ml-auto" disabled>
-							<i class="material-icons">reply</i> Reply
+							<i class="material-icons">reply</i> Balas
 						</button>
 					<?php endif; ?>
 				<?php endif; ?>
@@ -121,6 +131,14 @@
 			</div>
 		<?php endif; ?>
 
+	</div>
+</div>
+
+<div class="modal fade" id="form-modals" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content load-form">
+
+		</div>
 	</div>
 </div>
 

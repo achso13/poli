@@ -1,6 +1,6 @@
 <?= form_open('unitkerja/bagian/store') ?>
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Bagian Add</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Bagian </h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">
@@ -21,7 +21,7 @@
     </div>
 </div>
 <div class="modal-footer">
-    <input type="submit" name="f_store" class="btn btn-primary btn-simpan" value="Save">
+    <input type="submit" name="f_store" class="btn btn-primary btn-simpan" value="Simpan">
 </div>
 
 <?= form_close(); ?>

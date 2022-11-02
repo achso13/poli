@@ -66,6 +66,11 @@
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
+                <label>Pengalaman Praktik <span class="text-danger">*</span></label>
+                <textarea class="form-control" name="f_pengalaman_praktik" placeholder="Pengalaman praktik dokter"><?= $result['pengalaman_praktik'] ?></textarea>
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
                 <label>Photo<span class="text-danger">*</span></label>
                 <input type="file" class="form-control" name="f_photo">
             </div>
@@ -91,7 +96,7 @@
     </div>
 </div>
 <div class="modal-footer">
-    <input type="submit" name="f_store" class="btn btn-primary" value="Save">
+    <input type="submit" name="f_store" class="btn btn-primary" value="Simpan">
 </div>
 
 <?= form_close(); ?>

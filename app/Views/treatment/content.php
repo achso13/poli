@@ -5,6 +5,7 @@
                 <thead>
                     <tr class="bg-light">
                         <td class="text-primary text-center" width="5%">No</td>
+                        <td class="text-primary text-center">ID Treatment</td>
                         <td class="text-primary text-center">Nama Treatment</td>
                         <td class="text-primary text-center">Klinik</td>
                         <td class="text-primary text-center" width="25%">Deskripsi</td>
@@ -17,10 +18,11 @@
                     <?php foreach ($result as $row) : ?>
                         <tr>
                             <td><?= $no ?></td>
+                            <td><?= $row['id_treatment'] ?></td>
                             <td><?= $row['nama_treatment'] ?></td>
                             <td class="text-primary"><?= $row['nama_klinik'] ?></td>
                             <td><?= $row['deskripsi'] ?></td>
-                            <td><?= $row['jam_buka'] ?> s/d <?= $row['jam_tutup'] ?></td>
+                            <td><?= date('H:i', strtotime($row['jam_buka'])) ?> s/d <?= date('H:i', strtotime($row['jam_tutup'])) ?></td>
                             <td width="25%">
 
                                 <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_treatment'] ?>" data-toggle="modal" data-target="#form-modals">

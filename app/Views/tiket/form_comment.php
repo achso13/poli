@@ -8,13 +8,13 @@
 
 <input type="hidden" name="f_id_kunjungan" value="<?= $result['id_kunjungan'] ?>">
 <div class="modal-header">
-	<h5 class="modal-title" id="exampleModalLabel">Comment</h5>
+	<h5 class="modal-title" id="exampleModalLabel">Balas Pesan</h5>
 	<button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">
 	<div class="form-group">
 		<div class="form-group">
-			<label>Message <span class="text-danger">*</span></label>
+			<label>Pesan <span class="text-danger">*</span></label>
 			<textarea id="editor" class="form-control " style="height: 230px;" name="f_pesan"></textarea>
 			<div class="invalid-feedback"></div>
 		</div>

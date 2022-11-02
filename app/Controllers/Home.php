@@ -23,6 +23,8 @@ class Home extends BaseController
                     'count_pasien' => $this->patientModel->countAllResults(),
                     'count_kunjungan' => $this->appointmentModel->where("tipe_kunjungan", "Offline")->countAllResults(),
                     'count_tiket' => $this->appointmentModel->where("tipe_kunjungan", "Online")->countAllResults(),
+                    'count_kunjungan_hari_ini' => $this->appointmentModel->where("tipe_kunjungan", "Offline")->where("tanggal_kunjungan", date("Y-m-d"))->countAllResults(),
+                    'count_tiket_hari_ini' => $this->appointmentModel->where("tipe_kunjungan", "Online")->where("tanggal_kunjungan", date("Y-m-d"))->countAllResults(),
                 ];
                 break;
             case "DOKTER":
@@ -42,7 +44,9 @@ class Home extends BaseController
                     'count_kunjungan' => $this->appointmentModel->getAppointmentCount("Offline"),
                     'count_tiket' => $this->appointmentModel->getAppointmentCount("Online"),
                     'count_resep' => count($this->resepModel->getResepByPasien($idPasien)),
-                    'count_treatment' => count($this->rekamMedisModel->getTreatmentSchedule())
+                    'count_treatment' => count($this->rekamMedisModel->getTreatmentSchedule()),
+                    'count_kunjungan_hari_ini' => $this->appointmentModel->where("tipe_kunjungan", "Offline")->where("tanggal_kunjungan", date("Y-m-d"))->countAllResults(),
+                    'count_tiket_hari_ini' => $this->appointmentModel->where("tipe_kunjungan", "Online")->where("tanggal_kunjungan", date("Y-m-d"))->countAllResults(),
                 ];
                 break;
             case "KLINIK":

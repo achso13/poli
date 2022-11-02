@@ -48,15 +48,15 @@
                             <input type="hidden" name="f_id_rekam_medis" value="<?= $result['id_rekam_medis'] ?>">
                             <div class="form-group">
                                 <label><b>Hasil Treatment</b><span class="text-danger">*</span></label>
-                                <textarea name="f_notes_klinik" id="" cols="30" rows="10"><?= isset($result['notes_klinik']) ? $result['notes_klinik'] : "" ?></textarea>
+                                <textarea name="f_hasil_treatment" id="" cols="30" rows="10"><?= isset($result['hasil_treatment']) ? $result['hasil_treatment'] : "" ?></textarea>
                                 <div class="invalid-feedback"></div>
                             </div>
-                            <input type="submit" value="Save" name="f_store" class="btn btn-primary">
+                            <input type="submit" value="Simpan" name="f_store" class="btn btn-primary">
                             <?= form_close(); ?>
                         <?php elseif (session()->get('log_role') === "PASIEN") : ?>
                             <div class="form-group">
                                 <label><b>Hasil Treatment</b><span class="text-danger">*</span></label>
-                                <div><?= isset($result['notes_klinik']) ? $result['notes_klinik'] : "" ?></div>
+                                <div><?= isset($result['hasil_treatment']) ? $result['hasil_treatment'] : "" ?></div>
                             </div>
                         <?php endif; ?>
 
@@ -65,7 +65,7 @@
             </div>
         </div>
 
-        <div class="row mt-3">
+        <!-- <div class="row mt-3">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -98,7 +98,7 @@
                 </div>
 
             </div>
-        </div>
+        </div> -->
 
     </div>
 </div>

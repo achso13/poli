@@ -1,7 +1,7 @@
 <?= form_open_multipart('doctor/store') ?>
 <?= csrf_field() ?>
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Dokter Add</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Tambah Data Dokter</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">
@@ -62,6 +62,11 @@
             <div class="form-group">
                 <label>Nomor Telepon/HP <span class="text-danger">*</span></label>
                 <input type="number" class="form-control" name="f_telepon" placeholder="Nomor telepon/handphone dokter, contoh: 0851xxx">
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label>Pengalaman Praktik <span class="text-danger">*</span></label>
+                <textarea class="form-control" name="f_pengalaman_praktik" placeholder="Pengalaman praktik dokter"></textarea>
                 <div class="invalid-feedback"></div>
             </div>
 

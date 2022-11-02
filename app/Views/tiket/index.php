@@ -4,12 +4,12 @@
 <div class="page-header row no-gutters py-4">
 	<div class="col-12 col-sm-6 text-center text-sm-left mb-4 mb-sm-0">
 		<span class="text-uppercase page-subtitle">List</span>
-		<h3 class="page-title">Tiket / Periksa Online</h3>
+		<h3 class="page-title">Konsultasi Online</h3>
 	</div>
 	<div class="col-12 col-sm-6 d-flex align-items-center justify-content-end">
 		<div class="float-right">
 			<?php if (session()->get('log_role') === "ADMIN") : ?>
-				<button class="btn btn-success mb-sm-0 mx-auto ml-sm-auto mr-sm-0 btn-report" data-toggle="modal" data-target="#modals-export-kunjungan">
+				<!-- <button class="btn btn-success mb-sm-0 mx-auto ml-sm-auto mr-sm-0 btn-report" data-toggle="modal" data-target="#modals-export-kunjungan">
 					<i class="material-icons">add</i> Export
 				</button>
 
@@ -44,13 +44,31 @@
 							<?= form_close(); ?>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			<?php endif; ?>
 
-			<?php if (session()->get('log_role') === "ADMIN" || session()->get('log_role') === "PASIEN") : ?>
-				<a href="<?= base_url('tiket/add') ?>" class="btn btn-primary d-inline-flex mb-sm-0 mx-auto ml-sm-auto mr-sm-0">
-					<i class="material-icons">add</i> Add Tiket / Periksa Online </a>
-				</a>
+			<?php if (session()->get('log_role') === "PASIEN") : ?>
+				<!-- <a href="<?= base_url('tiket/add') ?>" class="btn btn-primary d-inline-flex mb-sm-0 mx-auto ml-sm-auto mr-sm-0">
+					<i class="material-icons">add</i> Tambah Konsultasi Online </a>
+				</a> -->
+				<button class="btn-add btn btn-primary d-inline-flex mb-sm-0 mx-auto ml-sm-auto mr-sm-0" data-toggle="modal" data-target="#form-modals">
+					<i class="material-icons">add</i> Tambah Konsultasi Online </a>
+				</button>
+				<div class="modal fade" id="form-modals" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content load-form">
+
+						</div>
+					</div>
+				</div>
+				<script>
+					$(document).ready(function() {
+						var base_url = $("#base-url").html();
+						$('.btn-add').click(function() {
+							$('.load-form').load(base_url + '/tiket/add');
+						});
+					})
+				</script>
 			<?php endif; ?>
 		</div>
 	</div>

@@ -21,7 +21,14 @@
 							<td><?= time_format($row['tanggal_kunjungan'], 'd M Y') ?></td>
 							<td><?= $row['diagnosa'] ?></td>
 							<td><?= $row['anamnesa'] ?></td>
-							<td><?= $row['tindakan'] ?></td>
+							<td>
+								<?= $row['nama_treatment'] ?>
+								<?php if ($row['hasil_treatment'] != NULL) :  ?>
+									<br>
+									<br>
+									<span> Hasil: <?= $row['hasil_treatment'] ?></span>
+								<?php endif; ?>
+							</td>
 							<td><?= $row['resep_dokter'] ?></td>
 						</tr>
 						<?php $no++; ?>

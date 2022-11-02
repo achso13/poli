@@ -91,6 +91,7 @@ $routes->group('doctor/jadwal', ['filter' => 'role:ADMIN'], static function ($ro
 });
 
 $routes->get('/doctor/jadwal/get_jadwal/(:segment)', 'JadwalDokter::ajaxJadwalDokter/$1');
+$routes->get('/doctor/jadwal/get_hari/(:segment)', 'JadwalDokter::ajaxHariDokter/$1');
 
 
 // Routes Patient
@@ -170,7 +171,7 @@ $routes->group('treatment_schedule', ['filter' => 'role:KLINIK,PASIEN'], static 
     $routes->get('/', 'RekamMedis::treatmentSchedule');
     $routes->get('(:segment)', 'RekamMedis::viewTreatmentSchedule/$1');
 });
-$routes->match(['get', 'post'], 'store', 'RekamMedis::storeTreatmentSchedule', ['filter' => 'role:KLINIK']);
+$routes->match(['get', 'post'], 'treatment_schedule/store', 'RekamMedis::storeTreatmentSchedule', ['filter' => 'role:KLINIK']);
 
 // Routes Resep
 $routes->get('/resep', 'Resep::index', ['filter' => 'role:APOTEKER,PASIEN']);
@@ -192,12 +193,23 @@ $routes->post('/resep/get_obat', 'Resep::ajaxObat');
 $routes->group('tiket', ['filter' => 'role:ADMIN,PASIEN,DOKTER'], static function ($routes) {
     $routes->get('/', 'Tiket::index');
     $routes->get('view/(:segment)', 'Tiket::view/$1');
+    // $routes->match(['get', 'post'], 'add', 'Tiket::form');
+    // $routes->post('store', 'Tiket::store');
+    $routes->get('view/(:segment)', 'Tiket::view/$1');
+    // $routes->post('form_comment', 'Tiket::form_comment');
+    // $routes->post('store_comment', 'Tiket::store_comment');
+    $routes->get('status/(:segment)/(:segment)', 'Tiket::status/$1/$2');
+});
+
+$routes->group('tiket', ['filter' => 'role:PASIEN,DOKTER'], static function ($routes) {
+    // $routes->get('/', 'Tiket::index');
+    // $routes->get('view/(:segment)', 'Tiket::view/$1');
     $routes->match(['get', 'post'], 'add', 'Tiket::form');
     $routes->post('store', 'Tiket::store');
-    $routes->get('view/(:segment)', 'Tiket::view/$1');
+    // $routes->get('view/(:segment)', 'Tiket::view/$1');
     $routes->post('form_comment', 'Tiket::form_comment');
     $routes->post('store_comment', 'Tiket::store_comment');
-    $routes->get('status/(:segment)/(:segment)', 'Tiket::status/$1/$2');
+    // $routes->get('status/(:segment)/(:segment)', 'Tiket::status/$1/$2');
 });
 
 // Routes Profile
@@ -212,9 +224,16 @@ $routes->group('export', ['filter' => 'role:ADMIN'], static function ($routes) {
     $routes->get('tiket', 'Export::tiket');
     $routes->get('resep', 'Export::resep');
     $routes->get('obat', 'Export::obat');
+    $routes->get('pasien', 'Export::pasien');
 });
 
+// Routes Notification
+$routes->get('/notifications', 'Notification::getNotification');
+$routes->get('/notifications/read', 'Notification::markAsRead');
 
+// Routes informasi
+$routes->get('/informasi', 'Informasi::index');
+$routes->match(['get', 'post'], '/informasi/view', 'Informasi::view');
 
 
 /*

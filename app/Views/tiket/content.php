@@ -6,9 +6,11 @@
                 <thead>
                     <tr class="bg-light">
                         <td class="text-primary text-center" width="5%">No</td>
+                        <td class="text-primary text-center">ID</td>
                         <td class="text-primary text-center">Pasien</td>
                         <td class="text-primary text-center">Dokter</td>
                         <td class="text-primary text-center">Keluhan</td>
+                        <td class="text-primary text-center">Tanggal</td>
                         <td class="text-primary text-center" width="15%">Status</td>
                         <td class="text-primary text-center">Action</td>
                     </tr>
@@ -19,9 +21,11 @@
                         <tr>
                             <td><?= $no ?></td>
                             <td class="text-left">
-                                <a href="#" title="Lihat Tiket"><b>[<?= $row['id_kunjungan'] ?>]</b></a> <br>
-                                Nama Pasien : <?= $row['nama_pasien'] ?> <br>
-                                Unit Kerja : <?= $row['nama_biro'] ?> - <?= $row['nama_bagian'] ?><br>
+                                <b><?= $row['id_kunjungan'] ?></b>
+                            </td>
+                            <td class="text-left">
+                                Nama: <?= $row['nama_pasien'] ?> <br>
+                                Unit Kerja: <?= $row['nama_biro'] ?> - <?= $row['nama_bagian'] ?><br>
                             </td>
                             <td class="text-left">
                                 <?= $row['nama_dokter'] ?>
@@ -29,18 +33,17 @@
                             <td class="text-left">
                                 <?= $row['keluhan'] ?>
                             </td>
+                            <td class="text-left">
+                                <?= $row['created_at'] ?>
+                            </td>
                             <td class="text-center">
-                                <?php if ($row['status'] == "Open") : ?>
-
-                                    <span class="badge badge-pill badge-success text-white">Open</span>
-
-                                <?php elseif ($row['status'] == "Close") : ?>
-
-                                    <span class="badge badge-pill badge-danger">Close</span>
-
+                                <?php if ($row['status'] == "Aktif") : ?>
+                                    <span class="badge badge-pill badge-success text-white">Aktif</span>
+                                <?php elseif ($row['status'] == "Selesai") : ?>
+                                    <span class="badge badge-pill badge-dark text-white">Selesai</span>
                                 <?php endif; ?>
                             </td>
-                            <td width="25%" class="text-center">
+                            <td class="text-center">
 
                                 <?php if (session()->get('log_role') === "PASIEN") : ?>
 

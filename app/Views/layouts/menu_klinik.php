@@ -16,7 +16,7 @@
       <li class="nav-item">
             <a class="nav-link " href="<?= base_url('treatment') ?>">
                   <i class="material-icons">medical_services</i>
-                  <span>Treatment</span>
+                  <span>Data Treatment</span>
             </a>
       </li>
 
@@ -30,12 +30,12 @@
                   <a class="dropdown-item " href="<?= base_url('treatment') ?>">Daftar Treatment</a>
             </div>
       </li> -->
-      <li class="nav-item">
+      <!-- <li class="nav-item">
             <a class="nav-link " href="<?= base_url('patient') ?>">
                   <i class="material-icons">group</i>
-                  <span>Pasien</span>
+                  <span>Data Pasien</span>
             </a>
-      </li>
+      </li> -->
 
 
       <!--   <li class="nav-item">

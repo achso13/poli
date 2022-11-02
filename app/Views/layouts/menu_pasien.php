@@ -6,34 +6,26 @@
 		</a>
 	</li>
 
-	<li class="nav-item dropdown ">
-		<a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="true">
+	<li class="nav-item">
+		<a class="nav-link" href="<?= base_url("appointment") ?>">
 			<i class="material-icons">medication</i>
 			<span>&nbsp;Kunjungan</span>
 		</a>
-		<div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
-			<a class="dropdown-item " href="<?= base_url('appointment/add') ?>">Tambah Kunjungan</a>
-			<a class="dropdown-item " href="<?= base_url('appointment') ?>">Daftar Kunjungan</a>
-		</div>
-	</li>
-
-	<li class="nav-item dropdown ">
-		<a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="true">
-			<i class="material-icons">medication</i>
-			<span>&nbsp;Konsultasi Online</span>
-		</a>
-		<div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
-			<a class="dropdown-item " href="<?= base_url('tiket/add') ?>">Tambah Tiket</a>
-			<a class="dropdown-item " href="<?= base_url('tiket') ?>">Daftar Tiket</a>
-		</div>
 	</li>
 
 	<li class="nav-item">
+		<a class="nav-link" href="<?= base_url("tiket") ?>">
+			<i class="material-icons">medication</i>
+			<span>&nbsp;Konsultasi Online</span>
+		</a>
+	</li>
+
+	<!-- <li class="nav-item">
 		<a class="nav-link " href="<?= base_url('rekam_medis') ?>">
 			<i class="material-icons">summarize</i>
 			<span>Rekam Medis</span>
 		</a>
-	</li>
+	</li> -->
 
 	<li class="nav-item">
 		<a class="nav-link " href="<?= base_url('treatment_schedule') ?>">
@@ -45,7 +37,16 @@
 	<li class="nav-item">
 		<a class="nav-link " href="<?= base_url('resep') ?>">
 			<i class="material-icons">today</i>
-			<span>Status Resep</span>
+			<span>Resep</span>
+		</a>
+	</li>
+
+	<h6 class="main-sidebar__nav-title">Informasi</h6>
+
+	<li class="nav-item">
+		<a class="nav-link " href="<?= base_url('informasi') ?>">
+			<i class="material-icons">info</i>
+			<span>Informasi Dokter</span>
 		</a>
 	</li>
 

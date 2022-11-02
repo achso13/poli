@@ -31,25 +31,24 @@
 
       <h6 class="main-sidebar__nav-title">Data Master</h6>
 
-      <li class="nav-item dropdown ">
-            <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="true">
-                  <i class="material-icons">group</i>
-                  <span>Dokter</span>
+      <li class="nav-item">
+            <a class="nav-link " href="<?= base_url('doctor') ?>">
+                  <i class="material-icons">medical_services</i>
+                  <span>Data Dokter</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-small " x-placement="bottom-start">
-                  <a class="dropdown-item " href="<?= base_url('doctor') ?>">Data Dokter</a>
-                  <a class="dropdown-item " href="<?= base_url('doctor/jadwal') ?>">Jadwal Dokter</a>
-            </div>
       </li>
 
       <li class="nav-item">
-
+            <a class="nav-link " href="<?= base_url('doctor/jadwal') ?>">
+                  <i class="material-icons">medical_services</i>
+                  <span>Data Jadwal Dokter</span>
+            </a>
       </li>
 
       <li class="nav-item">
             <a class="nav-link " href="<?= base_url('clinic') ?>">
                   <i class="material-icons">medical_services</i>
-                  <span>Klinik</span>
+                  <span>Data Klinik</span>
             </a>
       </li>
 
@@ -57,21 +56,21 @@
       <li class="nav-item">
             <a class="nav-link " href="<?= base_url('medicine') ?>">
                   <i class="material-icons">medication</i>
-                  <span>Obat</span>
+                  <span>Data Obat</span>
             </a>
       </li>
 
       <li class="nav-item">
             <a class="nav-link " href="<?= base_url('treatment') ?>">
                   <i class="material-icons">medical_services</i>
-                  <span>Treatment</span>
+                  <span>Data Treatment</span>
             </a>
       </li>
 
       <li class="nav-item">
             <a class="nav-link " href="<?= base_url('patient') ?>">
                   <i class="material-icons">group</i>
-                  <span>Pasien</span>
+                  <span>Data Pasien</span>
             </a>
       </li>
 
@@ -80,14 +79,14 @@
       <li class="nav-item">
             <a class="nav-link " href="<?= base_url('users') ?>">
                   <i class="material-icons">manage_accounts</i>
-                  <span>User Management</span>
+                  <span>Data User</span>
             </a>
       </li>
 
       <li class="nav-item">
             <a class="nav-link " href="<?= base_url('unitkerja') ?>">
                   <i class="material-icons">work</i>
-                  <span>Unit Kerja</span>
+                  <span>Data Unit Kerja</span>
             </a>
       </li>
 

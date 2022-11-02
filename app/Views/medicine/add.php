@@ -21,7 +21,7 @@
     </div>
 </div>
 <div class="modal-footer">
-    <input type="submit" name="f_store" class="btn btn-primary btn-simpan" value="Save">
+    <input type="submit" name="f_store" class="btn btn-primary btn-simpan" value="Simpan">
 </div>
 
 <?= form_close(); ?>

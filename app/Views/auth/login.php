@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Login - Sistem Informasi Poliklinik</title>
+    <title>Login - Sistem Informasi Klinik</title>
     <meta name="description" content="">
     <link href="<?= base_url('assets/css/all.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/css/icon.css') ?>" rel="stylesheet">

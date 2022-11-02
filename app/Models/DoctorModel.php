@@ -19,6 +19,7 @@ class DoctorModel extends Model
         'jenis_kelamin',
         'telepon',
         'tipe_dokter',
+        'pengalaman_praktik',
     ];
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

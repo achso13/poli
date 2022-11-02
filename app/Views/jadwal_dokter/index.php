@@ -9,13 +9,13 @@
 	</div>
 	<div class="col-12 col-sm-6 d-flex align-items-center">
 		<button class="btn-add btn btn-primary d-inline-flex mb-sm-0 mx-auto ml-sm-auto mr-sm-0" data-toggle="modal" data-target="#form-modals">
-			<i class="material-icons">add</i> Add Jadwal Dokter </a>
+			<i class="material-icons">add</i> Tambah Jadwal Dokter </a>
 		</button>
 	</div>
 </div>
 <!-- End Page Header -->
 
-<div class="row mb-3">
+<!-- <div class="row mb-3">
 	<div class="col-md-12">
 		<div class="btn-group ">
 			<a href="<?= base_url('doctor') ?>" class="btn btn-white btn-sm btn-edit text-primary">
@@ -26,7 +26,7 @@
 			</a>
 		</div>
 	</div>
-</div>
+</div> -->
 
 
 <div class="row">

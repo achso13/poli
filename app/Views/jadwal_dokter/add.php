@@ -33,8 +33,15 @@
     </div>
 
     <div class="form-group">
-        <label>Keterangan <span class="text-danger">*</span></label>
-        <input type="text" class="form-control" name="f_keterangan" placeholder="Keterangan">
+        <label>Hari <span class="text-danger">*</span></label>
+        <select name="f_hari" class="form-control">
+            <option value="">--Pilih Hari--</option>
+            <option value="Senin">Senin</option>
+            <option value="Selasa">Selasa</option>
+            <option value="Rabu">Rabu</option>
+            <option value="Kamis">Kamis</option>
+            <option value="Jumat">Jumat</option>
+        </select>
         <div class="invalid-feedback"></div>
     </div>
 </div>

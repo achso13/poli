@@ -34,13 +34,20 @@
     </div>
 
     <div class="form-group">
-        <label>Keterangan <span class="text-danger">*</span></label>
-        <input type="text" class="form-control" name="f_keterangan" placeholder="Keterangan" value="<?= $result['keterangan'] ?>">
+        <label>Hari <span class="text-danger">*</span></label>
+        <select name="f_hari" class="form-control">
+            <option value="">--Pilih Hari--</option>
+            <option value="Senin" <?= $result['hari'] == "Senin" ? "selected" : "" ?>>Senin</option>
+            <option value="Selasa" <?= $result['hari'] == "Selasa" ? "selected" : "" ?>>Selasa</option>
+            <option value="Rabu" <?= $result['hari'] == "Rabu" ? "selected" : "" ?>>Rabu</option>
+            <option value="Kamis" <?= $result['hari'] == "Kamis" ? "selected" : "" ?>>Kamis</option>
+            <option value="Jumat" <?= $result['hari'] == "Jumat" ? "selected" : "" ?>>Jumat</option>
+        </select>
         <div class="invalid-feedback"></div>
     </div>
 </div>
 <div class="modal-footer">
-    <input type="submit" name="f_store" class="btn btn-primary" value="Save">
+    <input type="submit" name="f_store" class="btn btn-primary" value="Simpan">
 </div>
 
 <?= form_close(); ?>
