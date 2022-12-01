@@ -78,11 +78,10 @@ class Patient extends BaseController
                 ],
                 "nip" => [
                     'label' => 'NIP',
-                    'rules' => "required|min_length[16]|max_length[16]|is_unique[tb_user.username]",
+                    'rules' => "required|max_length[18]|is_unique[tb_user.username]",
                     'errors' => [
                         'required' => '{field} harus diisi',
-                        'min_length' => '{field} harus berisi 16 karakter',
-                        'max_length' => '{field} harus berisi 16 karakter',
+                        'max_length' => '{field} harus berisi 18 karakter',
                         'is_unique' => '{field} sudah terdaftar',
                     ],
                 ],
@@ -290,11 +289,11 @@ class Patient extends BaseController
                 ],
                 "nip" => [
                     'label' => 'NIP',
-                    'rules' => "required|min_length[16]|max_length[16]|is_unique[tb_pasien.nip,nip,$oldUsername]",
+                    'rules' => "required|max_length[18]|is_unique[tb_pasien.nip,nip,$oldUsername]",
                     'errors' => [
                         'required' => '{field} harus diisi',
-                        'min_length' => '{field} harus berukuran 16 karakter',
-                        'max_length' => '{field} harus berukuran 16 karakter',
+                        'min_length' => '{field} harus berukuran 18 karakter',
+                        'max_length' => '{field} harus berukuran 18 karakter',
                         'is_unique' => '{field} sudah terdaftar'
                     ]
                 ],
@@ -385,7 +384,7 @@ class Patient extends BaseController
 
 
             if ($validation->run($data)) {
-                if (isset($data['password']) && $data['password'] != "") {
+                if ($data['password'] != NULL) {
                     $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
                 }
                 if ($photo->getError() !== 4) {
@@ -400,11 +399,11 @@ class Patient extends BaseController
                     'nama' => $this->request->getPost('f_nama'),
                     'username' => $this->request->getPost('f_username'),
                     'email' => $this->request->getPost('f_email'),
-                    'password' => password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT),
+                    'password' => $this->request->getPost('f_password'),
                     'photo' => $photoName,
                 ];
 
-                if ($dataUser['password'] == "") {
+                if ($dataUser['password'] == NULL) {
                     unset($dataUser['password']);
                 }
 

@@ -56,12 +56,11 @@ class Doctor extends BaseController
             $validation->setRules([
                 'nip' => [
                     'label' => 'NIP',
-                    'rules' => 'required|numeric|min_length[16]|max_length[16]',
+                    'rules' => 'required|numeric|max_length[18]',
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
                         'numeric' => '{field} hanya boleh berisi angka',
-                        'min_length' => '{field} minimal 16 karakter',
-                        'max_length' => '{field} maksimal 16 karakter',
+                        'max_length' => '{field} maksimal 18 karakter',
                     ],
                 ],
                 'nama' => [
@@ -255,12 +254,11 @@ class Doctor extends BaseController
             $validation->setRules([
                 'nip' => [
                     'label' => 'NIP',
-                    'rules' => 'required|numeric|min_length[16]|max_length[16]',
+                    'rules' => 'required|numeric|max_length[18]',
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
                         'numeric' => '{field} hanya boleh berisi angka',
-                        'min_length' => '{field} minimal 16 karakter',
-                        'max_length' => '{field} maksimal 16 karakter',
+                        'max_length' => '{field} maksimal 18 karakter',
                     ],
                 ],
                 'nama' => [
@@ -362,7 +360,7 @@ class Doctor extends BaseController
             ]);
 
             if ($validation->run($data)) {
-                if (isset($data['password']) && $data['password'] != "") {
+                if ($data['password'] != NULL) {
                     $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
                 }
                 if ($photo->getError() !== 4) {
@@ -377,11 +375,11 @@ class Doctor extends BaseController
                     'nama' => $this->request->getPost('f_nama'),
                     'username' => $this->request->getPost('f_username'),
                     'email' => $this->request->getPost('f_email'),
-                    'password' => password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT),
+                    'password' => $data['password'],
                     'photo' => $photoName,
                 ];
 
-                if ($dataUser['password'] == "") {
+                if ($dataUser['password'] == NULL) {
                     unset($dataUser['password']);
                 }
 

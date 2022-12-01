@@ -121,7 +121,6 @@ class Treatment extends BaseController
             $validation = \Config\Services::validation();
 
             $data = [
-                'id_treatment' => generateId($this->treatmentModel, 'id_treatment', 'TRT', 10),
                 'id_klinik' => $this->request->getPost('f_id_klinik'),
                 'nama_treatment' => $this->request->getPost('f_nama_treatment'),
                 'deskripsi' => $this->request->getPost('f_deskripsi'),

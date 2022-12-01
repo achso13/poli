@@ -13,7 +13,8 @@ class JadwalDokterModel extends Model
         'id_dokter',
         'jam_mulai',
         'jam_selesai',
-        'keterangan'
+        'keterangan',
+        'hari'
     ];
 
     public function getJadwal($id = null)

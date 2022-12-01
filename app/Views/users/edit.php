@@ -45,7 +45,7 @@
     </div>
 
     <div class="form-group load-dep" style="display: none;">
-        <label>Poliklinik<span class="text-danger">*</span></label>
+        <label>Klinik<span class="text-danger">*</span></label>
         <select name="f_id_klinik" class="form-control">
             <option value="">---Choose---</option>
             <?php

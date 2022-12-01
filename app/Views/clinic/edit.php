@@ -2,7 +2,7 @@
 <?= csrf_field() ?>
 <input type="hidden" name="f_id" value="<?= $result['id_klinik'] ?>">
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Klinik Update</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Update Klinik</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">

@@ -86,7 +86,7 @@
 		<div class="row mt-3">
 			<div class="col-md-12 text-right">
 				<?php if (session()->get('log_role') === "PASIEN" || session()->get('log_role') === "DOKTER") : ?>
-					<?php if ($result['status'] == "Open") :  ?>
+					<?php if ($result['status'] == "Aktif") :  ?>
 						<button uc="<?= $result['id_kunjungan'] ?>" class="btn btn-primary btn-reply  ml-auto" data-toggle="modal" data-target="#form-modals">
 							<i class="material-icons">reply</i> Balas
 						</button>
@@ -115,8 +115,8 @@
 		<?php if (session()->get('log_role') === "DOKTER") : ?>
 			<div class="row mt-3">
 				<div class="col-md-12 text-right">
-					<?php if ($result['status'] == "Open") :  ?>
-						<a href="<?= base_url('tiket/status/close/' . $result['id_kunjungan']) ?>" onclick="return confirm('Hentikan pembicaraan?')" class="btn btn-primary btn-block my-3">
+					<?php if ($result['status'] == "Aktif") :  ?>
+						<a href="<?= base_url('tiket/status/selesai/' . $result['id_kunjungan']) ?>" onclick="return confirm('Hentikan pembicaraan?')" class="btn btn-primary btn-block my-3">
 							<span class="text-danger">
 
 							</span> Hentikan Pembicaraan

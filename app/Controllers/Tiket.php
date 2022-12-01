@@ -185,9 +185,6 @@ class Tiket extends BaseController
             if ($validation->run($data)) {
                 $insert = $this->pesanModel->save($data);
 
-                if (session()->get("log_role") === "DOKTER") {
-                    $this->appointmentModel->update($data['id_kunjungan'], ['status' => 'Dilayani']);
-                }
 
                 if ($insert) {
                     session()->setFlashdata('message', 'Pesan berhasil ditambahkan');

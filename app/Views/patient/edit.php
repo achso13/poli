@@ -25,7 +25,7 @@
 <input type="hidden" name="f_old_photo" value="<?= $result['photo'] ?>">
 
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Dokter Update</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Update Pasien</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">
@@ -101,6 +101,10 @@
                 </div>
             </div>
 
+
+
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
                 <label>Alamat Rumah<span class="text-danger">*</span></label>
                 <textarea name="f_alamat_rumah" class="form-control" placeholder="Alamat rumah pasien"><?= $result['alamat_rumah'] ?></textarea>
@@ -112,14 +116,7 @@
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
-                <label>Photo<span class="text-danger">*</span></label>
-                <input type="file" class="form-control" name="f_photo">
-                <div class="invalid-feedback"></div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <input type="hidden" name="f_old_username" value="<?= $result['username'] ?>">
+                <input type="hidden" name="f_old_username" value="<?= $result['nip'] ?>">
                 <label>Username<span class="text-danger">*</span></label>
                 <input type="text" class="form-control" name="f_username" placeholder="Username untuk login pasien" value="<?= $result['nip'] ?>" disabled>
                 <div class="invalid-feedback"></div>
@@ -133,6 +130,11 @@
             <div class="form-group">
                 <label>Email<span class="text-danger">*</span></label>
                 <input type="email" class="form-control" name="f_email" placeholder="Email pasien" value="<?= $result['email'] ?>">
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label>Photo<span class="text-danger">*</span></label>
+                <input type="file" class="form-control" name="f_photo">
                 <div class="invalid-feedback"></div>
             </div>
         </div>

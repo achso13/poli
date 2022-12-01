@@ -29,7 +29,7 @@
 									<span> Hasil: <?= $row['hasil_treatment'] ?></span>
 								<?php endif; ?>
 							</td>
-							<td><?= $row['resep_dokter'] ?></td>
+							<td class="text-left" style="white-space: pre-wrap;"><?= $row['resep_dokter'] ?></td>
 						</tr>
 						<?php $no++; ?>
 					<?php endforeach; ?>

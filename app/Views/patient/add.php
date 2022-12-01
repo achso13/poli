@@ -89,6 +89,10 @@
                 </div>
             </div>
 
+
+
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
                 <label>Alamat Rumah <span class="text-danger">*</span></label>
                 <textarea name="f_alamat_rumah" class="form-control" placeholder="Alamat rumah pasien"></textarea>
@@ -99,13 +103,6 @@
                 <input type="number" class="form-control" name="f_telepon" placeholder="Nomor telepon/handphone pasien, contoh: 0851xxx">
                 <div class="invalid-feedback"></div>
             </div>
-            <div class="form-group">
-                <label>Photo </label>
-                <input type="file" class="form-control" name="f_photo">
-                <div class="invalid-feedback"></div>
-            </div>
-        </div>
-        <div class="col-md-6">
             <div class="form-group">
                 <label>Username <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" name="f_username" placeholder="Username untuk login pasien (NIP)" disabled>
@@ -119,6 +116,11 @@
             <div class="form-group">
                 <label>Email <span class="text-danger">*</span></label>
                 <input type="email" class="form-control" name="f_email" placeholder="Email pasien">
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label>Photo </label>
+                <input type="file" class="form-control" name="f_photo">
                 <div class="invalid-feedback"></div>
             </div>
         </div>

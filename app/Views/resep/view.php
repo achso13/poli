@@ -95,7 +95,7 @@
 											<td class="text-primary text-center" width="5%">No</td>
 											<td class="text-primary text-center">Nama Obat</td>
 											<td class="text-primary text-center" width="25%">Jumlah</td>
-											<td class="text-primary text-center" width="30%">Catatan</td>
+											<td class="text-primary text-center" width="30%">Keterangan</td>
 											<td class="text-primary text-center">Action</td>
 										</tr>
 									</thead>

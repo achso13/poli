@@ -171,7 +171,7 @@ class RekamMedis extends BaseController
                 $insertResep = $this->resepModel->save($dataResep);
 
                 $appointmentModel = new AppointmentModel();
-                $appointmentModel->update($data['id_kunjungan'], ['status' => 'Close']);
+                $appointmentModel->update($data['id_kunjungan'], ['status' => 'Selesai']);
 
                 if ($insertRekamMedis && $insertResep) {
                     session()->setFlashdata('message', 'Data berhasil disimpan');

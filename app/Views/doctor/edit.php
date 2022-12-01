@@ -4,7 +4,7 @@
 <input type="hidden" name="f_id_user" value="<?= $result['id_user'] ?>">
 <input type="hidden" name="f_old_photo" value="<?= $result['photo'] ?>">
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Dokter Update</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Update Dokter</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">
@@ -60,6 +60,11 @@
                     <div class="invalid-feedback"></div>
                 </div>
             </div>
+
+
+        </div>
+        <div class="col-md-6">
+            <input type="hidden" class="form-control" name="f_old_username" value="<?= $result['username'] ?>">
             <div class="form-group">
                 <label>Nomor Telepon/HP <span class="text-danger">*</span></label>
                 <input type="number" class="form-control" name="f_telepon" placeholder="Nomor telepon/handphone dokter, contoh: 0851xxx" value="<?= $result['telepon'] ?>">
@@ -70,14 +75,6 @@
                 <textarea class="form-control" name="f_pengalaman_praktik" placeholder="Pengalaman praktik dokter"><?= $result['pengalaman_praktik'] ?></textarea>
                 <div class="invalid-feedback"></div>
             </div>
-            <div class="form-group">
-                <label>Photo<span class="text-danger">*</span></label>
-                <input type="file" class="form-control" name="f_photo">
-            </div>
-
-        </div>
-        <div class="col-md-6">
-            <input type="hidden" class="form-control" name="f_old_username" value="<?= $result['username'] ?>">
             <div class="form-group">
                 <label>Username</label>
                 <input type="text" class="form-control" name="f_username" placeholder="Username untuk login" value="<?= $result['username'] ?>">
@@ -91,6 +88,10 @@
             <div class="form-group">
                 <label>Email<span class="text-danger">*</span></label>
                 <input type="email" class="form-control" name="f_email" placeholder="Email dokter" value="<?= $result['email'] ?>">
+            </div>
+            <div class="form-group">
+                <label>Photo<span class="text-danger">*</span></label>
+                <input type="file" class="form-control" name="f_photo">
             </div>
         </div>
     </div>
