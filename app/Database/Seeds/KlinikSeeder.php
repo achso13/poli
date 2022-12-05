@@ -10,9 +10,21 @@ class KlinikSeeder extends Seeder
     {
         //
         $data = [
-            ['nama_klinik' => "Laboratorium"],
-            ['nama_klinik' => "Fisioterapi"],
-            ['nama_klinik' => "Akupuntur"]
+            [
+                'nama_klinik' => "Laboratorium",
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'nama_klinik' => "Fisioterapi",
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'nama_klinik' => "Akupuntur",
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]
         ];
 
         $this->db->table('tb_klinik')->insertBatch($data);

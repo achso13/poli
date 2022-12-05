@@ -24,6 +24,11 @@ class TreatmentModel extends Model
         $builder->select('tb_treatment.*, tb_klinik.nama_klinik');
         $builder->join('tb_klinik', 'tb_klinik.id_klinik = tb_treatment.id_klinik', 'left');
 
+        if (session()->get('log_role') === 'KLINIK') {
+            $idKlinik = $this->db->table('tb_user')->where('id_user', session()->get('log_id'))->get()->getRowArray()['id_klinik'];
+            $builder->where('tb_treatment.id_klinik', $idKlinik);
+        }
+
         if ($id !== NULL) {
             $builder->where('tb_treatment.id_treatment', $id);
             $query = $builder->get();

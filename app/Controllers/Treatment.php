@@ -128,6 +128,10 @@ class Treatment extends BaseController
                 'jam_tutup' => $this->request->getPost('f_jam_tutup'),
             ];
 
+            if (session()->get('log_role') === 'KLINIK') {
+                $data['id_klinik'] = $this->userModel->where('id_user', session()->get('log_id'))->first()['id_klinik'];
+            }
+
             $validation->setRules([
                 'id_klinik' => [
                     'label' => 'Klinik',

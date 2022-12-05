@@ -62,7 +62,7 @@ class Export extends BaseController
         $spreadsheet = new Spreadsheet();
         $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A1', 'Laporan Kunjungan')
-            ->setCellValue('A2', 'Tanggal : ' . $this->request->getVar('tanggal_awal') . ' - ' . $this->request->getVar('tanggal_akhir'));
+            ->setCellValue('A2', 'Tanggal : ' . date("d-m-Y", strtotime($this->request->getVar('tanggal_awal'))) . ' - ' . date("d-m-Y", strtotime($this->request->getVar('tanggal_akhir'))));
         $spreadsheet->getActiveSheet()->mergeCells('A1:I1');
         $spreadsheet->getActiveSheet()->mergeCells('A2:I2');
         $spreadsheet->setActiveSheetIndex(0)
@@ -90,7 +90,7 @@ class Export extends BaseController
                     ->setCellValue('G' . $column, $row['nama_bagian'] . ' - ' . $row['nama_biro'])
                     ->setCellValue('H' . $column, $row['keluhan'])
                     ->setCellValue('I' . $column, $row['nama_dokter']);
-                $spreadsheet->getActiveSheet()->getStyle("A$column:H$column")->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                $spreadsheet->getActiveSheet()->getStyle("A$column:I$column")->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                 $column++;
                 $no++;
             }
@@ -115,7 +115,7 @@ class Export extends BaseController
 
         // tulis dalam format .xlsx
         $writer = new Xlsx($spreadsheet);
-        $fileName = 'Data Kunjungan ' .  $this->request->getVar('tanggal_awal') . ' - ' . $this->request->getVar('tanggal_akhir');
+        $fileName = 'Data Kunjungan ' . date("d-m-Y", strtotime($this->request->getVar('tanggal_awal'))) . ' - ' . date("d-m-Y", strtotime($this->request->getVar('tanggal_akhir')));
 
         // Redirect hasil generate xlsx ke web client
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -141,7 +141,7 @@ class Export extends BaseController
         $spreadsheet = new Spreadsheet();
         $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A1', 'Laporan Konsultasi Online')
-            ->setCellValue('A2', 'Tanggal : ' . $this->request->getVar('tanggal_awal') . ' - ' . $this->request->getVar('tanggal_akhir'));
+            ->setCellValue('A2', 'Tanggal : ' . date("d-m-Y", strtotime($this->request->getVar('tanggal_awal'))) . ' - ' . date("d-m-Y", strtotime($this->request->getVar('tanggal_akhir'))));
         $spreadsheet->getActiveSheet()->mergeCells('A1:I1');
         $spreadsheet->getActiveSheet()->mergeCells('A2:I2');
         $spreadsheet->setActiveSheetIndex(0)
@@ -194,7 +194,7 @@ class Export extends BaseController
 
         // tulis dalam format .xlsx
         $writer = new Xlsx($spreadsheet);
-        $fileName = 'Data Tiket ' .  $this->request->getVar('tanggal_awal') . ' - ' . $this->request->getVar('tanggal_akhir');
+        $fileName = 'Data Tiket ' . date("d-m-Y", strtotime($this->request->getVar('tanggal_awal'))) . ' - ' . date("d-m-Y", strtotime($this->request->getVar('tanggal_akhir')));
 
         // Redirect hasil generate xlsx ke web client
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -285,7 +285,7 @@ class Export extends BaseController
         $spreadsheet = new Spreadsheet();
         $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A1', 'Laporan Resep')
-            ->setCellValue('A2', 'Tanggal : ' . $this->request->getVar('tanggal_awal') . ' - ' . $this->request->getVar('tanggal_akhir'));
+            ->setCellValue('A2', 'Tanggal : ' . date("d-m-Y", strtotime($this->request->getVar('tanggal_awal'))) . ' - ' . date("d-m-Y", strtotime($this->request->getVar('tanggal_akhir'))));
         $spreadsheet->getActiveSheet()->mergeCells('A1:G1');
         $spreadsheet->getActiveSheet()->mergeCells('A2:G2');
         $spreadsheet->setActiveSheetIndex(0)
@@ -332,7 +332,7 @@ class Export extends BaseController
 
         // tulis dalam format .xlsx
         $writer = new Xlsx($spreadsheet);
-        $fileName = 'Data Resep ' .  $this->request->getVar('tanggal_awal') . ' - ' . $this->request->getVar('tanggal_akhir');
+        $fileName = 'Data Resep ' .  date("d-m-Y", strtotime($this->request->getVar('tanggal_awal'))) . ' - ' . date("d-m-Y", strtotime($this->request->getVar('tanggal_akhir')));
 
         // Redirect hasil generate xlsx ke web client
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
