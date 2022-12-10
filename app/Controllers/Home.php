@@ -10,6 +10,7 @@ class Home extends BaseController
         $this->appointmentModel = new \App\Models\AppointmentModel();
         $this->resepModel = new \App\Models\ResepModel();
         $this->rekamMedisModel = new \App\Models\RekamMedisModel();
+        $this->pengumumanModel = new \App\Models\PengumumanModel();
     }
     public function index()
     {
@@ -64,7 +65,7 @@ class Home extends BaseController
                 ];
                 break;
         }
-        // dd($data);
+        $data['pengumuman'] = $this->pengumumanModel->getPengumuman(false, 3);
         return view('home/index', $data);
     }
 }

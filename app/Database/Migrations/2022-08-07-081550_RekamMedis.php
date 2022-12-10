@@ -64,6 +64,11 @@ class RekamMedis extends Migration
                 'constraint' => '50',
                 'null' => true,
             ],
+            'keterangan' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+                'null' => true,
+            ],
             'created_at' => [
                 'type' => 'datetime',
                 'null' => true,

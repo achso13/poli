@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\MedicineModel;
+use App\Models\NotificationModel;
 use App\Models\PatientModel;
 use App\Models\ResepDetailModel;
 use App\Models\ResepModel;
@@ -18,6 +19,7 @@ class Resep extends BaseController
         $this->resepModel = new ResepModel();
         $this->resepDetailModel = new ResepDetailModel();
         $this->medicineModel = new MedicineModel();
+        $this->rekamMedisModel = new \App\Models\RekamMedisModel();
     }
 
     public function index()
@@ -181,7 +183,25 @@ class Resep extends BaseController
             ]);
             if ($validation->run($data)) {
                 $insert = $this->resepModel->update($data['id_resep'], $data);
+                $resep = $this->resepModel->getResep($data['id_resep']);
                 if ($insert) {
+                    // INSERT NOTIFICATION
+                    $idRekamMedis = $this->resepModel->find($data['id_resep'])['id_rekam_medis'];
+                    $idPasien = $this->rekamMedisModel->where('id_rekam_medis', $idRekamMedis)->first()['id_pasien'];
+
+                    $patientModel = new PatientModel();
+                    $idUser = $patientModel->where('id_pasien', $idPasien)->first()['id_user'];
+
+                    $notificationModel = new NotificationModel();
+                    $notificationModel->save(
+                        [
+                            'id_user' => $idUser,
+                            'judul' => 'Resep',
+                            'pesan' => 'Resep anda pada tanggal <b>' . $resep['tanggal_kunjungan'] . " " . strtolower($data['status'] . "</b>"),
+                            'link' => '/resep',
+                        ]
+                    );
+                    // END INSERT NOTIFICATION
                     session()->setFlashdata('message', 'Data berhasil disimpan');
                     $result['error'] = false;
                     $result['message'] = 'Data berhasil disimpan';

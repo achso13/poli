@@ -10,6 +10,7 @@
 						<td class="text-primary text-center">Diagnosa</td>
 						<td class="text-primary text-center">Anamnesa</td>
 						<td class="text-primary text-center">Tindakan/Terapi</td>
+						<td class="text-primary text-center">Keterangan</td>
 						<td class="text-primary text-center">Resep Yang diberikan</td>
 					</tr>
 				</thead>
@@ -19,8 +20,8 @@
 						<tr>
 							<td><?= $no ?></td>
 							<td><?= time_format($row['tanggal_kunjungan'], 'd M Y') ?></td>
-							<td><?= $row['diagnosa'] ?></td>
-							<td><?= $row['anamnesa'] ?></td>
+							<td style="white-space: pre-wrap;"><?= $row['diagnosa'] ?></td>
+							<td style="white-space: pre-wrap;"><?= $row['anamnesa'] ?></td>
 							<td>
 								<?= $row['nama_treatment'] ?>
 								<?php if ($row['hasil_treatment'] != NULL) :  ?>
@@ -29,6 +30,7 @@
 									<span> Hasil: <?= $row['hasil_treatment'] ?></span>
 								<?php endif; ?>
 							</td>
+							<td class="text-left" style="white-space: pre-wrap;"><?= $row['keterangan'] ?></td>
 							<td class="text-left" style="white-space: pre-wrap;"><?= $row['resep_dokter'] ?></td>
 						</tr>
 						<?php $no++; ?>

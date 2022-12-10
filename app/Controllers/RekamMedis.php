@@ -60,6 +60,7 @@ class RekamMedis extends BaseController
                 'tinggi_badan' => $this->request->getPost('f_tinggi_badan'),
                 'berat_badan' => $this->request->getPost('f_berat_badan'),
                 'alergi_obat' => $this->request->getPost('f_alergi_obat'),
+                'keterangan' => $this->request->getPost('f_keterangan'),
             ];
             $validation->setRules([
                 'id_pasien' => [
@@ -140,6 +141,10 @@ class RekamMedis extends BaseController
                     'label' => 'Alergi Obat',
                     'rules' => 'permit_empty',
                 ],
+                'keterangan' => [
+                    'label' => 'Keterangan',
+                    'rules' => 'permit_empty',
+                ],
             ]);
             if ($validation->run($data)) {
                 $dataRekamMedis = [
@@ -153,6 +158,7 @@ class RekamMedis extends BaseController
                     'tinggi_badan' => $data['tinggi_badan'],
                     'berat_badan' => $data['berat_badan'],
                     'alergi_obat' => $data['alergi_obat'],
+                    'keterangan' => $data['keterangan'],
                 ];
 
                 if ($dataRekamMedis['id_treatment'] == NULL) {
@@ -207,6 +213,7 @@ class RekamMedis extends BaseController
                 'tinggi_badan' => $this->request->getPost('f_tinggi_badan'),
                 'berat_badan' => $this->request->getPost('f_berat_badan'),
                 'alergi_obat' => $this->request->getPost('f_alergi_obat'),
+                'keterangan' => $this->request->getPost('f_keterangan'),
             ];
 
             $validation->setRules([
@@ -288,6 +295,10 @@ class RekamMedis extends BaseController
                     'label' => 'Alergi Obat',
                     'rules' => 'permit_empty',
                 ],
+                'keterangan' => [
+                    'label' => 'Keterangan',
+                    'rules' => 'permit_empty',
+                ],
 
             ]);
             if ($validation->run($data)) {
@@ -304,8 +315,8 @@ class RekamMedis extends BaseController
                     'tinggi_badan' => $data['tinggi_badan'],
                     'berat_badan' => $data['berat_badan'],
                     'alergi_obat' => $data['alergi_obat'],
+                    'keterangan' => $data['keterangan'],
                 ];
-                var_dump($dataRekamMedis);
 
                 $updateRekamMedis = $this->rekamMedisModel->update($idRekamMedis, $dataRekamMedis);
 

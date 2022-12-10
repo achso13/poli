@@ -26,6 +26,9 @@ class Obat extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '30',
             ],
+            'masa_kadaluarsa' => [
+                'type' => 'DATE',
+            ],
             'created_at' => [
                 'type' => 'datetime',
                 'null' => true,

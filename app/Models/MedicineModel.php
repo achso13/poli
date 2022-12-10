@@ -14,6 +14,7 @@ class MedicineModel extends Model
         'nama_obat',
         'stok',
         'satuan',
+        'masa_kadaluarsa',
     ];
     protected $useTimestamps = true;
 

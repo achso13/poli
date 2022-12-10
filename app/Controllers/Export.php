@@ -212,8 +212,8 @@ class Export extends BaseController
         $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A1', 'Laporan Data Obat')
             ->setCellValue('A2', 'Tanggal : ' . date('d-m-Y'));
-        $spreadsheet->getActiveSheet()->mergeCells('A1:F1');
-        $spreadsheet->getActiveSheet()->mergeCells('A2:F2');
+        $spreadsheet->getActiveSheet()->mergeCells('A1:G1');
+        $spreadsheet->getActiveSheet()->mergeCells('A2:G2');
 
         $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A4', 'No')
@@ -221,7 +221,8 @@ class Export extends BaseController
             ->setCellValue('C4', 'Nama Obat')
             ->setCellValue('D4', 'Stok')
             ->setCellValue('E4', 'Satuan')
-            ->setCellValue('F4', 'Update Terakhir');
+            ->setCellValue('F4', 'Masa Kadaluarsa')
+            ->setCellValue('G4', 'Update Terakhir');
 
         $column = 5;
         $no = 1;
@@ -234,26 +235,28 @@ class Export extends BaseController
                     ->setCellValue('C' . $column, $row['nama_obat'])
                     ->setCellValue('D' . $column, $row['stok'])
                     ->setCellValue('E' . $column, $row['satuan'])
-                    ->setCellValue('F' . $column, $row['updated_at']);
-                $spreadsheet->getActiveSheet()->getStyle("A$column:F$column")->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                    ->setCellValue('F' . $column, $row['masa_kadaluarsa'])
+                    ->setCellValue('G' . $column, $row['updated_at']);
+                $spreadsheet->getActiveSheet()->getStyle("A$column:G$column")->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                 $column++;
                 $no++;
             }
         }
 
         // STYLING CELL HEADER
-        $spreadsheet->getActiveSheet()->getStyle('A1:F2')->getFont()->setBold(true);
-        $spreadsheet->getActiveSheet()->getStyle('A1:F4')->getAlignment()->setHorizontal('center');
-        $spreadsheet->getActiveSheet()->getStyle('A4:F4')->getFont()->setBold(true);
+        $spreadsheet->getActiveSheet()->getStyle('A1:G2')->getFont()->setBold(true);
+        $spreadsheet->getActiveSheet()->getStyle('A1:G4')->getAlignment()->setHorizontal('center');
+        $spreadsheet->getActiveSheet()->getStyle('A4:G4')->getFont()->setBold(true);
 
         // STYLING CELL BORDER
-        $spreadsheet->getActiveSheet()->getStyle('A4:F4')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $spreadsheet->getActiveSheet()->getStyle('A4:G4')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
         $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
 
         // tulis dalam format .xlsx
         $writer = new Xlsx($spreadsheet);

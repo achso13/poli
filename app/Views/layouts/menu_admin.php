@@ -89,6 +89,12 @@
                   <span>Data Unit Kerja</span>
             </a>
       </li>
+      <li class="nav-item">
+            <a class="nav-link " href="<?= base_url('pengumuman') ?>">
+                  <i class="material-icons">campaign</i>
+                  <span>Data Pengumuman</span>
+            </a>
+      </li>
 
       <!-- <h6 class="main-sidebar__nav-title">Report</h6> -->
 

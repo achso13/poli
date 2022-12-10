@@ -48,9 +48,6 @@
 			<?php endif; ?> -->
 
 			<?php if (session()->get('log_role') === "ADMIN" || session()->get('log_role') === "PASIEN") : ?>
-				<!-- <a href="<?= base_url('appointment/add') ?>" class="btn btn-primary mb-sm-0 mx-auto ml-sm-auto mr-sm-0">
-					<i class="material-icons">add</i> Tambah Kunjungan </a>
-				</a> -->
 				<button class="btn-add btn btn-primary d-inline-flex mb-sm-0 mx-auto ml-sm-auto mr-sm-0" data-toggle="modal" data-target="#form-modals">
 					<i class="material-icons">add</i> Tambah Kunjungan </a>
 				</button>
@@ -68,6 +65,13 @@
 					var base_url = $("#base-url").html();
 					$('.btn-add').click(function() {
 						$('.load-form').load(base_url + '/appointment/add');
+					});
+					$('.btn-edit').click(function() {
+						var id = $(this).attr('uc');
+
+						$('.load-form').load(base_url + '/appointment/edit', {
+							id: id
+						});
 					});
 				})
 			</script>

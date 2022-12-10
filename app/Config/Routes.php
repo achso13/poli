@@ -235,6 +235,15 @@ $routes->get('/notifications/read', 'Notification::markAsRead');
 $routes->get('/informasi', 'Informasi::index');
 $routes->match(['get', 'post'], '/informasi/view', 'Informasi::view');
 
+// Routes Pengumuman
+$routes->get('/pengumuman', 'Pengumuman::index');
+$routes->match(['get', 'post'], '/pengumuman/add', 'Pengumuman::add');
+$routes->post('/pengumuman/store', 'Pengumuman::store');
+$routes->match(['get', 'post'], '/pengumuman/edit', 'Pengumuman::edit');
+$routes->post('/pengumuman/update', 'Pengumuman::update');
+$routes->delete('/pengumuman/delete/(:segment)', 'Pengumuman::delete/$1');
+$routes->get('/pengumuman/view/(:segment)', 'Pengumuman::view/$1');
+
 
 /*
  * --------------------------------------------------------------------

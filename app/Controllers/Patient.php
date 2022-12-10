@@ -397,9 +397,9 @@ class Patient extends BaseController
                 // Update data ke tabel user
                 $dataUser = [
                     'nama' => $this->request->getPost('f_nama'),
-                    'username' => $this->request->getPost('f_username'),
+                    'username' => $this->request->getPost('f_nip'),
                     'email' => $this->request->getPost('f_email'),
-                    'password' => $this->request->getPost('f_password'),
+                    'password' => password_hash($this->request->getPost('f_password'), PASSWORD_BCRYPT),
                     'photo' => $photoName,
                 ];
 

@@ -84,7 +84,7 @@
                                 <input class="navbar-search form-control" type="hidden" placeholder="Search for something..." aria-label="Search">
                             </div>
                         </form>
-                        <?php if (session()->get('log_role') === "DOKTER") : ?>
+                        <?php if (session()->get('log_role') === "DOKTER" || session()->get('log_role') === "PASIEN") : ?>
                             <ul class="navbar-nav border-left flex-row ">
                                 <li class="nav-item border-right dropdown notifications">
                                     <a class="nav-link nav-link-icon text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -123,7 +123,7 @@
                                                     data.notification.forEach(element => {
                                                         $('.notification-dropdown').append(`
                                                     <a class="dropdown-item" href="<?= base_url() ?>${element.link}">
-                                                        <div class="notification__content">
+                                                        <div class="notification__content w-100">
                                                             <span class="notification__category">` + element.judul + `</span>
                                                             <p>` + element.pesan + `</p>
                                                             <p class="text-right text-light text-muted">` + element.created_at + `</p>

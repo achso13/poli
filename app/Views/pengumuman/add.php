@@ -1,50 +1,19 @@
-<?= form_open('resep/store') ?>
-
-<input type="hidden" name="f_id_resep" value="<?= $id ?>">
-
-<div class=" modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Medicine </h5>
+<?= form_open('pengumuman/store') ?>
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Pengumuman</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">
     <div class="form-group">
-        <label>Pilih Obat <span class="text-danger">*</span></label>
-        <select name="f_id_obat" class="form-control select2">
-            <option value="">--Select One--</option>
-            <?php if (isset($obat)) : ?>
-                <?php foreach ($obat as $row) : ?>
-                    <option value="<?= $row['id_obat'] ?>"><?= $row['nama_obat'] ?></option>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </select>
+        <label>Judul<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" name="f_judul" placeholder="Judul pengumuman">
         <div class="invalid-feedback"></div>
     </div>
     <div class="form-group">
-        <label>Stok</label>
-        <input type="number" class="form-control" name="f_stok" readonly>
-    </div>
-    <div class="form-group">
-        <label>Satuan</label>
-        <input type="text" class="form-control" name="f_satuan" readonly>
-    </div>
-    <div class="form-group">
-        <label>Masa Kadaluarsa</label>
-        <input type="text" class="form-control" name="f_masa_kadaluarsa" readonly>
-    </div>
-
-
-    <div class="form-group">
-        <label>Jumlah <span class="text-danger">*</span></label>
-        <input type="number" class="form-control" name="f_jumlah">
+        <label>Isi<span class="text-danger">*</span></label>
+        <textarea class="form-control" name="f_isi" id="" cols="30" rows="10"></textarea>
         <div class="invalid-feedback"></div>
     </div>
-
-    <div class="form-group">
-        <label>Keterangan Pemakaian <span class="text-danger">*</span></label>
-        <textarea name="f_keterangan" class="form-control"></textarea>
-        <div class="invalid-feedback"></div>
-    </div>
-
 </div>
 <div class="modal-footer">
     <input type="submit" name="f_store" class="btn btn-primary btn-simpan" value="Simpan">
@@ -54,32 +23,8 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        var base_url = $("#base-url").html();
+        const base_url = $("#base-url").html();
 
-        $('select[name=f_id_obat]').change(function() {
-            var uc = $('select[name=f_id_obat] option:selected').val();
-
-            $.ajax({
-                url: base_url + '/resep/get_obat',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    id: uc
-                },
-                success: function(data) {
-                    $('input[name=f_stok]').val(data['stok']);
-                    $('input[name=f_satuan]').val(data['satuan']);
-                    $('input[name=f_masa_kadaluarsa]').val(data['masa_kadaluarsa']);
-                },
-
-            });
-
-        });
-
-        $('.select2').select2({
-            theme: 'bootstrap4',
-            dropdownParent: $('#form-modals')
-        });
         // ajax input to server
         $('form').submit(function(e) {
             e.preventDefault();

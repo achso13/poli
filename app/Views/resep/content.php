@@ -7,6 +7,7 @@
                         <td class="text-primary text-center" width="5%">No</td>
                         <td class="text-primary text-center">Pasien</td>
                         <td class="text-primary text-center">Dokter</td>
+                        <td class="text-primary text-center">Resep</td>
                         <td class="text-primary text-center">Tanggal Pemeriksaan</td>
                         <td class="text-primary text-center">Status Resep</td>
                         <?php if (session()->get("log_role") === "APOTEKER") : ?>
@@ -27,6 +28,9 @@
                             </td>
                             <td class="text-left">
                                 <?= $row['nama_dokter'] ?><br>
+                            </td>
+                            <td class="text-left">
+                                <?= $row['resep_dokter'] ?><br>
                             </td>
                             <td class="text-center">
                                 <?= time_format($row['tanggal_kunjungan'], 'd M Y') ?>

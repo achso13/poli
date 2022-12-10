@@ -119,6 +119,11 @@
 								<textarea class="form-control" style="height: 120px;" name="f_diagnosa" placeholder="Diagnosa pasien"><?= isset($rekamMedis['diagnosa']) ? $rekamMedis['diagnosa'] : "" ?></textarea>
 								<div class="invalid-feedback"></div>
 							</div>
+							<div class="form-group">
+								<label>Keterangan</label>
+								<textarea class="form-control" style="height: 120px;" name="f_keterangan" placeholder="Keterangan pemeriksaan (jika ada)"><?= isset($rekamMedis['keterangan']) ? $rekamMedis['keterangan'] : "" ?></textarea>
+								<div class="invalid-feedback"></div>
+							</div>
 
 							<hr>
 							<h5><strong>Tindakan/Terapi</strong></h5>
@@ -183,6 +188,10 @@
 							<div class="form-group">
 								<h6>Anamnesa :</h6>
 								<p><?= isset($rekamMedis['anamnesa']) ? $rekamMedis['anamnesa'] : "" ?></p>
+							</div>
+							<div class="form-group">
+								<h6>Keterangan :</h6>
+								<p><?= isset($rekamMedis['keterangan']) ? $rekamMedis['keterangan'] : "" ?></p>
 							</div>
 							<hr>
 							<div class="form-group">

@@ -20,7 +20,8 @@ class RekamMedisModel extends Model
         'hasil_treatment',
         'berat_badan',
         'tinggi_badan',
-        'alergi_obat'
+        'alergi_obat',
+        'keterangan'
     ];
 
     protected $useTimestamps    = true;

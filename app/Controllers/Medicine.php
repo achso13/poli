@@ -37,6 +37,7 @@ class Medicine extends BaseController
                 'nama_obat' => $this->request->getPost('f_nama_obat'),
                 'stok' => $this->request->getPost('f_stok'),
                 'satuan' => $this->request->getPost('f_satuan'),
+                'masa_kadaluarsa' => $this->request->getPost('f_masa_kadaluarsa'),
             ];
 
             $validation->setRules([
@@ -64,6 +65,14 @@ class Medicine extends BaseController
                         'required' => '{field} tidak boleh kosong',
                         'min_length' => '{field} minimal 3 karakter',
                         'max_length' => '{field} maksimal 100 karakter',
+                    ],
+                ],
+                'masa_kadaluarsa' => [
+                    'label' => 'Masa Kadaluarsa',
+                    'rules' => 'required|valid_date',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'valid_date' => '{field} tidak valid',
                     ],
                 ],
             ]);
@@ -106,6 +115,7 @@ class Medicine extends BaseController
                 'description' => $this->request->getPost('f_description'),
                 'stok' => $this->request->getPost('f_stok'),
                 'satuan' => $this->request->getPost('f_satuan'),
+                'masa_kadaluarsa' => $this->request->getPost('f_masa_kadaluarsa'),
             ];
 
 
@@ -134,6 +144,14 @@ class Medicine extends BaseController
                         'required' => '{field} tidak boleh kosong',
                         'min_length' => '{field} minimal 3 karakter',
                         'max_length' => '{field} maksimal 100 karakter',
+                    ],
+                ],
+                'masa_kadaluarsa' => [
+                    'label' => 'Masa Kadaluarsa',
+                    'rules' => 'required|valid_date',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'valid_date' => '{field} tidak valid',
                     ],
                 ],
             ]);

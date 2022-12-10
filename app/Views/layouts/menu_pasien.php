@@ -50,6 +50,12 @@
 		</a>
 	</li>
 
+	<li class="nav-item">
+		<a class="nav-link " href="<?= base_url('pengumuman') ?>">
+			<i class="material-icons">campaign</i>
+			<span>Pengumuman</span>
+		</a>
+	</li>
 	<h6 class="main-sidebar__nav-title">Profile</h6>
 
 	<li class="nav-item">

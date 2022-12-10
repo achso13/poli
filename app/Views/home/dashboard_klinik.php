@@ -1,4 +1,4 @@
-<div class=" col-md-3 col-sm-3 mb-4">
+<div class=" col-md-6 col-sm-6 mb-4">
     <div class="stats-small stats-small--1 card card-small">
         <div class="card-body p-0 d-flex">
             <div class="d-flex flex-column m-auto">

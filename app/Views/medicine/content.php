@@ -9,6 +9,8 @@
                         <td class="text-primary text-center">Nama Obat</td>
                         <td class="text-primary text-center" width="5%">Stok</td>
                         <td class="text-primary text-center" width="5%">Satuan</td>
+                        <td class="text-primary text-center" width="15%">Masa Kadaluarsa</td>
+                        <td class="text-primary text-center" width="15%">Update Terakhir</td>
                         <td class="text-primary text-center">Action</td>
                     </tr>
                 </thead>
@@ -21,6 +23,8 @@
                             <td><?= $row['nama_obat'] ?></td>
                             <td><?= $row['stok'] ?></td>
                             <td><?= $row['satuan'] ?></td>
+                            <td><?= time_format($row['masa_kadaluarsa'], 'd-m-Y') ?></td>
+                            <td><?= $row['updated_at'] ?></td>
                             <td width="25%">
 
                                 <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_obat'] ?>" data-toggle="modal" data-target="#form-modals">

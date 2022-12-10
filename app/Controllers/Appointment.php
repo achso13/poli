@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\AppointmentModel;
 use App\Models\DoctorModel;
+use App\Models\JadwalDokterModel;
 use App\Models\PatientModel;
 use App\Models\RekamMedisModel;
 use App\Models\TreatmentModel;
@@ -19,6 +20,7 @@ class Appointment extends BaseController
         $this->patientModel = new PatientModel();
         $this->rekamMedisModel = new RekamMedisModel();
         $this->treatmentModel = new TreatmentModel();
+        $this->jadwalDokterModel = new JadwalDokterModel();
     }
 
     public function index()
@@ -131,6 +133,105 @@ class Appointment extends BaseController
         }
     }
 
+    public function edit()
+    {
+        $id = $this->request->getVar('id');
+        $data = [
+            'title' => 'Appointment',
+            'result' => $this->appointmentModel->getAppointments($id, "Offline", null),
+            'dokter' => $this->doctorModel->getDoctors(),
+            'pasien' => $this->patientModel->findAll(),
+        ];
+        $data['jadwalDokter'] = $this
+            ->jadwalDokterModel
+            ->where('id_dokter', $data['result']['id_dokter'])
+            ->findAll();
+        // dd($data);
+        return view('appointment/edit', $data);
+    }
+
+    public function update()
+    {
+        if ($this->request->isAJAX()) {
+            $validation = \Config\Services::validation();
+            $idKunjungan = $this->request->getPost('f_id_kunjungan');
+            $data = [
+                'id_dokter' => $this->request->getPost('f_id_dokter'),
+                'id_jadwal_dokter' => $this->request->getPost('f_id_jadwal_dokter'),
+                'tanggal_kunjungan' => $this->request->getPost('f_tanggal_kunjungan'),
+            ];
+
+            $validation->setRules([
+                'id_dokter' => [
+                    'label' => 'Dokter',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                    ],
+                ],
+                'tanggal_kunjungan' => [
+                    'label' => 'Tanggal Kunjungan',
+                    'rules' => 'required|valid_date|same_days[' . $data['id_jadwal_dokter'] . ']',
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                        'valid_date' => '{field} harus berupa tanggal yang valid',
+                    ],
+                ],
+                'id_jadwal_dokter' => [
+                    'label' => 'Jadwal Dokter',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} harus diisi',
+                    ],
+                ],
+            ]);
+
+            if ($validation->run($data)) {
+                $update = $this->appointmentModel->update($idKunjungan, $data);
+
+                // Get id user doctor
+                $doctor = $this->doctorModel->getDoctors($data['id_dokter']);
+
+                // Get id pasien
+                $idPasien = $this->appointmentModel->getAppointments($idKunjungan, "Offline", null)['id_pasien'];
+
+                // Get id user pasien
+                $idUserPasien = $this->patientModel->getPatients($idPasien)['id_user'];
+
+                if ($update) {
+                    // INSERT NOTIFICATION TABLE
+                    $notificationModel = new \App\Models\NotificationModel();
+                    $notificationModel->insertBatch([
+                        [
+                            'id_user' => $idUserPasien,
+                            'judul' => 'Reschedule Kunjungan',
+                            'pesan' => 'Kunjungan anda dengan id <b>#' . $idKunjungan . '</b> telah diubah',
+                            'link' => '/appointment',
+                        ],
+                        [
+                            'id_user' => $doctor['id_user'],
+                            'judul' => 'Reschedule Kunjungan',
+                            'pesan' => 'Kunjungan dengan id <b>#' . $idKunjungan . '</b> telah diubah',
+                            'link' => '/appointment/view/' . $idKunjungan,
+                        ],
+                    ]);
+                    // END INSERT NOTIFICATION TABLE
+
+                    session()->setFlashdata('message', 'Data berhasil disimpan');
+                    $result['error'] = false;
+                    $result['message'] = 'Data berhasil disimpan';
+                } else {
+                    $result['error'] = true;
+                    $result['message'] = 'Data gagal disimpan';
+                }
+            } else {
+                $result['error'] = true;
+                $result['message'] = $validation->getErrors();
+            }
+            return $this->response->setJSON($result);
+        }
+    }
+
     public function view($id)
     {
         $data = [
@@ -170,7 +271,7 @@ class Appointment extends BaseController
 
     public function delete($id)
     {
-        $delete = $this->treatmentModel->delete($id);
+        $delete = $this->appointmentModel->delete($id);
         if ($delete) {
             session()->setFlashdata('message', 'Hapus data berhasil');
             return redirect()->to(base_url('appointment'));

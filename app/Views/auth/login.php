@@ -25,7 +25,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <img class="auth-form__logo d-table mx-auto mb-3" src="<?= base_url('assets/images/shards-dashboards-logo.svg') ?>" alt="Shards Dashboards - Register Template">
-                                    <h5 class="auth-form__title text-center mb-4">Silahkan masuk untuk mendapatkan layanan Poliklinik DPD RI</h5>
+                                    <h5 class="auth-form__title text-center mb-4">Silakan masuk untuk mendapatkan layanan Poliklinik DPD RI</h5>
 
                                     <?php if (session()->get('info')) : ?>
                                         <?php $warning = session()->getFlashdata('info') ?>

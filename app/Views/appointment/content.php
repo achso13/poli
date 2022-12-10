@@ -54,6 +54,11 @@
                             <?php if (session()->get('log_role') === "ADMIN" || session()->get('log_role') === "DOKTER") : ?>
                                 <td class="text-center">
                                     <div class="btn-group btn-group-sm">
+                                        <?php if (session()->get('log_role') === "ADMIN") : ?>
+                                            <button class="btn btn-info btn-sm btn-edit" uc="<?= $row['id_kunjungan'] ?>" data-toggle="modal" data-target="#form-modals">
+                                                <i class="mr-1 fa fa-pen-square"></i> Jadwal Ulang
+                                            </button>
+                                        <?php endif; ?>
                                         <a href="<?= base_url('appointment/view/' . $row['id_kunjungan']) ?>" class="btn btn-white">
                                             <span class="text-light">
                                                 <i class="material-icons">visibility</i>
@@ -61,6 +66,7 @@
                                         </a>
                                     </div>
                                 </td>
+
                             <?php endif; ?>
 
                         </tr>
