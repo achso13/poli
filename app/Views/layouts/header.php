@@ -10,11 +10,11 @@
     <link href="<?= base_url('assets/css/all.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/css/icon.css') ?>" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('assets/third_party/datatables/dataTables.bootstrap4.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="<?= base_url('assets/styles/shards-dashboards.1.1.0.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/styles/extras.1.1.0.min.css') ?>">
     <script async defer src="<?= base_url('assets/js/buttons.js') ?>"></script>
-    <script src="<?= base_url('assets/js/jquery-3.3.1.min.js') ?>" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="<?= base_url('assets/js/jquery-3.3.1.min.js') ?>"></script>
     <link rel="stylesheet" href="<?= base_url('assets/css/jquery-ui.css') ?>">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
@@ -35,7 +35,7 @@
                     <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
                         <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
                             <div class="d-table m-auto">
-                                <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="<?= base_url('assets/images/shards-dashboards-logo.svg') ?>" alt="Shards Dashboard">
+                                <!-- <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="<?= base_url('assets/images/shards-dashboards-logo.svg') ?>" alt="Shards Dashboard"> -->
                                 <span class="d-none d-md-inline">Sistem Informasi Klinik</span>
                             </div>
                         </a>

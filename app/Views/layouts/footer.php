@@ -44,8 +44,8 @@
  			</script>
 
 
- 			<script src="<?= base_url('assets/js/popper.min.js') ?>" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
- 			<script src="<?= base_url('assets/js/bootstrap.min.js') ?>" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+ 			<script src="<?= base_url('assets/js/popper.min.js') ?>"></script>
+ 			<script src="<?= base_url('assets/js/bootstrap.min.js') ?>"></script>
  			<script src="<?= base_url('assets/js/Chart.min.js') ?>"></script>
  			<script src="<?= base_url('assets/js/shards.min.js') ?>"></script>
  			<script src="<?= base_url('assets/js/jquery.sharrre.min.js') ?>"></script>

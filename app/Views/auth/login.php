@@ -8,11 +8,11 @@
     <meta name="description" content="">
     <link href="<?= base_url('assets/css/all.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/css/icon.css') ?>" rel="stylesheet">
-    <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="<?= base_url('assets/styles/shards-dashboards.1.1.0.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/styles/extras.1.1.0.min.css') ?>">
     <script async defer src="<?= base_url('assets/js/buttons.js') ?>"></script>
-    <script src="<?= base_url('assets/js/jquery-3.3.1.min.js') ?>" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="<?= base_url('assets/js/jquery-3.3.1.min.js') ?>"></script>
 </head>
 
 <body class="h-100">
@@ -24,8 +24,9 @@
                         <div class="col-lg-3 col-md-5 auth-form mx-auto my-auto">
                             <div class="card">
                                 <div class="card-body">
-                                    <img class="auth-form__logo d-table mx-auto mb-3" src="<?= base_url('assets/images/shards-dashboards-logo.svg') ?>" alt="Shards Dashboards - Register Template">
-                                    <h5 class="auth-form__title text-center mb-4">Silakan masuk untuk mendapatkan layanan Poliklinik DPD RI</h5>
+                                    <!-- <img class="auth-form__logo d-table mx-auto mb-3" src="<?= base_url('assets/images/shards-dashboards-logo.svg') ?>" alt="Shards Dashboards - Register Template"> -->
+                                    <!-- <h5 class="auth-form__title text-center mb-4">Silakan masuk untuk mendapatkan layanan Poliklinik DPD RI</h5> -->
+                                    <h5 class="auth-form__title text-center mb-4 mt-4">Silakan masuk untuk mendapatkan layanan Poliklinik</h5>
 
                                     <?php if (session()->get('info')) : ?>
                                         <?php $warning = session()->getFlashdata('info') ?>
