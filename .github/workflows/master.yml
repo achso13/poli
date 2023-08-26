@@ -21,12 +21,24 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
-    - name: Sync files
+      run: |
+        composer install --prefer-dist --no-progress
+        cd public
+        sed 's/'../app/Config/Paths.php'/'../../../poli-core/app/Config/Paths.php'/g' /public/index.php
+    - name: Execute Deployment Public
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
           server: ${{secrets.FTP_HOST}}
           username: ${{secrets.FTP_USERNAME}}
           password: ${{secrets.FTP_PASSWORD}}
           port: ${{secrets.FTP_PORT}}
-          server-dir: ${{secrets.DIRECTORY}}
+          local-dir: ./public/
+          server-dir: ${{secrets.PUBLIC_DIRECTORY}}
+    - name: Execute Deployment Core
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+          server: ${{secrets.FTP_HOST}}
+          username: ${{secrets.FTP_USERNAME}}
+          password: ${{secrets.FTP_PASSWORD}}
+          port: ${{secrets.FTP_PORT}}
+          server-dir: ${{secrets.CORE_DIRECTORY}}
