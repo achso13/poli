@@ -24,7 +24,7 @@ jobs:
       run: |
         composer install --prefer-dist --no-progress
         cd public
-        sed -i "s|'../app/Config/Paths.php'|'../../../poli-core/app/Config/Paths.php'|g" index.php
+        sed -i "s|'../app/Config/Paths.php'|'../../poli-core/app/Config/Paths.php'|g" index.php
     - name: Execute Deployment Public
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
@@ -32,7 +32,7 @@ jobs:
           username: ${{secrets.FTP_USERNAME}}
           password: ${{secrets.FTP_PASSWORD}}
           port: ${{secrets.FTP_PORT}}
-          local-dir: ./public/
+          local-dir: public/
           server-dir: ${{secrets.PUBLIC_DIRECTORY}}
     - name: Execute Deployment Core
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
