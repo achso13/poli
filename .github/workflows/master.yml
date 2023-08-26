@@ -24,7 +24,7 @@ jobs:
       run: |
         composer install --prefer-dist --no-progress
         cd public
-        sed 's/'../app/Config/Paths.php'/'../../../poli-core/app/Config/Paths.php'/g' /public/index.php
+        sed -i "s|'../app/Config/Paths.php'|'../../../poli-core/app/Config/Paths.php'|g" index.php
     - name: Execute Deployment Public
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
